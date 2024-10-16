@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+      
+        .hidden{
+            display: none;
+        }
+
+        main{
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .parrafo{
+            color: gray;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        img{
+         
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+        
+        
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 40rem;
+        }
+        .field{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+        .field__label{
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .field__input{
+            font-size: 2rem;
+            padding: 0.6rem;
+            border-radius: 1rem;
+            border: 1px solid gray;
+        }
+
+        .versiones{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap:;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main>
+        
+        <section>
+            <h3>// 1 Cuando una sección se oculte, 
+                // debe cambiar el mensaje del enlace asociado para indicar que al pulsarlo se volverán 
+                // a mostrar los contenidos ocultos.</h3>
+            <p class="parrafo" id="contenidos_1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel nihil enim soluta unde beatae. Dignissimos possimus itaque architecto nesciunt reiciendis consectetur est earum, id neque soluta, culpa, quasi officia libero.</p>
+
+            <a id="enlace_1" href="#">Ocultar contenidos</a>
+
+            <br />
+
+            <p class="parrafo"  id="contenidos_2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, vero adipisci. Autem fuga maiores iusto illum dicta, impedit a hic modi reiciendis adipisci dolores magnam ut, possimus doloribus omnis amet!</p>
+
+            <a id="enlace_2" href="#">Ocultar contenidos</a>
+
+            <br />
+
+            <p  class="parrafo"   id="contenidos_3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa assumenda, deleniti quam esse ad sapiente cum voluptatum aliquid qui ut a ratione aut dignissimos voluptas tenetur, quod quos. Provident, est.</p>
+
+            <a id="enlace_3" href="#">Ocultar contenidos</a>
+        </section>
+
+
+   <section>
+    <h3>4.- Crea una caja de texto donde quepan 100 caracteres, y un script que a medida que escribamos nos informe del número de caracteres que quedan libres.</h3>
+    <form action="#">
+        <div class="field">
+          <label class="field__label" for="nombre">Nombre:</label>
+          <input id="Name" class="field__input" maxlength="100" type="text" name="nombre" title="nombre" id="nombre">
+          
+        </div>
+        <p id="Msj"></p>
+      </form>
+  
+   </section>
+
+
+   <section>
+    <h3>
+        Crea una página html que contenga una imagen. Mediante el uso de eventos debes conseguir que mientras se pulse sobre la imagen, esta cambiará por otra imagen. Al dejar de hacer click volverá a verse la imagen original.
+    </h3>
+   <div class="versiones">
+
+    <div>
+        <h4>version 1</h4>
+        <img id="Img" src="assets/Ride-with-Uber.webp" alt="imagen">
+    </div>
+    <div>
+    <h4>version 2</h4>
+    <div class="containerImages">
+       <img id="Img1" src="assets/Ride-with-Uber.webp" alt="imagen">
+       <img id="Img2" class="hidden" src="assets/earner-illustra.webp" alt="imagen">
+    </div>
+    </div>
+   </div>
+
+   </section>
+
+
+    </main>
+
+    <script>
+
+      
+
+       
+
+       
+        // 1) Cuando una sección se oculte, 
+        // debe cambiar el mensaje del enlace asociado para indicar que al pulsarlo se volverán 
+        // a mostrar los contenidos ocultos.
+
+        // const listLink = document.querySelectorAll('a');
+         // const listSection = document.querySelectorAll('p');
+
+        // for(let i = 0; i < listLink.length; i++){
+        //     listLink[i].addEventListener('click', () => {
+
+        //         // o usar toggle
+          
+        //         if(listSection[i].classList.contains('hidden')){
+        //             listSection[i].classList.remove("hidden");
+        //             listLink[i].innerText = 'Ocultar contenidos';
+        //         }else{
+        //             listSection[i].classList.add('hidden');
+        //             listLink[i].innerText = 'Mostrar contenidos';
+                    
+        //         }
+        // });
+        // }
+
+        const listLink = document.querySelectorAll('a');
+ 
+        function toogleHidden() {
+                // console.log(this.previousElementSibling)
+                if(this.previousElementSibling.classList.contains('hidden')){
+                    this.innerText = 'Ocultar contenidos';
+                }else{
+                    this.innerText = 'Mostrar contenidos';
+                }
+                this.previousElementSibling.classList.toggle("hidden"); 
+            }
+         for(let i = 0; i < listLink.length; i++) {
+            listLink[i].addEventListener('click', toogleHidden);
+         }
+
+
+
+
+        /*
+         2.- Crea una página html que contenga una imagen.
+          Mediante el uso de eventos debes conseguir que mientras se pulse 
+          sobre la imagen, esta cambiará por otra imagen. Al dejar de hacer 
+          click volverá a verse la imagen original.
+        */
+
+        /*version 1*/
+        const image = document.querySelector("#Img");
+
+         // hay que usar mouseDown y mouseUp
+         image.addEventListener('mousedown', () => {
+            image.src = "assets/earner-illustra.webp";
+        });
+        image.addEventListener('mouseup', () => {
+            image.src = "assets/Ride-with-Uber.webp";
+        });
+
+        // version 2
+
+
+        const image1 = document.getElementById("Img1");
+        const image2 = document.getElementById("Img2");
+
+        image1.addEventListener('mousedown', () => {
+            image1.classList.add('hidden');
+            image2.classList.remove('hidden');
+        });
+
+        image2.addEventListener('mouseup', () => {
+            image2.classList.add('hidden');
+            image1.classList.remove('hidden');
+        });
+
+
+
+
+
+        const field__input = document.querySelector("#Name");
+        const msj = document.querySelector("#Msj");
+
+        field__input.addEventListener('keydown', (event) => {
+            let calc = 100 - field__input.value.length;
+            msj.innerText = `Te quedan ${calc} caracteres`;
+          
+        });
+
+       
+
+
+    </script>
+
+</body>
+</html>

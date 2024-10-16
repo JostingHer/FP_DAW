@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #titulo{
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5rem;
+            padding: 1rem;
+            background-color: lightgray;
+        }
+
+        img{
+            display: block;
+            margin: 0 auto;
+            margin-top: 5rem;
+        }
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 5rem auto;
+            max-width: 700px;
+            
+        }
+ </style>
+</head>
+<body>
+
+        <div id="titulo">Prueba de eventos</div>
+
+        <div class="grid">
+
+            <img title="image" src="assets/earner-illustra.webp" />
+            <img title="image" src="assets/Ride-with-Uber.webp"/>
+        </div>
+
+      
+
+
+    <script>
+
+        const title = document.getElementById("titulo");
+    
+        title.addEventListener("click", () => {
+            if(title.style.backgroundColor !== "gray"){
+                title.style.backgroundColor = "gray";
+            }else{
+                title.style.backgroundColor = "lightgray";
+            }
+        })
+
+        // haz que si se mueve le raton se cambie de color 
+        // el fondo de la pagina, usa rgb, y las coordenadas del mouse
+
+        document.addEventListener("mousemove", (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // hazlo random el z y red
+           // const z = Math.floor(Math.random() * 256);
+
+
+            // document.body.style.backgroundColor = `rgb(${x}, ${y}, ${z})`;
+            document.body.style.backgroundColor = `rgb(${x}, ${y}, 100)`;
+        })
+
+        //   Cuando se pulsa sobre una imagen se muestran las coordenadas del puntero del ratón respecto de la ventana del navegador con un alert.
+        const images = document.querySelectorAll("img");
+        images.forEach((image) => {
+            image.addEventListener("click", (e) => {
+                alert(`Coordenadas : ${e.clientX}, ${e.clientY}`);
+            })
+        })
+
+        
+
+
+    </script>
+    
+</body>
+</html>
