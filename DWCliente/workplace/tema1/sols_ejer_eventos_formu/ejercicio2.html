@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+	<img src="imagen_azul.png" alt="Esto es una imagen">
+	
+	
+	<script>
+		let nodoImagen = document.getElementsByTagName("img")[0];
+		
+		nodoImagen.addEventListener("mousedown", function () {
+			this.src = "imagen_rojo.png";
+		});
+		nodoImagen.addEventListener("mouseup", function () {
+			this.src = "imagen_azul.png";
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,38 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+    <script type="text/javascript">
+		function ocultarMostrar(){
+			let estado = this.previousElementSibling.style.display;
+			if(estado == "none") {
+				//mostrar sección
+				this.previousElementSibling.style.display = "block";
+				//cambiar texto
+				this.innerHTML = "Ocultar contenidos";
+			} else {
+				//ocultar sección
+				this.previousElementSibling.style.display = "none";
+				this.innerHTML = "Mostrar contenidos";
+			}
+		}
+    </script>
+</head>
+
+<body>
+    <p id="contenidos_1">a</p>
+    <a id="enlace_1" href="#">Ocultar contenidos</a>
+    <br />
+    <p id="contenidos_2">b</p>
+    <a id="enlace_2" href="#">Ocultar contenidos</a>
+    <br />
+    <p id="contenidos_3">c</p>
+    <a id="enlace_3" href="#">Ocultar contenidos</a>
+	
+	<script type="text/javascript">
+		for(i=1; i <= 3;i++) {
+			document.getElementById("enlace_" + i).addEventListener("click", ocultarMostrar);
+		}
+    </script>
+</body>
+</html>

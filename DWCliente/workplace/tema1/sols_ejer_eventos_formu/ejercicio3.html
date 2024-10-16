@@ -1,0 +1,47 @@
+<html>
+    <head> </head>
+    <body>
+        <div id="titulo">Prueba de eventos</div>
+        <div>
+            <img src="https://www.publicdomainpictures.net/pictures/420000/t2/spain-espana-travel-poster.jpg" />
+        </div>
+        <div>
+            <img src="https://www.publicdomainpictures.net/pictures/400000/t2/frau-kalender-garten-vintage.jpg"/>
+        </div>
+		<script>
+			function cambiarFondo(nodo, color) {
+				nodo.style.backgroundColor = color;
+			}
+			
+			//Al hacer click sobre el div título, el fondo del div debe cambiar de color.
+			document.getElementById("titulo").addEventListener("click", function () {
+				cambiarFondo(this, "red");
+			});
+			
+			//Cuando se mueve el ratón sobre cualquier parte de la página, el color de fondo de la página cambia de color
+			document.body.addEventListener("mousemove", function () {
+				cambiarFondo(this, "blue");
+			});	
+			document.body.addEventListener("mouseout", function () {
+				cambiarFondo(this, "");
+			});
+			
+			//Cuando se pasa el ratón sobre una imagen se muestra su URL en el DIV.
+			let nodosImagen = document.getElementsByTagName("img");
+			for(var i = 0; i < nodosImagen.length; i++) {
+				nodosImagen[i].addEventListener("mouseover", function () {
+					document.getElementById("titulo").innerHTML = this.src;
+				});
+				nodosImagen[i].addEventListener("mouseout", function () {
+					document.getElementById("titulo").innerHTML = "Prueba de eventos";
+				});
+				
+				//Cuando se pulsa sobre una imagen se muestran las coordenadas del puntero del ratón respecto de la ventana del navegador con un alert.
+				nodosImagen[i].addEventListener("click", function () {
+					alert("Coordenada X: " + event.clientX + "\nCoordenada Y: " + event.clientY);
+				});
+			}
+
+		</script>
+    </body>
+</html>

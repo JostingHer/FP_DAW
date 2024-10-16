@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4</title>
+
+</head>
+<body>
+
+<h1>Textarea</h1>
+
+<form name="formularioTexto" action="/action_page.php">
+  <p>Escriba su texto (máximo 100 caracteres):</p>
+  <!-- maxlength="100" -->
+  <textarea id="texto" name="texto" rows="6" cols="50" ></textarea>
+  <br>
+  <p>Caracteres restantes: <span id="caracteres">100</span></p>
+  <input type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+	function contador() {
+		//let input = document.formularioTexto.texto.value;
+		let input = this.value;
+		let resto = 100 - input.length;
+		document.getElementById("caracteres").innerHTML = resto;
+		
+		if(resto < 0) {
+			this.value = input.substring(0, 100);
+			document.getElementById("caracteres").innerHTML = 0;
+		}
+	}
+	
+	var elemento = document.getElementById("texto");
+	elemento.addEventListener("keyup", contador);
+</script>
+
+</body>
+</html>
