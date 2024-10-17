@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="./styles.css" />
+
+    <title>Practica 1</title>
+  </head>
+  <body>
+    <header class="header">
+      <h2 class="header__title">Informe incidencia</h2>
+    </header>
+    <main class="content">
+      <div class="content__img">
+        <img id="incident_image" src="./assets/distribucion.jpeg" alt="imagen" />
+      </div>
+      <div class="content__form">
+        <formi id="form__incident" class="form" action="">
+          <div class="form__field">
+            <label for="incidencia">Tipo de incidencia</label>
+            <select id="incident_select" name="incidencia">
+              <option value="distribucion">Distribución</option>
+              <option value="oficina" selected>Oficina</option>
+              <option value="produccion">Producción</option>
+            </select>
+          </div>
+
+          <div  class="form__field">
+            <label for="numberSerie">Tipo de incidencia</label>
+            <input type="text" name="numberSerie" id="numberSerie" />
+          </div>
+
+          <div class="form__field">
+          <input id="show_description" type="button" value="Mostrar Descripción">
+
+           <div id="field_description" class="hidden">
+            <label for="descripcion">Descripción</label>
+            <textarea
+              name="descripcion"
+              id="descripcion"
+              cols="30"
+              rows="10"
+            ></textarea>
+           </div>
+          </div>
+
+          <div  class="form__field">
+            <input type="checkbox" name="condicions" id="condicions" value="acepto condicions" />
+            <label for="condicions"
+              >He leido y acepto las condiciones del servicio</label
+            >
+          </div>
+
+          <div  class="form__field">
+            <input type="submit" value="Enviar datos" />
+        </form>
+      </div>
+    </main>
+
+
+    <script>
+
+      // cambiar la imagen segun el select
+
+      const selectIncident = document.querySelector('#incident_select');
+      const imgIncident = document.querySelector('#incident_image');
+
+      //console.log(selectIncident, imgIncident);
+      selectIncident.addEventListener("change", (e) => {
+        const value = e.target.value;
+       // console.log(value)
+        
+        if(value === 'distribucion'){
+          imgIncident.src = `./assets/${value}.jpeg`;
+
+        }
+       
+        if(value === 'oficina'){
+          imgIncident.src = `./assets/${value}.jpg`;
+
+        }
+        if(value === 'produccion'){
+          imgIncident.src = `./assets/${value}.jpg`;
+
+        }
+      });
+
+
+      // mostrar descripcion
+
+      const btnShowDescription = document.querySelector('#show_description');
+      const fieldDescription = document.querySelector('#field_description');
+      
+      btnShowDescription.addEventListener("click", () => {
+        fieldDescription.classList.toggle('hidden');
+        btnShowDescription.classList.toggle('hidden');
+      })
+
+  
+
+      // validar numero de serie, checkbox
+
+      const numberSerie = document.querySelector('#numberSerie');
+     
+      function validarNumeroDeSerie(number) {
+        const regex = /^\d{3}[A-Z]{4}(1|2|A)$/;
+
+          return regex.test(number);
+      }
+
+      const acceptConditions = document.querySelector('#condicions');
+
+
+
+      // validacion antes de enviar el formulario
+
+      const form = document.querySelector('#form__incident');
+
+ 
+
+    </script>
+  </body>
+</html>
