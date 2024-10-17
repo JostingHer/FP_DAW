@@ -43,4 +43,52 @@ class App
         setcookie("password", "", time() - 1);
         header('Location: ?method=login');
     }
+
+
+    public function new()
+    {
+
+        if (isset($_POST['deseos'])) {
+            $deseos = json_decode($_COOKIE['deseos'], true);
+            $deseos[] = $_POST['deseos'];
+            setcookie("deseos", json_encode($deseos), time() + 3600);
+            header('Location: ?method=home');
+        }
+    }
+
+    public function delete()
+    {
+        $deseos = json_decode($_COOKIE['deseos'], true);
+        unset($deseos[$_GET['index']]);
+
+        $nuevosDeseos = array_values($deseos);
+
+        setcookie("deseos", json_encode($nuevosDeseos), time() + 3600);
+        header('Location: ?method=home');
+    }
+
+
+
+    // Setear el input text
+
+
+    public function setEdit()
+    {
+
+        if (isset($_POST['deseos'])) {
+            $deseos = json_decode($_COOKIE['deseos'], true);
+            $deseos[$_GET['index']] = $_POST['deseos'];
+            setcookie("deseos", json_encode($deseos), time() + 3600);
+            header('Location: ?method=home');
+        }
+    }
+    public function edit() {}
+
+
+
+    public function empty()
+    {
+        setcookie("deseos", json_encode([]), time() + 3600);
+        header('Location: ?method=home');
+    }
 }
