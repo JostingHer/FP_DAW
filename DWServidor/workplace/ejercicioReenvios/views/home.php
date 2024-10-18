@@ -34,14 +34,14 @@
 
         <!-- setear el input text-->
 
-        <form action="?method=edit" method="get">
+        <!-- <form action="?method=edit" method="get">
             <label for="">Lista de deseos</label>
             <input type="text" name="deseos">
             <input type="submit">
 
 
         </form>
-
+ -->
 
 
         <!-- formulario con  un input y un botón para agregar lista de deseos usar los metodos de app-->
