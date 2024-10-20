@@ -5,3 +5,4 @@
 
 - Tienes el repositorio GitHub con el código fuente aquí: https://github.com/rafacabeza/daw
 
+- cambios que quiero borrar
