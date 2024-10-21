@@ -16,4 +16,5 @@
 -- desde branchdocs
 
 
--- desde la rama remota hacemos cambios
+-- probando est:git config pull.ff only
+git pull
