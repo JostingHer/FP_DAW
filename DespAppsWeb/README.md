@@ -14,7 +14,3 @@
 -- DESDE KA RAMA MAIN
 
 -- desde branchdocs
-
--- probando cambios 
-
--- probando push desde otra rama a main
