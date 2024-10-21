@@ -6,3 +6,11 @@
 - Tienes el repositorio GitHub con el código fuente aquí: https://github.com/rafacabeza/daw
 
 - probando git commit --amend
+
+
+-- fundiendo con la rama docs
+
+
+-- DESDE KA RAMA MAIN
+
+-- desde branchdocs
