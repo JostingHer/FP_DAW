@@ -15,6 +15,7 @@
 
 -- desde branchdocs
 
+-- esto lo tiene main 
 
 -- probando est:git config pull.ff only
 git pull
