@@ -18,3 +18,6 @@
 
 -- probando est:git config pull.ff only
 git pull
+
+
+-- esta es la parte de mi testing brancj desde odnde fusionamos
