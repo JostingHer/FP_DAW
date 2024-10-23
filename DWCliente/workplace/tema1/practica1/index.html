@@ -17,18 +17,18 @@
         <img id="incident_image" src="./assets/distribucion.jpeg" alt="imagen" />
       </div>
       <div class="content__form">
-        <formi id="form__incident" class="form" action="">
+        <form id="form__incident" class="form" action="">
           <div class="form__field">
             <label for="incidencia">Tipo de incidencia</label>
-            <select id="incident_select" name="incidencia">
-              <option value="distribucion">Distribución</option>
-              <option value="oficina" selected>Oficina</option>
+            <select title="incident" id="incident_select" name="incidencia">
+              <option value="distribucion" selected>Distribución</option>
+              <option value="oficina">Oficina</option>
               <option value="produccion">Producción</option>
             </select>
           </div>
 
-          <div  class="form__field">
-            <label for="numberSerie">Tipo de incidencia</label>
+          <div id="field__numberSerie" class="form__field">
+            <label for="numberSerie">Número de serie</label>
             <input type="text" name="numberSerie" id="numberSerie" />
           </div>
 
@@ -46,7 +46,7 @@
            </div>
           </div>
 
-          <div  class="form__field">
+          <div id="field__conditions" class="form__field">
             <input type="checkbox" name="condicions" id="condicions" value="acepto condicions" />
             <label for="condicions"
               >He leido y acepto las condiciones del servicio</label
@@ -58,11 +58,11 @@
         </form>
       </div>
     </main>
-
+   
 
     <script>
 
-      // cambiar la imagen segun el select
+      //1. cambiar la imagen segun el select
 
       const selectIncident = document.querySelector('#incident_select');
       const imgIncident = document.querySelector('#incident_image');
@@ -88,7 +88,7 @@
       });
 
 
-      // mostrar descripcion
+      //2. mostrar descripcion
 
       const btnShowDescription = document.querySelector('#show_description');
       const fieldDescription = document.querySelector('#field_description');
@@ -114,9 +114,62 @@
 
 
 
-      // validacion antes de enviar el formulario
+      //3 validacion antes de enviar el formulario
 
       const form = document.querySelector('#form__incident');
+
+      //3.1 ckeckbox - bloque de error
+      const field__conditions = document.querySelector("#field__conditions");
+
+      const errorCodition = document.createElement("div");
+      errorCodition.classList.add("error");
+      errorCodition.textContent = "Debes aceptar las condiciones";
+
+      // 3.2 numberserie - bloque de error
+      const field__numberSerie = document.querySelector("#field__numberSerie");
+
+      const errorNumberSerie = document.createElement("div");
+      errorNumberSerie.classList.add("error");
+      errorNumberSerie.textContent = "Numero de serie invalido. Ej: 123MMMMA ";
+
+
+      // 3.3 eliminar errores si el usuario empieza a intentar arreglarlos
+      field__numberSerie.addEventListener("input", () => {
+        field__numberSerie.removeChild(errorNumberSerie);
+        numberSerie.classList.remove("border");
+      
+      })
+
+      field__conditions.addEventListener("input", () => {
+        field__conditions.removeChild(errorCodition);
+      })
+
+
+      // 4. Gestionar el submit - el envio del formulario
+
+      //test: 123MMMMA
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if(!validarNumeroDeSerie(numberSerie.value) || !acceptConditions.checked){
+          //alert('El numero de serie no es valido');
+          if(!validarNumeroDeSerie(numberSerie.value) ){
+            field__numberSerie.appendChild(errorNumberSerie);
+            numberSerie.classList.add("border");
+            numberSerie.focus();
+          }
+          if(!acceptConditions.checked){
+            field__conditions.appendChild(errorCodition);
+
+          }
+          return;
+        }
+
+ 
+       form.submit(); // Enviar el formulario
+
+       alert("Felicidades se han enviado los datos")
+      })    
 
  
 

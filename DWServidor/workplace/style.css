@@ -1,0 +1,93 @@
+
+:root{
+    --color_yellow: rgb(206, 134, 66);
+    --color_black: rgb(0, 0, 0);
+    --color_white: rgb(255, 255, 255);
+    --color_green: #0BCF6D;
+    --color__green__light:#E9F2EF;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--color_black);
+    font-size: 1.4rem;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+textarea{
+    display: block;
+}
+
+a{
+    text-decoration: none;
+    color: var(--color_black);
+}
+button{
+    border: none;
+    margin: 0 auto;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+td{
+    text-align: center;
+}
+
+.c-header, .c-table{
+    /* Hacemos que sea adaptativo */
+    width: 100%; /* El contenedor siempre usará el 100% del ancho de la pantalla */
+    
+    max-width: 1200px;
+
+    box-sizing: border-box; 
+    margin: 0 auto;
+
+}
+
+.c-header{
+    background-color: var(--color__green__light);
+    padding: 10px;
+    border-bottom: 1px solid #e7e7e7;
+
+    /* quiero poner el contente el max-width normal */
+
+    text-align: center; 
+
+}
+.header__title{
+    color: var(--color_black);
+    font-size: clamp(1rem, 10vw, 2rem);
+    font-weight: bold;
+}
+
+.menu{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.menu__link, .btn-delete{
+    background-color: var(--color_green);
+    padding: 0.5rem 1rem;
+    color: var(--color_white);
+    border-radius: 0.5em;
+    display: flex;
+    gap: 1em;
+}
+.btn-delete{
+    background-color: red;
+    
+}
+.btn-delete:hover{
+    opacity: 70%;
+    }
+.user{
+    margin-top: 2rem;
+}
+
