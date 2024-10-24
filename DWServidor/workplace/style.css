@@ -4,15 +4,20 @@
     --color_black: rgb(0, 0, 0);
     --color_white: rgb(255, 255, 255);
     --color_green: #0BCF6D;
+    --color__red: #FF0000;
     --color__green__light:#E9F2EF;
 }
-
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 body{
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: var(--color_black);
-    font-size: 1.4rem;
 }
 
 img{
@@ -35,53 +40,58 @@ button{
 a:hover{
     text-decoration: underline;
 }
+
+table{
+    margin: 0 auto;
+}
 td{
     text-align: center;
 }
 
-.c-header, .c-table{
-    /* Hacemos que sea adaptativo */
-    width: 100%; /* El contenedor siempre usará el 100% del ancho de la pantalla */
-    
-    max-width: 1200px;
-
-    box-sizing: border-box; 
+.container{
+    max-width: 760px;
     margin: 0 auto;
-
+    padding: 0 1em;
 }
 
-.c-header{
-    background-color: var(--color__green__light);
-    padding: 10px;
-    border-bottom: 1px solid #e7e7e7;
-
-    /* quiero poner el contente el max-width normal */
-
-    text-align: center; 
-
+.header{
+    text-align: center;
 }
+
+
 .header__title{
     color: var(--color_black);
     font-size: clamp(1rem, 10vw, 2rem);
     font-weight: bold;
+    
 }
 
 .menu{
     display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+
+@media screen and (min-width: 769px) {
+   .menu{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     gap: 1em;
-}
+   }
+  }
+
 
 .menu__link, .btn-delete{
     background-color: var(--color_green);
     padding: 0.5rem 1rem;
     color: var(--color_white);
     border-radius: 0.5em;
-    display: flex;
     gap: 1em;
 }
 .btn-delete{
-    background-color: red;
+    background-color: var(--color__red);
     
 }
 .btn-delete:hover{
@@ -91,3 +101,66 @@ td{
     margin-top: 2rem;
 }
 
+.table__desktop{
+    display: none;
+}
+
+
+
+@media screen and (min-width: 769px) {
+    .table__desktop{
+        display: block;
+    }
+    .table__mobile{
+        display: none;
+    }
+  }
+
+
+
+.table__mobile{
+    width: 100%;
+}
+.table__mobile:nth-child(odd){
+        background-color: #b4efd2;
+
+}
+
+.table__desktop {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    color: #333;
+    table-layout: fixed; 
+    margin: 20px 0;
+
+  }
+  
+  .table__desktop_head {
+    background-color: #f8f8f8;
+  }
+  
+  .table__desktop_head th {
+    padding: 0.75em 1.5em;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    
+    font-weight: bold;
+    width: 23%; 
+  }
+  
+  .table__desktop_body tr {
+    transition: background-color 0.3s;
+  }
+  
+  .table__desktop_body tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .table__desktop_body td {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+ 
