@@ -54,52 +54,6 @@ td{
     padding: 0 1em;
 }
 
-.header{
-    text-align: center;
-}
-
-
-.header__title{
-    color: var(--color_black);
-    font-size: clamp(1rem, 10vw, 2rem);
-    font-weight: bold;
-    
-}
-
-.menu{
-    display: flex;
-    flex-direction: column;
-    gap: .5em;
-}
-
-
-@media screen and (min-width: 769px) {
-   .menu{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1em;
-   }
-  }
-
-
-.menu__link, .btn-delete{
-    background-color: var(--color_green);
-    padding: 0.5rem 1rem;
-    color: var(--color_white);
-    border-radius: 0.5em;
-    gap: 1em;
-}
-.btn-delete{
-    background-color: var(--color__red);
-    
-}
-.btn-delete:hover{
-    opacity: 70%;
-    }
-.user{
-    margin-top: 2rem;
-}
 
 .table__desktop{
     display: none;

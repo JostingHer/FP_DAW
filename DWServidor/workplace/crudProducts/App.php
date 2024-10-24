@@ -3,6 +3,7 @@
 class App
 {
 
+
     public function run()
     {
         if (isset($_GET['method'])) {
@@ -20,7 +21,7 @@ class App
 
     public function home()
     {
-        include("views/home.php");
+        include("./views/home.php");
     }
 
     public function auth()
@@ -44,51 +45,64 @@ class App
         header('Location: ?method=login');
     }
 
-
-    public function new()
+    // added product a la lista desde el formulario
+    public function addProduct()
     {
-
-        if (isset($_POST['deseos'])) {
-            $deseos = json_decode($_COOKIE['deseos'], true);
-            $deseos[] = $_POST['deseos'];
-            setcookie("deseos", json_encode($deseos), time() + 3600);
-            header('Location: ?method=home');
+        if (isset($_POST['name']) && isset($_POST['stock']) && isset($_POST['pricing'])) {
+            if ($_POST['name'] != "" && $_POST['stock'] != "" && $_POST['pricing'] != "") {
+                $product = new Product($_POST['name'], $_POST['stock'], $_POST['pricing'], "Profe");
+                $products = json_decode($_COOKIE['products'], true);
+                $products[] = $product;
+                setcookie("products", json_encode($products), time() + 3600);
+                header('Location: ?method=home');
+            } else {
+                header('Location: ?method=home');
+            }
         }
     }
 
-    public function delete()
+    public function deleteProduct()
     {
-        $deseos = json_decode($_COOKIE['deseos'], true);
-        unset($deseos[$_GET['index']]);
-
-        $nuevosDeseos = array_values($deseos);
-
-        setcookie("deseos", json_encode($nuevosDeseos), time() + 3600);
+        $products = json_decode($_COOKIE['products'], true);
+        unset($products[$_GET['index']]);
+        $nuevosProducts = array_values($products);
+        setcookie("products", json_encode($nuevosProducts), time() + 3600);
         header('Location: ?method=home');
     }
 
 
 
-    // Setear el input text
-
-
-    public function setEdit()
+    public function new()
     {
 
-        if (isset($_POST['deseos'])) {
-            $deseos = json_decode($_COOKIE['deseos'], true);
-            $deseos[$_GET['index']] = $_POST['deseos'];
-            setcookie("deseos", json_encode($deseos), time() + 3600);
-            header('Location: ?method=home');
-        }
+
+        // if (isset($_POST['products'])) {
+        //     $products = json_decode($_COOKIE['products'], true);
+        //     $products[] = $_POST['products'];
+        //     setcookie("products", json_encode($products), time() + 3600);
+        //     header('Location: ?method=home');
+        // }
     }
-    public function edit() {}
+
+    public function delete()
+    {
+
+        // $products = json_decode($_COOKIE['products'], true);
+        // unset($products[$_GET['index']]);
+
+        // $nuevosProducts = array_values($products);
+
+        // setcookie("products", json_encode($nuevosProducts), time() + 3600);
+        // header('Location: ?method=home');
+    }
+
+
 
 
 
     public function empty()
     {
-        setcookie("deseos", json_encode([]), time() + 3600);
+        setcookie("products", json_encode([]), time() + 3600);
         header('Location: ?method=home');
     }
 }
