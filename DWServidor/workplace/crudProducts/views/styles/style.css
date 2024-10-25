@@ -18,6 +18,7 @@ body{
     margin: 0;
     padding: 0;
     color: var(--color_black);
+    
 }
 
 img{
@@ -74,11 +75,13 @@ td{
 
 .table__mobile{
     width: 100%;
-}
+    background-color: red;
+  }
 .table__mobile:nth-child(odd){
-        background-color: #b4efd2;
+        background-color: red;
 
 }
+
 
 .table__desktop {
     width: 100%;
@@ -91,7 +94,7 @@ td{
   }
   
   .table__desktop_head {
-    background-color: #f8f8f8;
+    background-color: red;
   }
   
   .table__desktop_head th {
