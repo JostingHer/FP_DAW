@@ -78,6 +78,14 @@ class App
         header('Location: ?method=home');
     }
 
+    // vaciar lista de productos
+
+    public function clearProducts()
+    {
+        setcookie("products", json_encode([]), time() + 3600);
+        header('Location: ?method=home');
+    }
+
 
 
 
