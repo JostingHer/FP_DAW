@@ -28,7 +28,7 @@
     align-items: center;
 }
 
-@media screen and (min-width: 769px) {
+@media (min-width: 769px) {
     .main__login{
        display: grid;
        grid-template-columns: 1fr 1fr;
@@ -83,4 +83,8 @@
 .form__submit:hover{
     background-color: var(--color_green);
     color: var(--color_white);
+}
+
+.container{
+    background-color: red;
 }
