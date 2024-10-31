@@ -9,6 +9,8 @@
     --negro: #1f1e1e;
     --grisClaro: #F3F3F4;
 
+    --
+
     --separacion: 5rem;
 }
 
@@ -86,6 +88,15 @@ ul{
     }
 
 
+
+.container-main{
+    background-color:#F3F3F3;
+    padding: 2em;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+
 /* header styles */
 
 .header{
@@ -153,26 +164,36 @@ ul{
     margin: 2rem 0;
 }
 .card{
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 20px;
-    background-color: #1783db;
+   /* background-color: #B9D9EB; */
+   background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    color: #ffffff;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
 }
+/* .card:nth-child(2){
+    background-color: #F3F3F4;
+}
+.card:nth-child(3){
+    background-color: #7B68EE;
+} */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.card__info{
+    text-align: center; 
+    text-wrap: balance;
+    
+}
+.card__info h3{
+    font-size: 5rem;
+}
+.card__info p{
+    font-size: 1em;
+}
 
 
 
@@ -184,10 +205,14 @@ ul{
 
 .table-desktop {
     width: 100%;
-    border-collapse: collapse;
-    color: #333;
+    border-collapse: separate; /* Esto permite usar separación */
+    border-spacing: 0 10px; /* Espaciado entre filas */
+    width: 100%; /* Asegura que la tabla ocupe el ancho completo */
     table-layout: fixed; 
     margin: 20px 0;
+
+    border-radius: 20px;
+    background-color: #ffffff;
 
   }
 
@@ -211,6 +236,7 @@ ul{
   .table-desktop__body tr {
     transition: background-color 0.3s;
     margin: 10rem, 0;
+    background-color:#F3F3F3;
   }
   
   .table-desktop__body tr:hover {
@@ -218,9 +244,8 @@ ul{
   }
   
   .table-desktop__body td {
-    padding: 1rem 2rem;
+    padding: 2rem 4rem;
     border-bottom: 1px solid #ddd;
-    border-radius: 10px;
     text-align: center;
     margin: 2rem 0;
 
