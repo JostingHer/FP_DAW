@@ -141,6 +141,7 @@ textarea{
     padding: 0.5rem 1rem;
     border-radius: 10px;
     border: 2px solid var(--color_black);
+    width: 100%;
 
 }
 .form__field input:focus{
@@ -163,3 +164,26 @@ textarea{
     color: var(--color_white);
 }
 
+.form-search__action{
+    border: none;
+}
+
+.form-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 2rem;
+}
+
+.form-search__bar{
+    width: max-content;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.form-search__bar:focus{
+    outline: none;
+    border: 2px solid var(--color_green);
+}
