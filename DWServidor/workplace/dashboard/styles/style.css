@@ -123,7 +123,7 @@ search{
 
 
 
-.container-main{
+.container-main{url(http://localhost/FP_DAW/DWServidor/workplace/dashboard/main.php?method%3Dhome)
     background-color:#F3F3F3;
     padding: 2em;
     border-radius: 20px;
@@ -142,6 +142,7 @@ search{
     gap: 0.5lh;
     
     padding: 1rem;
+
     
 }
 

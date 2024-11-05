@@ -7,14 +7,23 @@
   <title>Agregar Producto - Mercado Sparking</title>
   <link rel="stylesheet" href="./styles/normalize.css" />
   <link rel="stylesheet" href="./styles/form.css" />
+
+
+  <style>
+    .main__login {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      height: 100vw;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container-login">
     <main class="main">
       <div class="main__login">
-        <img class="login__img" src="./assets/logo.webp" alt="Logo Mercado Sparking" />
-        <div class="login__container-form">
+        <div class="login__container-form login__container-form-product">
           <form action="?method=addProduct" method="post" class="form">
             <legend class="login__title">Agregar Producto</legend>
 

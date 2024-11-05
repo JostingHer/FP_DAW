@@ -4,9 +4,11 @@ class App
 {
     public function run()
     {
+        session_start(); // Asegúrate de que la sesión esté iniciada
         $method = isset($_GET['method']) ? $_GET['method'] : 'login';
         $this->$method();
     }
+
 
     public function login()
     {
@@ -25,28 +27,35 @@ class App
 
     public function searchPage()
     {
-        include("./views/search.php");
+        // Verifica si el usuario está autenticado
+        if (!isset($_SESSION['email'])) {
+            header('Location: ?method=login');
+            exit;
+        }
+
+        // Obtener productos filtrados para la página de búsqueda
+        $filteredProducts = isset($_COOKIE['filtered_products']) ? json_decode($_COOKIE['filtered_products'], true) : [];
+        include("./views/search.php"); // Incluir la vista de búsqueda
     }
+
     public function addProductPage()
     {
         include("./views/addProduct.php");
     }
+
     public function auth()
     {
-        session_start(); // Inicia la sesión
-
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Recuperar lista de usuarios de cookies
+            // Obtiene usuarios desde la cookie
             $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
             $authenticated = false;
 
-            // Verificar autenticación (comparación directa)
             foreach ($users as $user) {
                 if ($user['email'] === $email && $user['password'] === $password) {
-                    $_SESSION['email'] = $email;
+                    $_SESSION['email'] = $email; // Guarda el email en la sesión
                     $authenticated = true;
                     break;
                 }
@@ -55,15 +64,21 @@ class App
             if ($authenticated) {
                 header('Location: ?method=home');
             } else {
-                header('Location: ?method=login&error=1'); // Error 1: Credenciales incorrectas
+                header('Location: ?method=login&error=1');
             }
             exit;
         }
     }
 
+
+
+
+
+
+
     public function registerUser()
     {
-        session_start(); // Opcional si se requiere sesión aquí
+        session_start();
 
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $email = $_POST['email'];
@@ -71,29 +86,30 @@ class App
 
             $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
 
-            // Verificar si el usuario ya existe
+            // Verifica si el usuario ya existe
             foreach ($users as $user) {
                 if ($user['email'] === $email) {
-                    header('Location: ?method=login&error=3'); // Error 3: Usuario ya registrado
+                    header('Location: ?method=login&error=3');
                     exit;
                 }
             }
 
-            // Crear un nuevo usuario y guardarlo en cookies
+            // Agrega nuevo usuario
             $user = ['email' => $email, 'password' => $password];
             $users[] = $user;
-            setcookie("users", json_encode($users), time() + 3600 * 24);
+            setcookie("users", json_encode($users), time() + 3600 * 24, "/");
 
-            header('Location: ?method=login&registered=1'); // Éxito: Registro completado
+            header('Location: ?method=login&registered=1');
             exit;
         } else {
-            header('Location: ?method=login&error=2'); // Error 2: Datos incompletos
+            header('Location: ?method=login&error=2');
             exit;
         }
     }
 
     public function logout()
     {
+        session_start();
         session_destroy();
         header('Location: ?method=login');
         exit;
@@ -101,6 +117,8 @@ class App
 
     public function addProduct()
     {
+        session_start();
+
         if (!empty($_POST['name']) && is_numeric($_POST['stock']) && is_numeric($_POST['pricing'])) {
             $product = [
                 'name' => $_POST['name'],
@@ -112,7 +130,7 @@ class App
             $products = isset($_COOKIE['products']) ? json_decode($_COOKIE['products'], true) : [];
             $products[] = $product;
 
-            setcookie("products", json_encode($products), time() + 3600);
+            setcookie("products", json_encode($products), time() + 3600, "/");
             header('Location: ?method=home');
             exit;
         } else {
@@ -123,11 +141,13 @@ class App
 
     public function deleteProduct()
     {
+        session_start();
+
         $products = isset($_COOKIE['products']) ? json_decode($_COOKIE['products'], true) : [];
         if (isset($products[$_GET['index']])) {
             unset($products[$_GET['index']]);
-            $products = array_values($products);
-            setcookie("products", json_encode($products), time() + 3600);
+            $products = array_values($products); // Reindexar
+            setcookie("products", json_encode($products), time() + 3600, "/");
         }
         header('Location: ?method=home');
         exit;
@@ -135,104 +155,27 @@ class App
 
     public function clearProducts()
     {
-        setcookie("products", json_encode([]), time() + 3600);
+        setcookie("products", json_encode([]), time() + 3600, "/");
         header('Location: ?method=home');
         exit;
     }
 
     public function searchProduct()
     {
-        // Verifica si existe un término de búsqueda
-        if (isset($_GET['q']) && $_GET['q'] !== "") {
-            $searchTerm = strtolower(trim($_GET['q']));
-            // Obtener productos desde la cookie
+        // Aseguramos que se envíe una búsqueda
+        if (isset($_POST['q'])) {
+            $searchTerm = trim($_POST['q']);
             $products = isset($_COOKIE['products']) ? json_decode($_COOKIE['products'], true) : [];
 
-            // Filtrar productos por coincidencia en el nombre
+            // Filtrar productos que contengan el término de búsqueda
             $filteredProducts = array_filter($products, function ($product) use ($searchTerm) {
-                return stripos($product['name'], $searchTerm) !== false; // Coincidencias no sensibles a mayúsculas
+                return stripos($product['name'], $searchTerm) !== false; // Búsqueda sin distinguir mayúsculas
             });
 
-            // Guardamos los resultados filtrados en una cookie
-            if (!empty($filteredProducts)) {
-                setcookie("filtered_products", json_encode(array_values($filteredProducts)), time() + 3600, "/"); // Agregar "/" para el ámbito de la cookie
-            } else {
-                // Si no hay coincidencias, vaciar la cookie
-                setcookie("filtered_products", "", time() - 3600, "/");
-            }
-        } else {
-            // Si no hay término de búsqueda, limpiar la cookie de filtrado
-            setcookie("filtered_products", "", time() - 3600, "/");
+            // Guardar los productos filtrados en una cookie
+            setcookie('filtered_products', json_encode(array_values($filteredProducts)), time() + (86400 * 30), "/"); // 30 días de duración
+            header("Location: views/search.php"); // Redirigir a la página de búsqueda
+            exit();
         }
-
-        // Redirigir a la página de búsqueda
-        header('Location: ?method=searchPage');
-        exit;
-    }
-
-
-    public function filterByAddedBy($email)
-    {
-        $products = json_decode($_COOKIE['products'] ?? '[]', true);
-
-        // Filtrar productos por el usuario que los agregó
-        $filteredProducts = array_filter($products, function ($product) use ($email) {
-            return $product['added_by'] === $email;
-        });
-
-        // Guardar los resultados filtrados en una cookie
-        setcookie("filtered_products", json_encode(array_values($filteredProducts)), time() + 3600);
-
-        header('Location: ?method=buscarProducto');
-        exit;
-    }
-
-    public function filterByPricing($minPrice = 0, $maxPrice = PHP_INT_MAX)
-    {
-        $products = json_decode($_COOKIE['products'] ?? '[]', true);
-
-        // Filtrar productos por rango de precios
-        $filteredProducts = array_filter($products, function ($product) use ($minPrice, $maxPrice) {
-            return $product['pricing'] >= $minPrice && $product['pricing'] <= $maxPrice;
-        });
-
-        // Guardar los resultados filtrados en una cookie
-        setcookie("filtered_products", json_encode(array_values($filteredProducts)), time() + 3600);
-
-        header('Location: ?method=buscarProducto');
-        exit;
-    }
-
-    public function filterByStock($minStock = 0)
-    {
-        $products = json_decode($_COOKIE['products'] ?? '[]', true);
-
-        // Filtrar productos por stock mínimo
-        $filteredProducts = array_filter($products, function ($product) use ($minStock) {
-            return $product['stock'] >= $minStock;
-        });
-
-        // Guardar los resultados filtrados en una cookie
-        setcookie("filtered_products", json_encode(array_values($filteredProducts)), time() + 3600);
-
-        header('Location: ?method=buscarProducto');
-        exit;
-    }
-
-
-    public function sortByStock()
-    {
-        $products = json_decode($_COOKIE['products'] ?? '[]', true);
-
-        // Ordenar productos por stock de menor a mayor
-        usort($products, function ($a, $b) {
-            return $a['stock'] <=> $b['stock'];
-        });
-
-        // Guardar los productos ordenados en una cookie
-        setcookie("filtered_products", json_encode(array_values($products)), time() + 3600);
-
-        header('Location: ?method=buscarProducto');
-        exit;
     }
 }

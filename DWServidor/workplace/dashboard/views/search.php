@@ -1,10 +1,13 @@
+<?php
+session_start(); // Asegúrate de que la sesión esté iniciada
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Mercado Sparking</title>
+  <title>Buscar Productos - Mercado Sparking</title>
   <link rel="stylesheet" href="./styles/normalize.css" />
   <link rel="stylesheet" href="./styles/style.css" />
   <link rel="stylesheet" href="./styles/form.css" />
@@ -16,24 +19,20 @@
     <ul class="header__nav">
       <li><a class="btn" href="?method=home">Inicio</a></li>
       <li><a class="btn" href="?method=logout">Cerrar sesión</a></li>
-
     </ul>
   </header>
+
   <div class="container">
     <div class="container-main">
       <section class="section__head">
-        <h2>Bienvenido <span>Josting</span> &#128075;</h2>
-        <ul>
-          <li><a class="btn" href="?method=addProductPage">Agregar producto</a></li>
-          <li><a class="btn" href="?method=searchPage">Buscar producto</a></li>
-          <li><a class="btn" href="?method=totalValue">Valor de productos</a></li>
-        </ul>
+        <h2>Resultados de la búsqueda</h2>
       </section>
 
       <section class="search">
-        <form class="form-search" action="?method=searchProduct" method="get">
-          <label for="product">Haz una búsqueda entre todos los productos:</label>
-          <input class="form-search__bar" type="search" id="product" name="q" required />
+        <form class="form-search" action="main.php" method="post">
+          <input type="hidden" name="method" value="searchProduct" />
+          <label for="product">Buscar producto:</label>
+          <input class="form-search__bar" type="search" id="product" name="q" placeholder="Buscar producto..." required />
           <input class="form-search__action btn" type="submit" value="Buscar" />
         </form>
       </section>
@@ -51,32 +50,26 @@
           </thead>
           <tbody class="table-desktop__body">
             <?php
-            $products = isset($_COOKIE['filtered_products']) ? json_decode($_COOKIE['filtered_products'], true) : [];
-            foreach ($products as $index => $product) {
-              echo "<tr>
-                        <td>" . htmlspecialchars($product['name']) . "</td>
-                        <td>" . htmlspecialchars($product['stock']) . "</td>
-                        <td>" . htmlspecialchars($product['pricing']) . "</td>
-                        <td>" . htmlspecialchars($product['added_by']) . "</td>
-                        <td>
-                          <a class='btn-delete' href='?method=deleteProduct&index={$index}'>Eliminar</a>
-                        </td>
-                      </tr>";
+            // Obtener productos filtrados de la cookie
+            $filteredProducts = isset($_COOKIE['filtered_products']) ? json_decode($_COOKIE['filtered_products'], true) : [];
+            if (empty($filteredProducts)) {
+              echo "<tr><td colspan='5'>No se encontraron productos que coincidan con la búsqueda.</td></tr>";
+            } else {
+              foreach ($filteredProducts as $index => $product) {
+                echo "<tr>
+                                          <td>" . htmlspecialchars($product['name']) . "</td>
+                                          <td>" . htmlspecialchars($product['stock']) . "</td>
+                                          <td>" . htmlspecialchars($product['pricing']) . "</td>
+                                          <td>" . htmlspecialchars($product['added_by']) . "</td>
+                                          <td>
+                                              <a class='btn-delete' href='?method=deleteProduct&index={$index}'>Eliminar</a>
+                                          </td>
+                                        </tr>";
+              }
             }
             ?>
           </tbody>
         </table>
-        <aside>
-          <ul>
-            <li>Todos los miembros registrados:</li>
-            <?php
-            $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
-            foreach ($users as $user) {
-              echo "<li>" . htmlspecialchars($user['email']) . "</li>";
-            }
-            ?>
-          </ul>
-        </aside>
       </main>
     </div>
   </div>

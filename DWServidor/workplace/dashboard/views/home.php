@@ -44,7 +44,7 @@
             <img src="./assets/shopCar.svg" alt="shopCar" />
           </div>
           <div class="card__info">
-            <h3><?php echo $totalProducts; ?> UDS</h3>
+            <h3><?php echo $totalProducts; ?> </h3>
             <p>Número de productos</p>
           </div>
         </div>
