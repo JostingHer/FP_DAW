@@ -1,0 +1,21 @@
+ASPECTOS QUE NO ME VAN DEL TRABAJO
+
+1. Los productos se me añaden a distintas sesiones, pero al añadir el primer producto
+este sale añadido por vacio, cuando añades el segundo ya sale quien lo añadió, y si cierras sesion y entras con otra y añades un producto sale añadido por tu sesión.
+
+2.Aumentar el stock de los productos: Es algo que no he podido hacer.
+
+3.Eliminar el producto con el botón o con un campo : Es algo que no he podido hacer.
+
+4.Arreglar excepciones: Mis excepciones funcionan (al menos las de añadir producto), porque si pones un stock cero o negativo, y lo mismo con el precio unitario, no te lo añade, he probado a poner el tray catch en todos lados, main, dentro del metodo o del home, pero no hay manera de que se me muestren los mensajes.
+
+5. En el caso del mail, la  funcion mail que tengo en mi codigo creo que esta bien, pero he sacado la conclusión de que no es solo eso, hay algo que tiene que salir fuera de mi red local y mandar un mensaje a un mail, asi que he probado a configurar postfix, tras numerosos intentos de hacerlo no he podido, dado que probablemente haya hecho la configuracion mal. Los logs del postfix me daban "bounced" en el estado del correo.
+
+
+
+RECOMENDACIONES
+Si se va a manipular prouctos primero hay que iniciar sesion, me ha pasado a veces de encender la máquina, restaurar la pestaña y los productos no se me añadian, simplemente por no iniciar sesion.
+
+NO CREO QUE LLEGUE A PASAR, pero probando cosas y cosas una vez cree una cookie que correspondia a unos porductos y no se me borraba, tuve que borrar esa cookie corrupta desde el navegador.
+
+TODO LO DEMÁS ME FUNCIONA
