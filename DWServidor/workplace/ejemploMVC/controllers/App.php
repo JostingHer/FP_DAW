@@ -26,4 +26,10 @@ class App
     {
         echo "Teste";
     }
+    public function obtenerEscritores()
+    {
+        $escritores = Escritor::obtenerTodos();
+
+        include("views/home.php");
+    }
 }

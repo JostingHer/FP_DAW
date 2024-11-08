@@ -6,7 +6,7 @@
 
 <body>
     <?php
-    foreach ($datos as $dato) {
+    foreach ($escritores as $dato) {
         echo $dato["nombre"] . "<br/>";
     }
     ?>
