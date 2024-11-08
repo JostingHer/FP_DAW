@@ -1,6 +1,12 @@
 <?php
 // Database configuration constants
-define('DB_HOST', 'mysql:host=localhost');
-define('DB_NAME', 'libreria');
+
+// $cadena_conexion = 'mysql:dbname=libreria; host=localhost';
+// $usuario = 'root';
+// $clave = '';
+// $conexion = null;
+// config.php
+define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+define('DB_NAME', 'libreria');
