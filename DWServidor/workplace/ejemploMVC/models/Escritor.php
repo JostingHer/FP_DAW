@@ -1,4 +1,6 @@
 <?php
+require_once 'models/Model.php';
+
 
 class Escritor extends Model
 {
@@ -8,15 +10,15 @@ class Escritor extends Model
     private $fecha_nacimiento;
     private $fecha_fallecimiento;
 
-    // Constructor
-    public function __construct($codigo = null, $nombre = null, $nacionalidad = null, $fecha_nacimiento = null, $fecha_fallecimiento = null)
-    {
-        $this->codigo = $codigo;
-        $this->nombre = $nombre;
-        $this->nacionalidad = $nacionalidad;
-        $this->fecha_nacimiento = $fecha_nacimiento;
-        $this->fecha_fallecimiento = $fecha_fallecimiento;
-    }
+    // // Constructor
+    // public function __construct($codigo = null, $nombre = null, $nacionalidad = null, $fecha_nacimiento = null, $fecha_fallecimiento = null)
+    // {
+    //     $this->codigo = $codigo;
+    //     $this->nombre = $nombre;
+    //     $this->nacionalidad = $nacionalidad;
+    //     $this->fecha_nacimiento = $fecha_nacimiento;
+    //     $this->fecha_fallecimiento = $fecha_fallecimiento;
+    // }
 
     // Getters y Setters
     public function getCodigo()
@@ -66,17 +68,22 @@ class Escritor extends Model
 
     public static function obtenerTodos()
     {
-        $conexion = Model::getConnection();
-        if ($conexion) {
-            $query = "SELECT * FROM escritor";
+        $escritores = [];
+        try {
+            $conexion = Model::getConnection();
+
+
+            $query = "SELECT * FROM `escritor`";
             $statement = $conexion->query($query);
 
             // Usar PDO::FETCH_CLASS para mapear los resultados a objetos Escritor
             $escritores = $statement->fetchAll(PDO::FETCH_CLASS, Escritor::class);
 
+            return $escritores; // Retorna aquí
+        } catch (PDOException) {
+            echo "problema de conexión";
+        } finally {
             return $escritores;
-        } else {
-            return [];
         }
     }
 }

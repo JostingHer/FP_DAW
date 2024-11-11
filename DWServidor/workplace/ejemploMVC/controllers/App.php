@@ -1,7 +1,8 @@
 
 <?php
 
-require_once "./models/configDB.php";
+require_once 'models/Escritor.php';
+
 
 class App
 
@@ -28,6 +29,7 @@ class App
     }
     public function obtenerEscritores()
     {
+        echo "Obtener Escritores";
         $escritores = Escritor::obtenerTodos();
 
         include("views/home.php");

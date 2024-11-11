@@ -10,15 +10,7 @@ class Tienda extends Model
     private $localidad;
     private $telefono;
 
-    // Constructor
-    public function __construct($codigo = null, $centro_comercial = null, $direccion = null, $localidad = null, $telefono = null)
-    {
-        $this->codigo = $codigo;
-        $this->centro_comercial = $centro_comercial;
-        $this->direccion = $direccion;
-        $this->localidad = $localidad;
-        $this->telefono = $telefono;
-    }
+
 
     // Getters y Setters
     public function getCodigo()

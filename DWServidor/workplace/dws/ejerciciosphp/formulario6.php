@@ -11,11 +11,11 @@
         <?php
         $elementos = [];
         if (isset($_GET['elemento']) && ($_GET['elemento']) != "") {
-            $elementos= $_GET["elemento"];
-            foreach($elementos as $elemento){
+            $elementos = $_GET["elemento"];
+            foreach ($elementos as $elemento) {
                 $elementos[] = $_GET['elemento'];
             }
-        } 
+        }
         ?>
 
 

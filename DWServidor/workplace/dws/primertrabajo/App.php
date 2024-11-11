@@ -3,7 +3,7 @@
 class App
 {
 
-  
+
 
   public function __construct()
   {
@@ -16,7 +16,7 @@ class App
     if (isset($_GET["method"])) {
       $method = $_GET['method'];
     } else {
-      $method = 'home';//cambiar a login
+      $method = 'login'; //cambiar a login
     }
     $this->$method();
   }
@@ -76,38 +76,33 @@ class App
     include("views/registrarProducto.php");
     if (isset($_POST["Producto"]) && isset($_POST["Stock"]) && isset($_POST["PrecioUni"]) && isset($_COOKIE["correosesion"])) {
       if ($_POST['Producto'] != "" && $_POST['Stock'] != "" && $_POST["PrecioUni"] != "") {
-        if($_POST['Stock'] <= 0){
+        if ($_POST['Stock'] <= 0) {
           throw new Stockceromenor("Stock erroneo");
-        }else{
-          if($_POST['PrecioUni'] <= 0){
-            throw new Precioceromenor("Precio erroneo"); 
-        }else{
-        if (isset($_COOKIE['DatosTabla'])) {
-          $lista = unserialize($_COOKIE['DatosTabla']);
-          $correo = $_COOKIE["correosesion"];
         } else {
-          $lista = [];
-          
+          if ($_POST['PrecioUni'] <= 0) {
+            throw new Precioceromenor("Precio erroneo");
+          } else {
+            if (isset($_COOKIE['DatosTabla'])) {
+              $lista = unserialize($_COOKIE['DatosTabla']);
+              $correo = $_COOKIE["correosesion"];
+            } else {
+              $lista = [];
+            }
+            $nuevoProducto = [$_POST['Producto'], $_POST['Stock'], $_POST["PrecioUni"], $correo];
+            //lo que estoy intentando hacer es meter un array dentro de la lista para que cada producto sea un array
+            array_push($lista, $nuevoProducto); //meter al arrya dentro del array
+            setcookie("DatosTabla", serialize($lista), time() + 3600 * 24);
+          }
         }
-        $nuevoProducto = [$_POST['Producto'], $_POST['Stock'], $_POST["PrecioUni"],$correo];
-        //lo que estoy intentando hacer es meter un array dentro de la lista para que cada producto sea un array
-        array_push($lista, $nuevoProducto);//meter al arrya dentro del array
-        setcookie("DatosTabla", serialize($lista), time() + 3600 * 24);
       }
     }
-      }
-    
-    }
- 
-    }
+  }
 
 
   public function BuscarProducto()
   {
     include("views/buscarProducto.php");
-    
   }
-
 
   public function ValorTotal()
   {
@@ -117,16 +112,11 @@ class App
   public function eliminarElemento()
   {
     include("views/home.php");
-  
   }
 
   public function eliminartabla()
   {
-
     setcookie("DatosTabla", "", time() + -1);
-
-
-
     header("Location: ?method=home");
   }
 }

@@ -1,4 +1,5 @@
 <?php
+require_once 'models/Model.php';
 
 class Libro extends Model
 {
@@ -8,19 +9,6 @@ class Libro extends Model
     private $agno_publicacion;
     private $numero_paginas;
     private $precio;
-
-    // // Constructor
-    // public function __construct($codigo = null, $codigo_escritor = null, $titulo = null, $agno_publicacion = null, $numero_paginas = null, $precio = null)
-    // {
-    //     $this->codigo = $codigo;
-    //     $this->codigo_escritor = $codigo_escritor;
-    //     $this->titulo = $titulo;
-    //     $this->agno_publicacion = $agno_publicacion;
-    //     $this->numero_paginas = $numero_paginas;
-    //     $this->precio = $precio;
-    // }
-
-
 
 
 

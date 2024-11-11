@@ -5,13 +5,18 @@
 </head>
 
 <body>
+
+    <a href="?method=obtenerEscritores">asdasdasdasd</a>
+
     <?php
+
+
+
     foreach ($escritores as $dato) {
-        echo $dato["nombre"] . "<br/>";
+        echo $dato->getNombre() . "<br/>";
+        echo "hola";
     }
     ?>
-
-    <a href="?method=test"></a>
 
 
 

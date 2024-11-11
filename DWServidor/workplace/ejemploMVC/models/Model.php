@@ -1,6 +1,6 @@
 <?php
 
-require_once("./models/configDB");
+require_once("models/configDB.php");
 class Model
 {
 
@@ -10,8 +10,8 @@ class Model
         $conexion = null;
         try {
             $conexion = new PDO(CONEXION, USUARIO, CLAVE);
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (PDOException) {
+            echo "problema de conexión";
         } finally {
             return $conexion;
         }

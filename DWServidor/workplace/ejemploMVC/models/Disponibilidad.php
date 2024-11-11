@@ -1,4 +1,5 @@
 <?php
+require_once 'models/Model.php';
 
 class Disponibilidad extends Model
 {
@@ -7,14 +8,8 @@ class Disponibilidad extends Model
     private $cantidad;
     private $fecha_ultima_reposicion;
 
-    // Constructor
-    public function __construct($codigo_libro = null, $codigo_tienda = null, $cantidad = null, $fecha_ultima_reposicion = null)
-    {
-        $this->codigo_libro = $codigo_libro;
-        $this->codigo_tienda = $codigo_tienda;
-        $this->cantidad = $cantidad;
-        $this->fecha_ultima_reposicion = $fecha_ultima_reposicion;
-    }
+
+
 
     // Getters y Setters
     public function getCodigoLibro()
