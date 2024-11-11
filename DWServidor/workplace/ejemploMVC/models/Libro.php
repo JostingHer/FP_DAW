@@ -84,4 +84,32 @@ class Libro extends Model
             return [];
         }
     }
+
+
+    public static function consulta1($nombreAutor)
+    {
+        $todosLibros = null;
+
+        try {
+            $conexion = Libro::getConnection();
+
+            $sql1 = "SELECT * FROM `libro` WHERE `codigo_escritor` IN(SELECT `codigo` FROM `escritor` WHERE `nombre`= ?) ORDER by `agno_publicacion` ASC;";
+
+            $resultado = $conexion->prepare($sql1);
+            $resultado->bindValue(1, $nombreAutor);
+
+            // $query = "SELECT * FROM `libro`";
+            // $resultado = $conexion->query($query);
+            $resultado->execute();
+
+            $todosLibros = $resultado->fetchAll(PDO::FETCH_CLASS, Libro::class);
+
+            var_dump($todosLibros);
+            return $todosLibros;
+        } catch (PDOException) {
+            echo "Problema en la conexion";
+        } finally {
+            return $todosLibros;
+        }
+    }
 }

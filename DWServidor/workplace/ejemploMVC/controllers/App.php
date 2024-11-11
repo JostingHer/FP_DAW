@@ -2,6 +2,7 @@
 <?php
 
 require_once 'models/Escritor.php';
+require_once 'models/Libro.php';
 
 
 class App
@@ -33,5 +34,14 @@ class App
         $escritores = Escritor::obtenerTodos();
 
         include("views/home.php");
+    }
+
+    public function obtenerLibros()
+    {
+        $nombreAutor = $_POST['nombreAutor'];
+        $libros = Libro::consulta1($nombreAutor);
+
+        include("views/home.php");
+        var_dump($nombreAutor);
     }
 }
