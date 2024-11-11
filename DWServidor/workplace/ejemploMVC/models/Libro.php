@@ -104,7 +104,7 @@ class Libro extends Model
 
             $todosLibros = $resultado->fetchAll(PDO::FETCH_CLASS, Libro::class);
 
-            var_dump($todosLibros);
+            // var_dump($todosLibros);
             return $todosLibros;
         } catch (PDOException) {
             echo "Problema en la conexion";

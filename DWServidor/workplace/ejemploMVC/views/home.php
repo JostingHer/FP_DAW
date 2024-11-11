@@ -29,7 +29,7 @@
 
     <?php
 
-    var_dump($libros);
+    // var_dump($libros);
     foreach ($libros as $libro) {
         echo $libro->getCodigo()  . "<br>";
         echo $libro->getTitulo() . "<br>";
