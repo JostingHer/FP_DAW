@@ -95,6 +95,9 @@ search{
 
     
 }
+.bt:hover{
+    cursor: pointer;
+}
 
 .btn:hover{
     opacity: 70%;
@@ -107,7 +110,7 @@ search{
 
 
 
-.btn-delete{
+.btn-delete, .error{
     background-color: red;
     padding: 1rem 2rem;
     color: var(--blanco);

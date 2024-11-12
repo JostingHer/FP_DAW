@@ -22,7 +22,7 @@
   <div class="container">
     <div class="container-main">
       <section class="section__head">
-        <h2>Bienvenido <span><?php echo htmlspecialchars($_SESSION['email']); ?></span> &#128075;</h2>
+        <h2><span><?php echo htmlspecialchars($_SESSION['email']); ?></span> &#128075;</h2>
         <ul>
           <li><a class="btn" href="?method=addProductPage">Agregar producto</a></li>
           <li><a class="btn" href="?method=searchPage">Buscar producto</a></li>
@@ -103,8 +103,7 @@
           <ul>
             <li>Todos los miembros registrados:</li>
             <?php
-            // Recuperar todos los usuarios registrados de la cookie
-            $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
+            $users = isset($_COOKIE['usersList']) ? unserialize($_COOKIE['usersList']) : [];
             foreach ($users as $user) {
               echo "<li>" . htmlspecialchars($user['email']) . "</li>";
             }

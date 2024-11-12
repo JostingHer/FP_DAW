@@ -12,104 +12,189 @@ class App
 
     public function login()
     {
+        // cualquiera puede acceder a la pagina de login
         include("views/login.php");
     }
 
     public function home()
     {
-        include("./views/home.php");
+
+        try {
+
+            if (!isset($_SESSION['email'])) {
+                throw new UnatherizedAccessException();
+            }
+            include("views/home.php");
+        } catch (UnatherizedAccessException $e) {
+            $_SESSION['errorMessage404'] = $e->errorMessage();
+            header('Location: ?method=errorPage');
+            exit;
+        }
     }
 
     public function totalValue()
     {
-        include("./views/totalValue.php");
+        try {
+
+            if (!isset($_SESSION['email'])) {
+                throw new UnatherizedAccessException();
+            }
+            include("views/totalValue.php");
+        } catch (UnatherizedAccessException $e) {
+            $_SESSION['errorMessage404'] = $e->errorMessage();
+            header('Location: ?method=errorPage');
+            exit;
+        }
     }
 
     public function searchPage()
     {
-        // Verifica si el usuario está autenticado
-        if (!isset($_SESSION['email'])) {
-            header('Location: ?method=login');
+        try {
+
+            if (!isset($_SESSION['email'])) {
+                throw new UnatherizedAccessException();
+            }
+            include("views/search.php");
+        } catch (UnatherizedAccessException $e) {
+            $_SESSION['errorMessage404'] = $e->errorMessage();
+            header('Location: ?method=errorPage');
             exit;
         }
-
-        // Obtener productos filtrados para la página de búsqueda
-        $filteredProducts = isset($_COOKIE['filtered_products']) ? json_decode($_COOKIE['filtered_products'], true) : [];
-        include("./views/search.php"); // Incluir la vista de búsqueda
     }
 
     public function addProductPage()
     {
-        include("./views/addProduct.php");
+        try {
+
+            if (!isset($_SESSION['email'])) {
+                throw new UnatherizedAccessException();
+            }
+            include("views/addProduct.php");
+        } catch (UnatherizedAccessException $e) {
+            $_SESSION['errorMessage404'] = $e->errorMessage();
+            header('Location: ?method=login');
+            exit;
+        }
     }
 
-    public function auth()
+    public function errorPage()
     {
-        if (!empty($_POST['email']) && !empty($_POST['password'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        include("views/404.php");
+    }
 
-            // Obtiene usuarios desde la cookie
-            $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
-            $authenticated = false;
 
-            foreach ($users as $user) {
-                if ($user['email'] === $email && $user['password'] === $password) {
-                    $_SESSION['email'] = $email; // Guarda el email en la sesión
-                    $authenticated = true;
-                    break;
-                }
-            }
 
-            if ($authenticated) {
-                header('Location: ?method=home');
-            } else {
-                header('Location: ?method=login&error=1');
-            }
-            exit;
+    private function validateEmail($email)
+    {
+        if (empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            throw new InvalidEmailException(); // Lanzar excepción personalizada para correo no válido
+        }
+    }
+
+    private function validatePassword($password)
+    {
+        if (empty($password) || preg_match("/^.{8,}$/", $password) !== 1) {
+            throw new InvalidPasswordException("La contraseña debe de tener al menos 8 caracteres"); // Lanzar excepción personalizada para contraseña no válida
         }
     }
 
 
 
+    /**
+     * 1. validar que el usuario y la contraseña no estén vacíos
+     * 2. validar si son correctos y lanzar mensajes de errores o excepciones
+     * 3. vemos si esta registrado el usuario en la cookie
+     * 4. si no esta registrado lo registramos e iniciamos sesion
+     * 5. y si ya esta registrado iniciamos sesion
+     * 
+     * 
+     */
 
-
-
-
-    public function registerUser()
+    public function authUser()
     {
         session_start();
 
-        if (!empty($_POST['email']) && !empty($_POST['password'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
+        // mensajes de error y validaciones
 
-            // Verifica si el usuario ya existe
-            foreach ($users as $user) {
+        // para no acumular varibles de sesion de errores
+        // las creamos y las eliminamos en cada validacion en cada reload
+
+        unset($_SESSION['msjInvalidEmail']);
+        unset($_SESSION['msjInvalidPassword']);
+
+        try {
+
+            // Validar el correo (lanzará una excepción si es inválido)
+            $this->validateEmail($email);
+
+            // Validar la contraseña (lanzará una excepción si es inválida)
+            $this->validatePassword($password);
+
+            /**
+             * json_decode
+             * si es true los objetos JSON se devuelven como arrays asociativos
+             * si es false los objetos JSON se devuelven como objetos
+             * 
+             */
+            // $usersList = isset($_COOKIE['usersList']) ? json_decode($_COOKIE['usersList'], true) : [];
+            $usersList = isset($_COOKIE['usersList']) ? unserialize($_COOKIE['usersList']) : [];
+
+
+            // si ya existe el usuario - iniciamos sesion
+            // tratamos el caso de que el usuario ya exista y la contraseña sea incorrecta
+            foreach ($usersList as $user) {
+
                 if ($user['email'] === $email) {
-                    header('Location: ?method=login&error=3');
-                    exit;
+
+                    if (password_verify($password, $user['password'])) {
+                        $_SESSION['email'] = $email;
+                        header('Location: ?method=home');
+                        exit;
+                    } else {
+                        throw new InvalidPasswordException("No es la contraseña correcta para este usuario");
+                    }
                 }
             }
 
-            // Agrega nuevo usuario
-            $user = ['email' => $email, 'password' => $password];
-            $users[] = $user;
-            setcookie("users", json_encode($users), time() + 3600 * 24, "/");
+            // si no existe el usuario si no existe lo agregamos e iniciamos sesion
 
-            header('Location: ?method=login&registered=1');
+            $newUser = [
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_DEFAULT) // Crear un hash seguro para la contraseña
+            ];
+            $usersList[] = $newUser;
+            // array_push($usersList, $newUser);
+
+            /** setCookie(clave, valor, tiempo de vida) 
+             *  "/" - significa que la cookie está disponible en todo el sitio
+             * 
+             */
+            setcookie('usersList', serialize($usersList), time() + 3600 * 24, "/");
+            //setcookie('usersList', json_encode($userList), time() + 3600 * 24, "/");
+            $_SESSION['email'] = $email;
+            header('Location: ?method=home');
             exit;
-        } else {
-            header('Location: ?method=login&error=2');
+        } catch (InvalidEmailException $e) {
+            // Capturar excepción de correo inválido y guardar el mensaje en la sesión
+            $_SESSION['msjInvalidEmail'] = $e->errorMessage();
+            header('Location: ?method=login');
+            exit;
+        } catch (InvalidPasswordException $e) {
+            $_SESSION['msjInvalidPassword'] = $e->errorMessage();
+            header('Location: ?method=login');
             exit;
         }
     }
+
+
 
     public function logout()
     {
         session_start();
+        $_SESSION = [];
         session_destroy();
         header('Location: ?method=login');
         exit;
@@ -132,9 +217,6 @@ class App
 
             setcookie("products", json_encode($products), time() + 3600, "/");
             header('Location: ?method=home');
-            exit;
-        } else {
-            header('Location: ?method=home&error=3');
             exit;
         }
     }
@@ -174,7 +256,7 @@ class App
 
             // Guardar los productos filtrados en una cookie
             setcookie('filtered_products', json_encode(array_values($filteredProducts)), time() + (86400 * 30), "/"); // 30 días de duración
-            header("Location: views/search.php"); // Redirigir a la página de búsqueda
+            header("Location: ?method=searchPage"); // Redirigir a la página de búsqueda
             exit();
         }
     }

@@ -97,7 +97,7 @@
           <ul>
             <li>Todos los miembros registrados:</li>
             <?php
-            $users = isset($_COOKIE['users']) ? json_decode($_COOKIE['users'], true) : [];
+            $users = isset($_COOKIE['usersList']) ? unserialize($_COOKIE['usersList']) : [];
             foreach ($users as $user) {
               echo "<li>" . htmlspecialchars($user['email']) . "</li>";
             }
