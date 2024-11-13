@@ -1,0 +1,27 @@
+html, body, * {
+    margin: 0px;
+    background-color: #2F4F30;
+    color: white;
+}
+
+
+.titulo {
+text-align: center;
+background-color: black;
+color: white;
+padding: 20px;
+font-size: 25px;
+}
+#divBotones{
+    margin-top: 1rem;
+}
+
+
+
+.jugador{
+    width: min-content;
+    background-color: red;
+}
+.jugador .cartas{
+    display: flex;
+}

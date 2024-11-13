@@ -1,4 +1,4 @@
-export default class Jugador {
+export class Jugador {
     nombre;
     mano;
 
@@ -11,6 +11,7 @@ export default class Jugador {
     pedirCarta(carta) {
         // maximo 5 cartas
         if(this.mano >=5){
+            console.log("tya tienes suficientes cart");
             return;
         }
 
@@ -20,7 +21,7 @@ export default class Jugador {
     // un toString para mostrar el nombre del jugador y las cartas que tiene
 
     toString() {
-        return `Jugador: ${this.nombre} Cartas: ${this.mano}`;
+        return this.mano.map(carta => carta.toString()).join('\n');
     }
 
 
@@ -37,6 +38,39 @@ export default class Jugador {
 
     setMano(){
         this.mano = mano;
+    }
+
+
+    evaluarJugada() {
+        if (this.mano.length !== 5) {
+            return "La mano no está completa para evaluar una jugada de póker.";
+        }
+
+        const valores = this.mano.map(carta => carta.valor);
+        const palos = this.mano.map(carta => carta.palo);
+
+        const esColor = new Set(palos).size === 1;  // Todas las cartas son del mismo palo
+        const valoresOrdenados = [...new Set(valores)].sort((a, b) => a - b);
+        const esEscalera = valoresOrdenados.length === 5 && valoresOrdenados[4] - valoresOrdenados[0] === 4;
+
+        // Comprobar combinaciones de cartas
+        const conteoValores = valores.reduce((contador, valor) => {
+            contador[valor] = (contador[valor] || 0) + 1;
+            return contador;
+        }, {});
+
+        const valoresConteo = Object.values(conteoValores);
+
+        if (esColor && esEscalera) return "Escalera de color";
+        if (valoresConteo.includes(4)) return "Póker";
+        if (valoresConteo.includes(3) && valoresConteo.includes(2)) return "Full";
+        if (esColor) return "Color";
+        if (esEscalera) return "Escalera";
+        if (valoresConteo.includes(3)) return "Trío";
+        if (valoresConteo.filter(x => x === 2).length === 2) return "Doble pareja";
+        if (valoresConteo.includes(2)) return "Pareja";
+
+        return "Carta alta";
     }
     
 
