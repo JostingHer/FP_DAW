@@ -2,7 +2,7 @@
 ## Comentarios del proyecto
 
 
-### Email no funciona
+### investigacion: Email no funciona
 
 - **Descripción**: El proyecto no puede enviar correos electrónicos.
 - he probado hacerlo con la funcion mail() y por ultimo he probado el PHPMailer que lo instale con composer por eso esta esos archivos y el directorio vendor (ignorarlos) y no se envia el correo
