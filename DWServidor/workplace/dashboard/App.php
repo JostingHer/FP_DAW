@@ -1,4 +1,8 @@
 <?php
+// require 'vendor/autoload.php';
+
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
 class App
 {
@@ -8,6 +12,8 @@ class App
         $method = isset($_GET['method']) ? $_GET['method'] : 'login';
         $this->$method();
     }
+
+
 
 
     public function login()
@@ -98,16 +104,29 @@ class App
         }
     }
 
+    public function mail($email)
+    {
+        try {
+            $to = $email;
+            $subject = "Notificación de Inicio de Sesión en Mercado Sparking";
+            $message = "Hola,\n\nTe has registrado en Mercado Sparking.\n\nSaludos,\nMercado Sparking";
+            $headers = "From: jostinmolina30@gmail.com";
+            $headers .= "Reply-To: jostinmolina30@gmail.com\r\n";
+            $headers .= "X-Mailer: PHP/" . phpversion();
 
+            // Enviar correo
+            mail($to, $subject, $message, $headers);
+        } catch (Exception $e) {
+            echo "no quiero hacer nada";
+        }
+    }
 
     /**
      * 1. validar que el usuario y la contraseña no estén vacíos
      * 2. validar si son correctos y lanzar mensajes de errores o excepciones
      * 3. vemos si esta registrado el usuario en la cookie
-     * 4. si no esta registrado lo registramos e iniciamos sesion
+     * 4. si no esta registrado lo registramos, envaimos correo e iniciamos sesion
      * 5. y si ya esta registrado iniciamos sesion
-     * 
-     * 
      */
 
     public function authUser()
@@ -175,7 +194,12 @@ class App
             setcookie('usersList', serialize($usersList), time() + 3600 * 24, "/");
             //setcookie('usersList', json_encode($userList), time() + 3600 * 24, "/");
             $_SESSION['email'] = $email;
+
+            // enviar un correo de nuevo registro
+            $this->mail($email);
+
             header('Location: ?method=home');
+
             exit;
         } catch (InvalidEmailException $e) {
             // Capturar excepción de correo inválido y guardar el mensaje en la sesión
@@ -184,6 +208,10 @@ class App
             exit;
         } catch (InvalidPasswordException $e) {
             $_SESSION['msjInvalidPassword'] = $e->errorMessage();
+            header('Location: ?method=login');
+            exit;
+        } catch (Exception $e) {
+            echo "Error inesperado: " . $e->getMessage();
             header('Location: ?method=login');
             exit;
         }
@@ -260,4 +288,41 @@ class App
             exit();
         }
     }
+
+    // public function mail($emailDestino)
+    // {
+    //     $mail = new PHPMailer(true);
+
+    //     try {
+    //         // Configuración del servidor SMTP
+    //         $mail->isSMTP();
+    //         $mail->Host = 'smtp.gmail.com';                   // Servidor SMTP de Gmail
+    //         $mail->SMTPAuth = true;
+    //         $mail->Username = 'jostinmolina30@gmail.com';     // Dirección de correo del remitente
+    //         $mail->Password = 'contraseña_de_aplicacion';     // Contraseña de aplicación generada en Gmail
+    //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Usar TLS
+    //         $mail->Port = 587;                                // Puerto SMTP para TLS
+
+    //         // Configuración del remitente
+    //         $mail->setFrom('jostinmolina30@gmail.com', 'Mercado Sparking'); // Remitente
+
+    //         // Configuración del destinatario
+    //         $mail->addAddress($emailDestino);                 // Destinatario (parámetro de la función)
+
+    //         // Contenido del correo
+    //         $mail->isHTML(true);
+    //         $mail->Subject = 'Notificación de Inicio de Sesión en Mercado Sparking';
+    //         $mail->Body    = 'Hola,<br><br>Te has registrado en <b>Mercado Sparking</b>.<br><br>Saludos,<br>Mercado Sparking';
+    //         $mail->AltBody = 'Hola, te has registrado en Mercado Sparking. Saludos, Mercado Sparking'; // Texto alternativo para clientes sin soporte HTML
+
+    //         // Enviar el correo
+    //         if (!$mail->send()) {
+    //             throw new Exception('No se pudo enviar el correo: ' . $mail->ErrorInfo);
+    //         } else {
+    //             echo 'Correo enviado correctamente';
+    //         }
+    //     } catch (Exception $e) {
+    //         echo "Error al enviar el correo: {$e->getMessage()}";
+    //     }
+    // }
 }
