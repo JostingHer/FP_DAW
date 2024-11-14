@@ -22,7 +22,7 @@ Claro, aquí tienes el contenido reordenado y formateado de manera clara en form
 2. **Contraseña no válida**: Esto puede ocurrir debido a:
    - No cumplir con los requisitos mínimos de seguridad.
    - La contraseña proporcionada es incorrecta para el usuario registrado.
-3. **Excepciones de página 404**:
+3. OJO: TE VA A GUSTAR **Excepciones de página 404**:
    - Esta sección mejora la seguridad del proyecto al manejar errores de rutas no válidas. Las excepciones 404 pueden ocurrir en los siguientes casos:
      - Cuando se intenta acceder a una ruta que no existe.
      - Cuando un usuario no autenticado intenta acceder a una ruta restringida.
