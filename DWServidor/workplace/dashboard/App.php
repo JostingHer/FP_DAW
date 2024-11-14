@@ -1,8 +1,4 @@
 <?php
-// require 'vendor/autoload.php';
-
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
 
 class App
 {
@@ -12,9 +8,6 @@ class App
         $method = isset($_GET['method']) ? $_GET['method'] : 'login';
         $this->$method();
     }
-
-
-
 
     public function login()
     {
@@ -136,34 +129,20 @@ class App
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        // mensajes de error y validaciones
-
-        // para no acumular varibles de sesion de errores
-        // las creamos y las eliminamos en cada validacion en cada reload
-
         unset($_SESSION['msjInvalidEmail']);
         unset($_SESSION['msjInvalidPassword']);
 
         try {
 
-            // Validar el correo (lanzará una excepción si es inválido)
             $this->validateEmail($email);
-
-            // Validar la contraseña (lanzará una excepción si es inválida)
             $this->validatePassword($password);
 
-            /**
-             * json_decode
-             * si es true los objetos JSON se devuelven como arrays asociativos
-             * si es false los objetos JSON se devuelven como objetos
-             * 
-             */
+
             // $usersList = isset($_COOKIE['usersList']) ? json_decode($_COOKIE['usersList'], true) : [];
             $usersList = isset($_COOKIE['usersList']) ? unserialize($_COOKIE['usersList']) : [];
 
 
             // si ya existe el usuario - iniciamos sesion
-            // tratamos el caso de que el usuario ya exista y la contraseña sea incorrecta
             foreach ($usersList as $user) {
 
                 if ($user['email'] === $email) {
@@ -178,28 +157,19 @@ class App
                 }
             }
 
-            // si no existe el usuario si no existe lo agregamos e iniciamos sesion
 
             $newUser = [
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT) // Crear un hash seguro para la contraseña
             ];
             $usersList[] = $newUser;
-            // array_push($usersList, $newUser);
 
-            /** setCookie(clave, valor, tiempo de vida) 
-             *  "/" - significa que la cookie está disponible en todo el sitio
-             * 
-             */
+
             setcookie('usersList', serialize($usersList), time() + 3600 * 24, "/");
             //setcookie('usersList', json_encode($userList), time() + 3600 * 24, "/");
             $_SESSION['email'] = $email;
-
-            // enviar un correo de nuevo registro
             $this->mail($email);
-
             header('Location: ?method=home');
-
             exit;
         } catch (InvalidEmailException $e) {
             // Capturar excepción de correo inválido y guardar el mensaje en la sesión
@@ -272,57 +242,17 @@ class App
 
     public function searchProduct()
     {
-        // Aseguramos que se envíe una búsqueda
         if (isset($_POST['q'])) {
             $searchTerm = trim($_POST['q']);
             $products = isset($_COOKIE['products']) ? json_decode($_COOKIE['products'], true) : [];
 
-            // Filtrar productos que contengan el término de búsqueda
             $filteredProducts = array_filter($products, function ($product) use ($searchTerm) {
                 return stripos($product['name'], $searchTerm) !== false; // Búsqueda sin distinguir mayúsculas
             });
 
-            // Guardar los productos filtrados en una cookie
-            setcookie('filtered_products', json_encode(array_values($filteredProducts)), time() + (86400 * 30), "/"); // 30 días de duración
-            header("Location: ?method=searchPage"); // Redirigir a la página de búsqueda
+            setcookie('filtered_products', json_encode(array_values($filteredProducts)), time() + (86400 * 30), "/");
+            header("Location: ?method=searchPage");
             exit();
         }
     }
-
-    // public function mail($emailDestino)
-    // {
-    //     $mail = new PHPMailer(true);
-
-    //     try {
-    //         // Configuración del servidor SMTP
-    //         $mail->isSMTP();
-    //         $mail->Host = 'smtp.gmail.com';                   // Servidor SMTP de Gmail
-    //         $mail->SMTPAuth = true;
-    //         $mail->Username = 'jostinmolina30@gmail.com';     // Dirección de correo del remitente
-    //         $mail->Password = 'contraseña_de_aplicacion';     // Contraseña de aplicación generada en Gmail
-    //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Usar TLS
-    //         $mail->Port = 587;                                // Puerto SMTP para TLS
-
-    //         // Configuración del remitente
-    //         $mail->setFrom('jostinmolina30@gmail.com', 'Mercado Sparking'); // Remitente
-
-    //         // Configuración del destinatario
-    //         $mail->addAddress($emailDestino);                 // Destinatario (parámetro de la función)
-
-    //         // Contenido del correo
-    //         $mail->isHTML(true);
-    //         $mail->Subject = 'Notificación de Inicio de Sesión en Mercado Sparking';
-    //         $mail->Body    = 'Hola,<br><br>Te has registrado en <b>Mercado Sparking</b>.<br><br>Saludos,<br>Mercado Sparking';
-    //         $mail->AltBody = 'Hola, te has registrado en Mercado Sparking. Saludos, Mercado Sparking'; // Texto alternativo para clientes sin soporte HTML
-
-    //         // Enviar el correo
-    //         if (!$mail->send()) {
-    //             throw new Exception('No se pudo enviar el correo: ' . $mail->ErrorInfo);
-    //         } else {
-    //             echo 'Correo enviado correctamente';
-    //         }
-    //     } catch (Exception $e) {
-    //         echo "Error al enviar el correo: {$e->getMessage()}";
-    //     }
-    // }
 }

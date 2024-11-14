@@ -1,69 +1,61 @@
+Claro, aquí tienes el contenido reordenado y formateado de manera clara en formato **Markdown**:
 
-## Comentarios del proyecto
+---
 
+## Comentarios del Proyecto
 
-### investigacion: Email no funciona
+### Investigación: El email no funciona
 
 - **Descripción**: El proyecto no puede enviar correos electrónicos.
-- he probado hacerlo con la funcion mail() y por ultimo he probado el PHPMailer que lo instale con composer por eso esta esos archivos y el directorio vendor (ignorarlos) y no se envia el correo
-- No se si lo he configurado mal 
-- He investigado y si esta bien configurado y no se llegan los correos es porque google email ha restringido el acceso a aplicaciones no seguras, esto siempre ha estado restirngido por defecto y lo podias cambiar, lo que pasa es que desde otoño de 2024 han quitado el poder cambiarlo.
+- He probado con la función `mail()` y luego intenté usar PHPMailer, que instalé con Composer. Sin embargo, no se envían los correos.
+- No sé si lo he configurado mal. He investigado y parece que está bien configurado, pero los correos no llegan porque Google ha restringido el acceso a aplicaciones no seguras. Este acceso siempre estuvo restringido por defecto, pero anteriormente se podía cambiar. Desde el otoño de 2024, han eliminado la opción para modificarlo.
+  
+  Por lo tanto, no se puede enviar correos de esta manera. Como alternativa, podría intentar con otros servicios de correo como Outlook o Hotmail, o utilizar la autenticación con OAuth.
 
-Por ello no se puede, tambien se podria intentare con servicio de correo como es outlook o hotmail.
-- o probar otra forma, en el articulo habla de la autenticacion con 0Auth
+- **Artículo de referencia**: [Google Support](https://support.google.com/a/answer/6260879?hl=es)
 
+---
 
-Articulo de referencia:
-https://support.google.com/a/answer/6260879?hl=es 
+### Excepciones
 
+1. **Correo no válido**: Cuando el correo proporcionado no cumple con el formato esperado.
+2. **Contraseña no válida**: Esto puede ocurrir debido a:
+   - No cumplir con los requisitos mínimos de seguridad.
+   - La contraseña proporcionada es incorrecta para el usuario registrado.
+3. **Excepciones de página 404**:
+   - Esta sección mejora la seguridad del proyecto al manejar errores de rutas no válidas. Las excepciones 404 pueden ocurrir en los siguientes casos:
+     - Cuando se intenta acceder a una ruta que no existe.
+     - Cuando un usuario no autenticado intenta acceder a una ruta restringida.
 
-### Excepciones 
+   - En lugar de mostrar el contenido de la ruta, se redirige a una página de error 404 con un mensaje de error y un enlace al **login**.
 
-- Si el correo no es valido
-- Si la contraseña no es valida 
-    - ya sea porque no cumple los requisitos minimos
-    - o si la contraseña es de un usuario registrado y ha puesto una contraseña que no es
+   - **Escenario**: Si estás en la página de login (`dashboard/main.php`) o ya has iniciado sesión y luego cerrado la sesión (`dashboard/main.php?method=login`), y luego intentas modificar la URL manualmente a una ruta que no existe o a una ruta no permitida (por ejemplo, `dashboard/main.php?method=home`), serás redirigido a la página de error: `dashboard/main.php?method=errorPage`.
 
-- la excepcion de paginas 404:
+---
 
-Esta seccion es bastante buena y le da mas seguridad a la pagina, ¿cuando salta?
+### Aspectos a mejorar
 
-- Cuando se intenta acceder a una ruta que no existe
-- Cuando se intenta acceder a una ruta que no tiene permisos para acceder - usuario no logueado o no tiene permisos para acceder a esa ruta
-- en lugar de mostrar el contenido de la ruta, muestra una pagina de error 404 con un mensaje de error y un enlace al login page
+1. **No se envía el correo**: Aún no se ha resuelto el problema con el envío de correos electrónicos.
+2. **Función `authUser`**: La función `authUser` es muy grande. Intenté dividirla, pero sigue siendo extensa. Podría crear dos funciones separadas: una para la autenticación (`auth`) y otra para el login (`login`). Sin embargo, la función actual es comprensible y clara gracias a los comentarios que explican cada parte del proceso.
+3. **Método `buscar - filteredproductos`**: Este método debería ser una variable de sesión para mejorar la persistencia de los filtros aplicados en la búsqueda de productos.
+4. **Agregar productos repetidos**: Actualmente, los productos se pueden agregar varias veces con el mismo nombre pero diferente precio, lo que genera redundancia.
+   
+   - **Posibles soluciones**:
+     - Una solución sería, en lugar de guardar solo el nombre, guardar el nombre y un array de pedidos con los diferentes precios.
+     - En la tabla de productos, mostrar la cantidad total de cada producto y el precio medio.
+     - Alternativamente, no mostrar el precio medio, sino crear una sección adicional donde se detallen los pedidos de cada producto (incluyendo la fuente de cada precio).
+     - Otra opción sería evitar agregar el producto más de una vez, y permitir solo la modificación de la cantidad. Sin embargo, esto podría generar problemas si los productos tienen precios diferentes.
 
-- digamos que estas en la pagina de login: dashboard/main.php
-o has iniciado sesion y luego cerrado: dashboard/main.php?method=login
+   **Mi opción preferida** sería la primera solución (guardar nombre y array de pedidos), pero por tiempo no la implementaré ahora.
 
-e intentas modificar la url sin iniciar sesion y pones: dashboard/main.php?method=home a mano
-te saltar al pagina de error: dashboard/main.php?method=errorPage
+5. **Diseño**: El diseño es mejorable. Es importante que la página se vea bien en dispositivos con distintos tamaños de pantalla, por lo que se debe mejorar la adaptabilidad (diseño responsive).
 
+---
 
+### Nota
 
-### Aspectos a mejorar un  monton:
+- Desinstalé Composer porque instalaba muchas dependencias que al final no eran útiles y no solucionaban el problema.
 
-- no se envia el correo
-- no me gusta nada la funcion authUser es muy grande, intente dividirla pero sigue siendo grande podria hacer dos una
- de auth y otra de login, pero se lee bien y sen entiende lo que quiero hace y lo que hace cada cosa con comentarios claros
+---
 
-- metodo buscar - filteredproductos deberia ser una varible de session
-
-- agregar productos, se repiten los productos formas de solucionarlo
-    - esto se complica debido a que los productos pueden repetirse el nombre pero el precio puede ser el mismo o no
-    - lo arreglaria pues en lugar de guardar producto(nombre, precio, cantidad), guardaria nombre y un array de pedidos
-    - en la tabla mostraria la cantidad suma de los pedidos y precio medio
-    - tambien no poner el precio medio, si no poner una seccion nueva que sea pedidos del producto donde se muestre de donde sacan los datos de se producto
-
-
-    - otra opcion seria una vez agregado el producto que no se vuelva agregar, y poner en la tabla
-     dos input number de aumentar y disminuir cantidad, pero puede haber muchos problemas diferentes precios
-
-    - yo haria la primera opcion, por tiempo no lo hare ahora.
-
-
-- diseño es mejorable, sobre todo hacer que la pagina se vea bien en diferentes dispositivos es decir para distintos tamños de pantalla
-
-
-
-PD: He desistalado el composer porque me instalaba muchas cosas y al final ni siquiera me funciono.
-
+Este es el contenido estructurado de manera más clara y ordenada. Los comentarios están formateados en listas y subtítulos para facilitar la lectura y comprensión.
