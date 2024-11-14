@@ -1,0 +1,40 @@
+Name,Company,Service URL,Year of Publication,Category,Description,Price
+ChatGPT,OpenAI,https://chat.openai.com,2022,Text,"AI chatbot based on a large language model",Free/Paid
+Claude,Anthropic,https://www.anthropic.com,2023,Text,"Conversational AI assistant prioritizing safety",Free/Paid
+Google Gemini,Google,https://gemini.google.com,2023,Text,"Multimodal AI models",Free/Paid
+Canva,Canva,https://www.canva.com,2021,Images,"Graphic design tool with AI features",Free/Paid
+DeepL,DeepL,https://www.deepl.com,2020,Text,"AI-based translation service",Free/Paid
+Character AI,Character AI,https://www.character.ai,2022,Text,"AI tool for creating chatbots",Free/Paid
+Remove.bg,Remove.bg,https://www.remove.bg,2021,Images,"Remove backgrounds from images",Free/Paid
+JanitorAI,JanitorAI,https://www.janitor.ai,2022,Text,"AI tool for cleaning up text",Free/Paid
+QuillBot,QuillBot,https://www.quillbot.com,2020,Text,"AI writing assistant",Free/Paid
+Grammarly,Grammarly,https://www.grammarly.com,2016,Text,"Grammar and spell-check tool",Free/Paid
+Perplexity AI,Perplexity AI,https://www.perplexity.ai,2023,Text,"Conversational search engine",Free/Paid
+Suno,OpenAI,https://www.suno.ai,2022,Audio,"AI tool for generating speech",Free/Paid
+CapCut,Bytedance,https://www.capcut.com,2021,Video,"Video editing tool with AI features",Free/Paid
+Poe,OpenAI,https://www.poe.com,2022,Text,"AI tool for generating poetry",Free/Paid
+Quizizz,Quizizz,https://www.quizizz.com,2020,Text,"Interactive quiz tool",Free/Paid
+Microsoft Copilot,Microsoft,https://www.microsoft.com/copilot,2024,Text,"AI assistant for productivity",Free/Paid
+Luma AI,Luma AI,https://www.luma.ai,2022,Images,"AI tool for video editing",Free/Paid
+ElevenLabs,ElevenLabs,https://www.elevenlabs.com,2022,Audio,"AI tool for generating voices",Free/Paid
+OpenAI Playground,OpenAI,https://www.openai.com/playground,2022,Text,"AI tool for experimenting with models",Free/Paid
+DeepAI,DeepAI,https://www.deepai.org,2020,Images/Text,"AI tool for various tasks",Free/Paid
+ChatGPT Plus,OpenAI,https://chat.openai.com,2022,Text,"Paid version of ChatGPT with faster response times",Paid
+Claude 3,Anthropic,https://www.anthropic.com,2024,Text,"Latest version of Claude AI",Free/Paid
+Canva Pro,Canva,https://www.canva.com,2021,Images,"Pro version of Canva with more features",Paid
+DeepL Pro,DeepL,https://www.deepl.com,2020,Text,"Pro version of DeepL with more features",Paid
+Character AI Pro,Character AI,https://www.character.ai,2022,Text,"Pro version of Character AI",Paid
+Remove.bg Pro,Remove.bg,https://www.remove.bg,2021,Images,"Pro version of Remove.bg with more features",Paid
+JanitorAI Pro,JanitorAI,https://www.janitor.ai,2022,Text,"Pro version of JanitorAI",Paid
+QuillBot Pro,QuillBot,https://www.quillbot.com,2020,Text,"Pro version of QuillBot with more features",Paid
+Grammarly Premium,Grammarly,https://www.grammarly.com,2016,Text,"Premium version of Grammarly with more features",Paid
+Perplexity AI Pro,Perplexity AI,https://www.perplexity.ai,2023,Text,"Pro version of Perplexity AI",Paid
+Suno Pro,OpenAI,https://www.suno.ai,2022,Audio,"Pro version of Suno with more features",Paid
+CapCut Pro,Bytedance,https://www.capcut.com,2021,Video,"Pro version of CapCut with more features",Paid
+Poe Pro,OpenAI,https://www.poe.com,2022,Text,"Pro version of Poe with more features",Paid
+Quizizz Pro,Quizizz,https://www.quizizz.com,2020,Text,"Pro version of Quizizz with more features",Paid
+Microsoft Copilot Pro,Microsoft,https://www.microsoft.com/copilot,2024,Text,"Pro version of Microsoft Copilot",Paid
+Luma AI Pro,Luma AI,https://www.luma.ai,2022,Images,"Pro version of Luma AI",Paid
+ElevenLabs Pro,ElevenLabs,https://www.elevenlabs.com,2022,Audio,"Pro version of ElevenLabs",Paid
+OpenAI Playground Pro,OpenAI,https://www.openai.com/playground,2022,Text,"Pro version of OpenAI Playground",Paid
+DeepAI Pro,DeepAI,https://www.deepai.org,2020,Images/Text,"Pro version of DeepAI",Paid

@@ -1,0 +1,9 @@
+#Modificar página inicial
+DirectoryIndex main.php
+#Activar motor de reescritura
+RewriteEngine On  
+#No sobreescribir directorios o ficheros si existen
+RewriteCond %{SCRIPT_FILENAME} !-d 
+RewriteCond %{SCRIPT_FILENAME} !-f 
+#Regla de reescritura de la URL con expresión regular
+RewriteRule ^(.*)$ main.php?method=$1 [QSA,L]
