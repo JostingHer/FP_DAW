@@ -1,5 +1,7 @@
 <?php
 
+require_once 'models/Model.php';
+
 class Tool
 {
     // Atributos privados
@@ -22,12 +24,44 @@ class Tool
             $statement = $conexion->query($query);
 
             // Usar PDO::FETCH_CLASS para mapear los resultados a objetos Libro
-            $libros = $statement->fetchAll(PDO::FETCH_CLASS, Tool::class);
+            $tools = $statement->fetchAll(PDO::FETCH_CLASS, Tool::class);
 
-            return $libros;
+            return $tools;
         } else {
             return [];
         }
+    }
+
+    public static function paginate($page = 1, $size = 10)
+    {
+        //obtener conexión
+        $db = Model::getConnection();
+        //preparar consulta
+        $sql = "SELECT count(id) FROM IAs";
+        //ejecutar
+        $statement = $db->query($sql);
+        //recoger datos con fetch_all
+        $n = (int) $statement->fetch()[0]; //registros
+        $n = ceil($n / $size); //pages
+
+        $offset = ($page - 1) * $size;
+        $sql1 = "SELECT * FROM IAs LIMIT $offset, $size";
+        // $sql2 = "SELECT * FROM IAs WHERE id > $offset LIMIT $size";
+        // $sql3 = "SELECT * FROM IAs";
+        // //ejecutar
+        // $antes = microtime();
+        $statement = $db->query($sql1);
+        $despues = microtime();
+        // echo $despues - $antes;
+        //recoger datos con fetch_all
+        $tools = $statement->fetchAll(PDO::FETCH_CLASS, Tool::class);
+        //retornar
+        $pages = new stdClass;
+
+        $pages->tools = $tools;
+        $pages->n = $n;
+
+        return $pages;
     }
 
 
@@ -67,9 +101,9 @@ class Tool
         return $this->url;
     }
 
-    public function setServiceUrl($serviceUrl)
+    public function setUrl($url)
     {
-        $this->url = $serviceUrl;
+        $this->url = $url;
     }
 
     public function getYearOfPublication()
