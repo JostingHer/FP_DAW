@@ -18,29 +18,22 @@
 
     <div class="row mt-2">
       <div id="divBotones" class="col text-center">
-        <button id="btnNuevo" class="btn btn-danger">Nuevo Juego</button>
+        <button id="start" class="btn btn-danger">Nuevo Juego</button>
       </div>
     </div>
 
     <main class="container-app">
-      <div class="jugador">
+      <div class="player">
         <h2>Jugador 1</h2>
-        <div class="cartas">
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
+        <div id="container-cards-player" class="listCards">
+          <!-- aqui van las cartas -->
         </div>
       </div>
-      <div class="jugador">
-        <h2>Jugador 2</h2>
-        <div class="cartas">
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
-          <img src="./assets/cartas/c1.svg" alt="carta" />
+
+      <div class="player player-computer">
+        <h2>Computadora</h2>
+        <div id="container-cards-computer" class="listCards">
+          <!-- aqui van las cartas -->
         </div>
       </div>
     </main>

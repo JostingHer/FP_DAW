@@ -28,6 +28,10 @@ export class Carta {
         }
     }
 
+    toStringUrlImg(){
+        return `${this.palo}${this.valor}`;
+    }
+
     toString() {
         // Nombres de los valores
         const nombresValores = {
