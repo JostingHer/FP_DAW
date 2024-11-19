@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .calculator {
+        border: 0px solid #fff;
+        width: 280px;
+        box-sizing: border-box;
+        margin: 10px auto 0;
+        font-family: verdana;
+      }
+
+      .form-control {
+        height: 60px;
+      }
+
+      .form-group {
+        margin-bottom: 0;
+        text-align: center;
+        margin-right: 1%;
+        margin-left: 0%;
+      }
+
+      input[type="text"] {
+        font-size: 1.5rem;
+        color: #333;
+        width: 98%;
+      }
+
+      .btn {
+        font-size: 1.5rem;
+        color: #333;
+        width: 80px;
+      }
+
+      .btn-op {
+        background-color: #999999;
+      }
+
+      .btn-ac {
+        background-color: #999999;
+        height: 60px;
+      }
+
+      .cabecera {
+        padding: 10px;
+      }
+
+      .radio {
+        width: 280px;
+        margin: 40px auto 0;
+        font-family: verdana;
+        font-size: 1rem;
+        font-weight: normal;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="calculator">
+      <thead>
+        <tr>
+          <td colspan="6" class="cabecera">
+            Calculadora
+            <input
+              title="lo"
+              id="estandarCalculator"
+              type="radio"
+              value="estandar"
+              name="tipo"
+              id="estandar"
+              checked
+            />
+            Estándar
+            <input
+              id="CalculadoraCintifica"
+              title="lo"
+              type="radio"
+              value="estandar"
+              name="tipo"
+              id="cientifica"
+            />
+            Científica
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <button class="btn btn-ac" id="ac">AC</button>
+          </td>
+          <td colspan="3">
+            <div class="form-group">
+              <input
+                title="bar"
+                type="text"
+                class="form-control"
+                readonly
+                name="pantalla"
+                id="pantalla"
+                value="0"
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-op" id="division">÷</button>
+          </td>
+          <td>
+            <button class="btn" value="7" id="Number">7</button>
+          </td>
+          <td>
+            <button class="btn" value="8" id="Number">8</button>
+          </td>
+          <td>
+            <button class="btn" value="9" id="Number">9</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="signo">+/-</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="seno">sin</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-op" id="multiplicacion">×</button>
+          </td>
+          <td>
+            <button class="btn" value="4" id="Number">4</button>
+          </td>
+          <td>
+            <button class="btn" value="5" id="Number">5</button>
+          </td>
+          <td>
+            <button class="btn" value="6" id="Number">6</button>
+          </td>
+
+          <td>
+            <button class="btn btn-op hidden" id="pi">π</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="coseno">cos</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-op" id="resta">-</button>
+          </td>
+          <td>
+            <button class="btn" value="3" id="Number">3</button>
+          </td>
+          <td>
+            <button class="btn" value="2" id="Number">2</button>
+          </td>
+          <td>
+            <button class="btn" value="1" id="Number">1</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="e">e</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="tangente">tan</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-op" id="suma">+</button>
+          </td>
+          <td>
+            <button class="btn btn-op" id="punto">.</button>
+          </td>
+          <td>
+            <button class="btn" value="0" id="Number">0</button>
+          </td>
+          <td>
+            <button class="btn btn-op" id="igual">=</button>
+          </td>
+
+          <td>
+            <button class="btn btn-op hidden" id="raiz">√</button>
+          </td>
+          <td>
+            <button class="btn btn-op hidden" id="cuadrado">x²</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      // seleccionar los radio btn
+      //   const radio = document.querySelectorAll('input[type="radio"]');
+      //   console.log(radio);
+
+      const switchCalculator = document.querySelector("#CalculadoraCintifica");
+      const estandarCalculator = document.querySelector("#estandarCalculator");
+      const hiddenButtons = document.querySelectorAll(".hidden");
+
+      // cada vez que se cambie el valor del input radio se ejecutará la función
+
+      switchCalculator.addEventListener("change", () => {
+        hiddenButtons.forEach((button) => {
+          button.classList.remove("hidden");
+        });
+      });
+      estandarCalculator.addEventListener("change", () => {
+        hiddenButtons.forEach((button) => {
+          button.classList.add("hidden");
+        });
+      });
+
+      const pantalla = document.querySelector("#pantalla");
+
+      function addCaracter(nuevoCaracter) {
+        // hacer un split de operaciones y validar que no se repita el punto
+
+        let operaciones = pantalla.value.split(/[\+\-\*\/]/);
+
+        if (
+          operaciones[operaciones.length - 1].includes(".") &&
+          nuevoCaracter === "."
+        ) {
+          return pantalla.value;
+        } else {
+          return (pantalla.value += nuevoCaracter);
+        }
+      }
+
+      // calculadora
+      const numberList = document.querySelectorAll("#Number");
+      const changeSignoNumber = document.querySelector("#signo");
+
+      numberList.forEach((number) => {
+        number.addEventListener("click", () => {
+          if (pantalla.value === "0") {
+            pantalla.value = number.value;
+          } else {
+            pantalla.value += number.value;
+          }
+        });
+      });
+
+      changeSignoNumber.addEventListener("click", () => {
+        pantalla.value = pantalla.value * -1;
+      });
+
+      const operacion = document.querySelectorAll(".btn-op");
+      const suma = document.querySelector("#suma");
+      const resta = document.querySelector("#resta");
+      const multiplicacion = document.querySelector("#multiplicacion");
+      const division = document.querySelector("#division");
+      const igual = document.querySelector("#igual");
+
+      // operacions especiales si se ejecuta la operacion se añade al input text el resultado y listo
+      const seno = document.querySelector("#seno");
+      const coseno = document.querySelector("#coseno");
+      const tangente = document.querySelector("#tangente");
+      const raiz = document.querySelector("#raiz");
+      const cuadrado = document.querySelector("#cuadrado");
+      const pi = document.querySelector("#pi");
+      const e = document.querySelector("#e");
+
+      suma.addEventListener("click", () => {
+        pantalla.value = addCaracter("+");
+      });
+
+      resta.addEventListener("click", () => {
+        pantalla.value = addCaracter("-");
+      });
+
+      multiplicacion.addEventListener("click", () => {
+        pantalla.value = addCaracter("*");
+      });
+
+      division.addEventListener("click", () => {
+        pantalla.value = addCaracter("/");
+      });
+
+      const punto = document.querySelector("#punto");
+      punto.addEventListener("click", () => {
+        pantalla.value = addCaracter(".");
+      });
+
+      igual.addEventListener("click", () => {
+        // si le poners los devidos caracters hace las operaciones bien
+        // auqnue no se puede hacer operaciones con parentesis
+        // auque sea un string lo evalua como una operacion
+        pantalla.value = eval(pantalla.value);
+      });
+
+      seno.addEventListener("click", () => {
+        pantalla.value = Math.sin(pantalla.value);
+      });
+
+      coseno.addEventListener("click", () => {
+        pantalla.value = Math.cos(pantalla.value);
+      });
+      tangente.addEventListener("click", () => {
+        pantalla.value = Math.tan(pantalla.value);
+      });
+
+      raiz.addEventListener("click", () => {
+        pantalla.value = Math.sqrt(pantalla.value);
+      });
+
+      cuadrado.addEventListener("click", () => {
+        pantalla.value = Math.pow(eval(pantalla.value), 2);
+      });
+
+      pi.addEventListener("click", () => {
+        pantalla.value = Math.PI;
+      });
+
+      e.addEventListener("click", () => {
+        pantalla.value = Math.E;
+      });
+
+      const ac = document.querySelector("#ac");
+      ac.addEventListener("click", () => {
+        pantalla.value = "0";
+      });
+    </script>
+  </body>
+</html>
