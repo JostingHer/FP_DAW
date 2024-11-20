@@ -20,6 +20,8 @@ export class Game {
         return ranking[jugada] || 0;
     }
 
+    
+
     // Método para determinar el ganador del juego
     determinarGanador() {
         const jugadaJugador1 = this.jugador1.evaluarJugada();

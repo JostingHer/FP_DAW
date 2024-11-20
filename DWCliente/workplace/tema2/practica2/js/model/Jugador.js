@@ -53,12 +53,17 @@ export class Jugador {
         const valoresOrdenados = [...new Set(valores)].sort((a, b) => a - b);
         const esEscalera = valoresOrdenados.length === 5 && valoresOrdenados[4] - valoresOrdenados[0] === 4;
 
-        // Comprobar combinaciones de cartas
+        console.log(valores)
         const conteoValores = valores.reduce((contador, valor) => {
             contador[valor] = (contador[valor] || 0) + 1;
             return contador;
         }, {});
 
+
+        // otra froma de hacer el conteo de valores
+        
+
+        console.log("hola",conteoValores)
         const valoresConteo = Object.values(conteoValores);
 
         if (esColor && esEscalera) return "Escalera de color";
