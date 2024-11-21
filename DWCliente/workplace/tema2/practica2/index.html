@@ -13,11 +13,14 @@
     <div class="nav">
       <div id="divBotones" class="col text-center">
         <button id="start" class="btn">Nuevo Juego</button>
-        <button id="start" class="btn">Nuevo Juego</button>
-        <button id="start" class="btn">Nuevo Juego</button>
-        <button id="start" class="btn">Nuevo Juego</button>
-        <button id="start" class="btn">Nuevo Juego</button>
+        <button id="trioMove" class="btn">Trio</button>
+        <button id="escaleraMove" class="btn">Escalera</button>
+        <button id="colorMove" class="btn">Color</button>
+        <button id="fullMove" class="btn">Full</button>
+        <button id="pokerMove" class="btn">Poker</button>
+        <button id="escaleraColorMove" class="btn">Escalera de color</button>
       </div>
+      <h2 id="Result-game"></h2>
     </div>
 
     <main class="container-app">
@@ -25,6 +28,11 @@
         <h2>Jugador 1 -<span id="result-player"></span></h2>
         <div id="container-cards-player" class="listCards">
           <!-- aqui van las cartas -->
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
         </div>
       </div>
 
@@ -32,8 +40,20 @@
         <h2>Computadora -<span id="result-computer"></span></h2>
         <div id="container-cards-computer" class="listCards">
           <!-- aqui van las cartas -->
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
+          <img src="./assets/cartas/dorso-rojo.svg" alt="start" />
         </div>
       </div>
+      <!-- <button commandfor="my-details" command="open">Open Details</button> -->
+      <!-- Can be used to replicate the `<summary>` interaction -->
+      <!-- ojo: https://open-ui.org/components/invokers.explainer/ -->
+      <!-- <details id="my-details">
+        <summary>Summary...</summary>
+        Hello world!
+      </details> -->
     </main>
 
     <script type="module" src="main.js"></script>

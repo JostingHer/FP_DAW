@@ -31,12 +31,12 @@ export class Game {
         const valorJugadaJugador2 = this.valorMano(jugadaJugador2);
 
         console.log(`Jugada del Jugador 1: ${jugadaJugador1}`);
-        console.log(`Jugada del Jugador 2: ${jugadaJugador2}`);
+        console.log(`Jugada del Computadora: ${jugadaJugador2}`);
 
         if (valorJugadaJugador1 > valorJugadaJugador2) {
             return "El Jugador 1 gana con " + jugadaJugador1;
         } else if (valorJugadaJugador1 < valorJugadaJugador2) {
-            return "El Jugador 2 gana con " + jugadaJugador2;
+            return "El Computadora gana con " + jugadaJugador2;
         } else {
             return "Es un empate con " + jugadaJugador1;
         }
