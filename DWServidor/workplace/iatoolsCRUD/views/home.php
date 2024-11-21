@@ -11,6 +11,14 @@
 
 <body>
     <div class="container">
+        <header class="header">
+            <h1 class="header__title"><a href="?method=home">Colección de IAS</a></h1>
+            <ul class="header__nav">
+                <li><a class="btn" href="?method=home">Inicio</a></li>
+                <li><a class="btn" href="?method=addProduct">Agregar IAs</a></li>
+                <li><a class="btn" href="?method=logout">Cerrar sesión</a></li>
+            </ul>
+        </header>
         <main class="main-table">
             <table class="table-desktop">
 
@@ -22,6 +30,7 @@
                         <th>URL</th>
                         <th>Year</th>
                         <th>Category</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-desktop__body">
@@ -38,6 +47,7 @@
                         echo "<td>" . $ia->getUrl() . "</td>";
                         echo "<td>" . $ia->getYearOfPublication() . "</td>";
                         echo "<td>" . $ia->getCategory() . "</td>";
+                        echo "<td><a class='btn' href='?method=editProduct&id=" . $ia->getId() . "'>Edit</a> <a class='btn btn-delete' href='?method=deleteProduct&id=" . $ia->getId() . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                     ?>

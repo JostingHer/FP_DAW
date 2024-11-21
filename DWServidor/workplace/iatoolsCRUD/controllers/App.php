@@ -31,6 +31,41 @@ class App
         include("views/home.php");
     }
 
+    public function addProduct()
+    {
+        include("views/formia.php");
+    }
+    public function updateProduct()
+    {
+        $iaUpdate = Tool::obtenerIAbyId();
+
+        include("views/formiaUpdate.php");
+    }
+
+    public function insertIAs()
+    {
+
+        Tool::insertarNuevaIA();
+        include("views/formia.php");
+    }
+    public function deleteProduct()
+    {
+        Tool::deleteIA();
+        $this->home();
+    }
+
+    public function editProduct()
+    {
+        //Tool::editIA();
+
+        // hay que hacer un consulta 
+        // y luego hay que setear el formularip
+        // y luegp hay que hacer un update, eliminar y crear uno con el mismo id
+        $this->home();
+    }
+
+
+
 
     public function getAllTools()
     {

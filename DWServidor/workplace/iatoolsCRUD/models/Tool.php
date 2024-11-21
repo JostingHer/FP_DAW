@@ -15,6 +15,90 @@ class Tool
     private $price;
 
 
+    public static function insertarNuevaIA()
+    {
+        // Obtener conexión desde Model
+        // con binvalue
+
+        $mensaje = "";
+        try {
+            $conexion = Model::getConnection();
+
+            $query = "INSERT INTO IAs (name, company, url, year, category, description, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $statement = $conexion->prepare($query);
+
+            $statement->bindValue(1, $_POST['name']);
+            $statement->bindValue(2, $_POST['company']);
+            $statement->bindValue(3, $_POST['url']);
+            $statement->bindValue(4, $_POST['year']);
+            $statement->bindValue(5, $_POST['category']);
+            $statement->bindValue(6, $_POST['description']);
+            $statement->bindValue(7, $_POST['price']);
+
+            $statement->execute();
+
+
+            $mensaje = "Inserccion de tienda exitosa";
+        } catch (PDOException $e) {
+            //echo "Problema en la conexion aqui";
+            $mensaje =  $e->getMessage();
+            $conexion->rollback();
+        } catch (Exception $b) {
+            $mensaje = "Problema en la conexion dos";
+            $conexion->rollback();
+        }
+    }
+
+    public static function deleteIA()
+    {
+
+        $mensaje = "";
+        try {
+            $conexion = Model::getConnection();
+            $query = "DELETE FROM IAs WHERE id = ?";
+            $statement = $conexion->prepare($query);
+            $statement->bindValue(1, $_GET['id']);
+            $statement->execute();
+
+
+            $mensaje = "Eliminacion exitosa";
+        } catch (PDOException $e) {
+            //echo "Problema en la conexion aqui";
+            $mensaje =  $e->getMessage();
+            $conexion->rollback();
+        } catch (Exception $b) {
+            $mensaje = "Problema en la conexion dos";
+            $conexion->rollback();
+        }
+    }
+
+    public static function editIA()
+    {
+        $mensaje = "";
+        try {
+            $conexion = Model::getConnection();
+            $query = "UPDATE IAs SET name = ?, company = ?, url = ?, year = ?, category = ?, description = ?, price = ? WHERE id = ?";
+            $statement = $conexion->prepare($query);
+            $statement->bindValue(1, $_POST['name']);
+            $statement->bindValue(2, $_POST['company']);
+            $statement->bindValue(3, $_POST['url']);
+            $statement->bindValue(4, $_POST['year']);
+            $statement->bindValue(5, $_POST['category']);
+            $statement->bindValue(6, $_POST['description']);
+            $statement->bindValue(7, $_POST['price']);
+            $statement->bindValue(8, $_GET['id']);
+            $statement->execute();
+            $mensaje = "Actualizacion exitosa";
+        } catch (PDOException $e) {
+            //echo "Problema en la conexion aqui";
+            $mensaje =  $e->getMessage();
+            $conexion->rollback();
+        } catch (Exception $b) {
+            $mensaje = "Problema en la conexion dos";
+            $conexion->rollback();
+        }
+    }
+
     public static function obtenerTodos()
     {
         // Obtener conexión desde Model
@@ -31,6 +115,25 @@ class Tool
             return [];
         }
     }
+
+    public static function obtenerIAbyId()
+    {
+
+        $conexion = Model::getConnection();
+        if ($conexion) {
+            $query = "SELECT * FROM IAs WHERE id = ?";
+            $statement = $conexion->prepare($query);
+            $statement->bindValue(1, $_GET['id']);
+            $statement->execute();
+            $tools = $statement->fetchAll(PDO::FETCH_CLASS, Tool::class);
+            return $tools[0];
+        } else {
+            return [];
+        }
+    }
+
+
+
 
     public static function paginate($page = 1, $size = 10)
     {
