@@ -1,4 +1,4 @@
-export class Jugador {
+ class Jugador {
     nombre;
     mano;
 

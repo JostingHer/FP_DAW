@@ -1,4 +1,4 @@
-export class Carta {
+class Carta {
     constructor(palo, valor) {
         // Validamos los datos al crear una carta
         if (this.esPaloValido(palo) && this.esValorValido(valor)) {

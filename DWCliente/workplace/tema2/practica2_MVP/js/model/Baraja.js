@@ -1,6 +1,6 @@
-import { Carta } from './Carta.js';
+// import { Carta } from './Carta.js';
 
-export class Baraja {
+class Baraja {
 
     listaCartas;
 

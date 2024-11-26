@@ -1,4 +1,3 @@
-import { Baraja, Jugador, Game, Carta } from './model/index.js'
 
 
 
@@ -13,7 +12,7 @@ const initAppFull = document.querySelector('#fullMove');
 const initAppEscaleraColor = document.querySelector('#escaleraColorMove');
 
 
-
+  
 
 const containerCardPlayer = document.querySelector('#container-cards-player');
 const containerCardComputer = document.querySelector('#container-cards-computer');
@@ -37,11 +36,11 @@ initApp.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador1.pedirCarta(baraja.reparteCarta());
         jugador2.pedirCarta(baraja.reparteCarta());
         
@@ -71,8 +70,8 @@ initApp.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -88,14 +87,14 @@ initAppTrio.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('d', 1);
-    let carta3 = new Carta('p', 1);
-    let carta4 = new Carta('t', 2);
-    let carta5 = new Carta('c', 3);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('d', 1);
+    constcarta3 = new Carta('p', 1);
+    constcarta4 = new Carta('t', 2);
+    constcarta5 = new Carta('c', 3);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
@@ -103,7 +102,7 @@ initAppTrio.addEventListener("click", () => {
 
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -123,8 +122,8 @@ initAppTrio.addEventListener("click", () => {
    resultGame.innerHTML = "";
  
   
-   let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-   let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+   constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+   constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
    cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
    cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -140,19 +139,19 @@ initAppPoker.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('d', 1);
-    let carta3 = new Carta('p', 1);
-    let carta4 = new Carta('t', 1);
-    let carta5 = new Carta('c', 2);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('d', 1);
+    constcarta3 = new Carta('p', 1);
+    constcarta4 = new Carta('t', 1);
+    constcarta5 = new Carta('c', 2);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -167,8 +166,8 @@ initAppPoker.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -186,19 +185,19 @@ initAppEscalera.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('d', 2);
-    let carta3 = new Carta('p', 3);
-    let carta4 = new Carta('t', 4);
-    let carta5 = new Carta('c', 5);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('d', 2);
+    constcarta3 = new Carta('p', 3);
+    constcarta4 = new Carta('t', 4);
+    constcarta5 = new Carta('c', 5);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -211,8 +210,8 @@ initAppEscalera.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -229,19 +228,19 @@ initAppColor.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('c', 2);
-    let carta3 = new Carta('c', 8);
-    let carta4 = new Carta('c', 7);
-    let carta5 = new Carta('c', 5);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('c', 2);
+    constcarta3 = new Carta('c', 8);
+    constcarta4 = new Carta('c', 7);
+    constcarta5 = new Carta('c', 5);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -258,8 +257,8 @@ initAppColor.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -276,19 +275,19 @@ initAppFull.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('d', 1);
-    let carta3 = new Carta('p', 1);
-    let carta4 = new Carta('t', 2);
-    let carta5 = new Carta('c', 2);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('d', 1);
+    constcarta3 = new Carta('p', 1);
+    constcarta4 = new Carta('t', 2);
+    constcarta5 = new Carta('c', 2);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -302,8 +301,8 @@ initAppFull.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
@@ -320,19 +319,19 @@ initAppEscaleraColor.addEventListener("click", () => {
     const baraja =  new Baraja();
     baraja.barajar();
 
-    let jugador1 = new Jugador("Jugador 1", []);
-    let jugador2 = new Jugador("Computadora", []);
+    constjugador1 = new Jugador("Jugador 1", []);
+    constjugador2 = new Jugador("Computadora", []);
 
-    let carta1 = new Carta('c', 1);
-    let carta2 = new Carta('c', 2);
-    let carta3 = new Carta('c', 3);
-    let carta4 = new Carta('c', 4);
-    let carta5 = new Carta('c', 5);
+    constcarta1 = new Carta('c', 1);
+    constcarta2 = new Carta('c', 2);
+    constcarta3 = new Carta('c', 3);
+    constcarta4 = new Carta('c', 4);
+    constcarta5 = new Carta('c', 5);
 
     jugador1.mano = [carta1, carta2, carta3, carta4, carta5];
 
 
-    for(let i = 0; i < 5; i++){
+    for(consti = 0; i < 5; i++){
         jugador2.pedirCarta(baraja.reparteCarta());
         
     }
@@ -347,8 +346,8 @@ initAppEscaleraColor.addEventListener("click", () => {
     resultGame.innerHTML = "";
   
    
-    let cardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
-    let cardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsPlayer = jugador1.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
+    constcardsComputer = jugador2.mano.map(carta => crearCartaHTML(carta.toStringUrlImg()));
 
     cardsPlayer.forEach(card => containerCardPlayer.appendChild(card));
     cardsComputer.forEach(card => containerCardComputer.appendChild(card));
