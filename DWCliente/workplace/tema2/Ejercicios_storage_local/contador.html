@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contador</title>
+  </head>
+  <body>
+    <h1>
+      Contador: <span id="count"></span> de las veces que has entrado a la
+      pagina
+    </h1>
+    <h1>
+      Contador cookies: <span id="countCookie"></span> de las veces que has
+      entrado a la pagina
+    </h1>
+
+    <script>
+      const countHtml = document.getElementById("count");
+      let countLocalStorage = localStorage.getItem("count");
+
+      if (!countLocalStorage) {
+        localStorage.setItem("count", "0");
+        countLocalStorage = "0";
+      }
+
+      window.addEventListener("load", () => {
+        const count = parseInt(countLocalStorage);
+        localStorage.setItem("count", count + 1);
+        countHtml.textContent = count + 1;
+      });
+
+      const countCookieHtml = document.getElementById("countCookie");
+      const durationCookie = 60 * 60 * 24 * 365;
+
+      if (document.cookie == "") {
+        document.cookie = `count=0; max-age=${durationCookie}`;
+      }
+
+      window.addEventListener("load", () => {
+        const numberCount = document.cookie.split("; ")[0].split("=")[1];
+        console.log(numberCount);
+        console.log(document.cookie);
+
+        const count = parseInt(numberCount) + 1;
+        document.cookie = `count=${count}; max-age=${durationCookie}`;
+        countCookieHtml.textContent = count;
+      });
+    </script>
+  </body>
+</html>
