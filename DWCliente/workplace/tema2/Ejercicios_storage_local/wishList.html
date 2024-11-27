@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de deseos</title>
+
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        justify-content: flex-start;
+        max-width: 900px;
+        margin: auto;
+      }
+      form {
+        display: flex;
+        gap: 1rem;
+      }
+      input[type="text"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+      }
+      button[type="submit"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+      }
+      ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        width: fit-content;
+        padding: 5rem;
+      }
+
+      li {
+        padding: 0.5em 1em;
+      }
+
+      .btn__delete {
+        color: red;
+        background-color: white;
+        border: 1px solid red;
+        font-size: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn__delete:hover {
+        background-color: red;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lista de deseos</h1>
+      <form id="form">
+        <input type="text" id="wish" />
+        <button type="submit">Añadir</button>
+      </form>
+      <ol id="workList"></ol>
+    </main>
+    <script>
+      const form = document.getElementById("form");
+      const newTask = document.getElementById("wish");
+      const workList = document.getElementById("workList");
+      const eliminar = document.querySelectorAll("eliminar");
+
+      let hoy = new Date();
+      let caducidadMs = hoy.getTime() + 1000 * 60 * 60 * 24 * 7;
+      let caducidad = new Date(caducidadMs);
+
+      let allListTask;
+      if (document.cookie == "") {
+        document.cookie = `[]; expires=${caducidad.toUTCString()}`;
+        allListTask = [];
+      } else {
+        allListTask = document.cookie.split("; ");
+      }
+
+      let lastId = allListTask.length;
+
+      const addNewTask = (e) => {
+        e.preventDefault();
+        const task = newTask.value;
+
+        if (task.trim() === "") {
+          alert("No puedes añadir una tarea vacía");
+          return;
+        }
+        const id = lastId + 1;
+        const taskFormatCookies = `${id}=${task}`;
+
+        // const newListTask = [...allListTask, taskFormatCookies];
+        console.log(document.cookie);
+        document.cookie = `${taskFormatCookies};expires=${caducidad.toUTCString()}`;
+
+        console.log(document.cookie);
+        console.log(taskFormatCookies);
+
+        const li = document.createElement("li");
+        li.textContent = task;
+        li.id = id;
+        const btnDelete = document.createElement("button");
+        btnDelete.id = "delete";
+        btnDelete.textContent = "X";
+        btnDelete.classList.add("btn", "btn__delete");
+
+        li.appendChild(btnDelete);
+        workList.appendChild(li);
+
+        newTask.value = "";
+      };
+
+      const deleteTask = () => {
+        const id = this.parentElement.id;
+        const newListTask = allListTask.filter((task) => {
+          const [taskId] = task.split("=");
+          return taskId !== id;
+        });
+
+        document.cookie = `${newListTask}; expires=${caducidad.toUTCString()}`;
+
+        this.parentElement.remove();
+      };
+
+      workList.addEventListener("click", deleteTask);
+
+      form.addEventListener("submit", addNewTask);
+
+      const renderAllTask = () => {
+        allListTask.forEach((task) => {
+          const [id, taskName] = task.split("=");
+          const li = document.createElement("li");
+          li.textContent = taskName;
+          li.id = id;
+          const btnDelete = document.createElement("button");
+          btnDelete.textContent = "X";
+          btnDelete.classList.add("btn__delete");
+          li.appendChild(btnDelete);
+
+          workList.appendChild(li);
+        });
+      };
+
+      renderAllTask();
+    </script>
+  </body>
+</html>
