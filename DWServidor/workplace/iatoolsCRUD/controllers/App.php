@@ -12,10 +12,17 @@ class App
         if (isset($_GET['method'])) {
             $method = $_GET['method'];
         } else {
-            $method = 'home';
+            $method = 'login';
         }
         $this->$method();
     }
+
+
+    public function login()
+    {
+        include("views/login.php");
+    }
+
 
     public function home()
     {
@@ -56,11 +63,12 @@ class App
 
     public function editProduct()
     {
-        //Tool::editIA();
 
-        // hay que hacer un consulta 
-        // y luego hay que setear el formularip
-        // y luegp hay que hacer un update, eliminar y crear uno con el mismo id
+
+
+
+        Tool::editIA($_POST['name'], $_POST['company'], $_POST['url'], $_POST['year'], $_POST['category'], $_POST['description'], $_POST['price'], $_POST['id']);
+
         $this->home();
     }
 

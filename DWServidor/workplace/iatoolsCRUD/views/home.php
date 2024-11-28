@@ -47,7 +47,7 @@
                         echo "<td>" . $ia->getUrl() . "</td>";
                         echo "<td>" . $ia->getYearOfPublication() . "</td>";
                         echo "<td>" . $ia->getCategory() . "</td>";
-                        echo "<td><a class='btn' href='?method=editProduct&id=" . $ia->getId() . "'>Edit</a> <a class='btn btn-delete' href='?method=deleteProduct&id=" . $ia->getId() . "'>Delete</a></td>";
+                        echo "<td><a class='btn' href='?method=updateProduct&id=" . $ia->getId() . "'>Edit</a> <a class='btn btn-delete' href='?method=deleteProduct&id=" . $ia->getId() . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                     ?>

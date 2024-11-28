@@ -2,7 +2,7 @@
 
 require_once 'models/Model.php';
 
-class Tool
+class Tool extends Model
 {
     // Atributos privados
     private $id;
@@ -72,30 +72,38 @@ class Tool
         }
     }
 
-    public static function editIA()
+    public static function editIA($name, $company, $url, $year, $category, $description, $price, $id)
     {
         $mensaje = "";
         try {
             $conexion = Model::getConnection();
-            $query = "UPDATE IAs SET name = ?, company = ?, url = ?, year = ?, category = ?, description = ?, price = ? WHERE id = ?";
+            $query  = "UPDATE `IAs` SET `name` = ?, `company` = ?, `url` = ?, `year` = ?, `category` = ?, `description` = ?, `price` = ? WHERE `id` = ?";
             $statement = $conexion->prepare($query);
-            $statement->bindValue(1, $_POST['name']);
-            $statement->bindValue(2, $_POST['company']);
-            $statement->bindValue(3, $_POST['url']);
-            $statement->bindValue(4, $_POST['year']);
-            $statement->bindValue(5, $_POST['category']);
-            $statement->bindValue(6, $_POST['description']);
-            $statement->bindValue(7, $_POST['price']);
-            $statement->bindValue(8, $_GET['id']);
+            echo "$name";
+            $statement->bindValue(1, $name);
+            $statement->bindValue(2, $company);
+            $statement->bindValue(3, $url);
+            $statement->bindValue(4, $year);
+            $statement->bindValue(5, $category);
+            $statement->bindValue(6, $description);
+            $statement->bindValue(7, $price);
+            $statement->bindValue(8, $id);
             $statement->execute();
             $mensaje = "Actualizacion exitosa";
+            echo $id;
+            echo var_dump($id);
+            echo $mensaje;
         } catch (PDOException $e) {
             //echo "Problema en la conexion aqui";
             $mensaje =  $e->getMessage();
+            echo $mensaje;
             $conexion->rollback();
         } catch (Exception $b) {
-            $mensaje = "Problema en la conexion dos";
+            $mensaje = $b->getMessage();
+            echo $mensaje;
             $conexion->rollback();
+        } finally {
+            return $statement;
         }
     }
 

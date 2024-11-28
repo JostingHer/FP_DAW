@@ -23,7 +23,7 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title"><a href="?method=home">Colección de IAS</a></h1>
+        <h1 class="header__title"><a href="?method=home">Coldección de IAS</a></h1>
         <ul class="header__nav">
             <li><a class="btn" href="?method=home">Inicio</a></li>
             <li><a class="btn" href="?method=addProduct">Agregar IAs</a></li>
@@ -37,16 +37,21 @@
 
                 <div class="login__container-form login__container-form-product">
 
-                    <form action="?method=insertIAs" method="post" class="form">
-                        <legend class="login__title">Actualizar IA con id <?php echo $ia->getId()   ?></legend>
+                    <form action="?method=editProduct" method="post" class="form">
+                        <legend class="login__title">Actualizar IA con id <?php echo $iaUpdate->getId()   ?></legend>
 
-
+                        <div class="form__field">
+                            <label for="id">Id IA:</label>
+                            <?php
+                            echo '<input type="text" id="id" name="id" value=' . $iaUpdate->getId() . ' required />'
+                            ?>
+                        </div>
 
 
                         <div class="form__field">
                             <label for="name">Nombre IA:</label>
                             <?php
-                            echo '<input type="text" id="name" name="name" value=' . $ia->getName() . ' required/>'
+                            echo '<input type="text" id="name" name="name" value=' . $iaUpdate->getName() . ' required/>'
                             ?>
                         </div>
 
@@ -54,7 +59,7 @@
                             <label for="company">Empresa:</label>
 
                             <?php
-                            echo '<input type="text" id="company" name="company" value=' . $ia->getCompany() . ' required />'
+                            echo '<input type="text" id="company" name="company" value=' . $iaUpdate->getCompany() . ' required />'
                             ?>
 
                         </div>
@@ -62,34 +67,34 @@
                             <label for="url">Sitio web oficial:</label>
 
                             <?php
-                            echo '<input type="text" id="url" name="url" value=' . $ia->getUrl() . '  required />'
+                            echo '<input type="text" id="url" name="url" value=' . $iaUpdate->getUrl() . '  required />'
                             ?>
 
                         </div>
                         <div class="form__field">
                             <label for="year">Year:</label>
                             <?php
-                            echo '<input type="number" min="1" name="year" id="year" value=' . $ia->getYearOfPublication() . ' required />'
+                            echo '<input type="number" min="1" name="year" id="year" value=' . $iaUpdate->getYearOfPublication() . ' required />'
                             ?>
                         </div>
                         <div class="form__field">
                             <label for="category">Categoria: </label>
                             <?php
-                            echo '<input type="text" id="category" name="category" placeholder="Text/Images" value=' . $ia->getCategory() . ' required />'
+                            echo '<input type="text" id="category" name="category" placeholder="Text/Images" value=' . $iaUpdate->getCategory() . ' required />'
                             ?>
 
                         </div>
                         <div class="form__field">
                             <label for="description">Descripción: </label>
                             <?php
-                            echo '<input type="text" id="description" name="description" required value=' . $ia->getDescription() . ' />'
+                            echo '<input type="text" id="description" name="description" required value=' . $iaUpdate->getDescription() . ' />'
                             ?>
 
                         </div>
                         <div class="form__field">
                             <label for="price">Precio: </label>
                             <?php
-                            echo '<input type="text" id="price" name="price" placeholder="Price/Paid" value=' . $ia->getPrice() . ' required />'
+                            echo '<input type="text" id="price" name="price" placeholder="Price/Paid" value=' . $iaUpdate->getPrice() . ' required />'
                             ?>
 
                         </div>
