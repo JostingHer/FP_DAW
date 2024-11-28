@@ -7,7 +7,7 @@ RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f 
 #Regla de reescritura de la URL con expresión regular, (1: lo quie queremo poner en lugar de la URL original) - usamos regex
 #RewriteRule main main.php
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ main.php?method=$1 [QSA,L]
 
 
 

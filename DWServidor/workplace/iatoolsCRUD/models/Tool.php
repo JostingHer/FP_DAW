@@ -90,13 +90,13 @@ class Tool extends Model
             $statement->bindValue(8, $id);
             $statement->execute();
             $mensaje = "Actualizacion exitosa";
-            echo $id;
-            echo var_dump($id);
-            echo $mensaje;
+            // echo $id;
+            // echo var_dump($id);
+            // echo $mensaje;
         } catch (PDOException $e) {
             //echo "Problema en la conexion aqui";
             $mensaje =  $e->getMessage();
-            echo $mensaje;
+            //echo $mensaje;
             $conexion->rollback();
         } catch (Exception $b) {
             $mensaje = $b->getMessage();
