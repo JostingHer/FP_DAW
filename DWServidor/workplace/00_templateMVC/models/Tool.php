@@ -48,6 +48,39 @@ class Tool extends Model
         }
     }
 
+    public static function insertarNuevaIAV2()
+    {
+        $mensaje = "";
+        try {
+            $conexion = Model::getConnection();
+            $conexion->beginTransaction();
+
+            $query = "INSERT INTO IAs (`name`, `company`, `url`, `year`, `category`, `description`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $statement = $conexion->prepare($query);
+
+            $statement->bindValue(1, $_POST['name']);
+            $statement->bindValue(2, $_POST['company']);
+            $statement->bindValue(3, $_POST['url']);
+            $statement->bindValue(4, $_POST['year']);
+            $statement->bindValue(5, $_POST['category']);
+            $statement->bindValue(6, $_POST['description']);
+            $statement->bindValue(7, $_POST['price']);
+
+            $statement->execute();
+
+            $conexion->commit();
+            $_SESSION['msjSuccessAdd'] = "Inserción de tienda exitosa";
+        } catch (PDOException $e) {
+            $conexion->rollback();
+            $mensaje = "Error en la inserción: " . $e->getMessage();
+        } catch (Exception $e) {
+            $conexion->rollback();
+            $mensaje = "Error general: " . $e->getMessage();
+        } finally {
+            return $mensaje;
+        }
+    }
+
     public static function deleteIA()
     {
 
@@ -64,6 +97,28 @@ class Tool extends Model
         } catch (Exception $b) {
             $mensaje = "Problema en la conexion dos";
             $conexion->rollback();
+        }
+    }
+
+    // Método delete con transacción
+    public static function deleteIAv2()
+    {
+        try {
+            $conexion = Model::getConnection();
+            $conexion->beginTransaction();
+
+            $query = "DELETE FROM IAs WHERE id = ?";
+            $statement = $conexion->prepare($query);
+            $statement->bindValue(1, $_GET['id']);
+            $statement->execute();
+
+            $conexion->commit();
+        } catch (PDOException $e) {
+            $conexion->rollback();
+            return "Error al eliminar: " . $e->getMessage();
+        } catch (Exception $e) {
+            $conexion->rollback();
+            return "Error general: " . $e->getMessage();
         }
     }
 
@@ -92,6 +147,36 @@ class Tool extends Model
             $conexion->rollback();
         } finally {
             return $statement;
+        }
+    }
+
+    public static function editIAv2($name, $company, $url, $year, $category, $description, $price, $id)
+    {
+        try {
+            $conexion = Model::getConnection();
+            $conexion->beginTransaction();
+
+            $query = "UPDATE `IAs` SET `name` = ?, `company` = ?, `url` = ?, `year` = ?, `category` = ?, `description` = ?, `price` = ? WHERE `id` = ?";
+            $statement = $conexion->prepare($query);
+
+            $statement->bindValue(1, $name);
+            $statement->bindValue(2, $company);
+            $statement->bindValue(3, $url);
+            $statement->bindValue(4, $year);
+            $statement->bindValue(5, $category);
+            $statement->bindValue(6, $description);
+            $statement->bindValue(7, $price);
+            $statement->bindValue(8, $id);
+            $statement->execute();
+
+            $conexion->commit();
+            return "Edición exitosa.";
+        } catch (PDOException $e) {
+            $conexion->rollback();
+            return "Error en la edición: " . $e->getMessage();
+        } catch (Exception $e) {
+            $conexion->rollback();
+            return "Error general: " . $e->getMessage();
         }
     }
 
@@ -125,6 +210,28 @@ class Tool extends Model
             return $tools[0];
         } else {
             return [];
+        }
+    }
+
+    public static function obtenerIAbyIdv2()
+    {
+        try {
+            $conexion = Model::getConnection();
+            $conexion->beginTransaction();
+
+            $query = "SELECT * FROM IAs WHERE id = ?";
+            $statement = $conexion->prepare($query);
+            $statement->bindValue(1, $_GET['id']);
+            $statement->execute();
+
+            $result = $statement->fetchAll(PDO::FETCH_CLASS, Tool::class);
+
+            $conexion->commit();
+
+            return $result[0];
+        } catch (PDOException $e) {
+            $conexion->rollback();
+            return "Error al obtener IA: " . $e->getMessage();
         }
     }
 

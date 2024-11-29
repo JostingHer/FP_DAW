@@ -56,16 +56,14 @@
 
 
         </main>
-        <!-- paginacion -->
         <div class="paginacion">
             <?php
             for ($i = 1; $i <= $pages->n; $i++) {
-                $query = http_build_query(array_merge($_GET, ['page' => $i]));
-                echo "<a class='link' href='?$query'>$i</a>";
+                // $query = http_build_query(array_merge($_GET, ['page' => $i]));?method=home&page=2
+                echo "<a class='link' href='?method=home&page=$i'>$i</a>";
             }
             ?>
         </div>
-
 
     </div>
 
