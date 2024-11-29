@@ -86,6 +86,7 @@ class App
 
             if (!$usuario) {
                 $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
                 User::introducirUsuario($_POST['name'], $hash);
                 //include("views/home.php");
                 header('Location: ?method=home');
