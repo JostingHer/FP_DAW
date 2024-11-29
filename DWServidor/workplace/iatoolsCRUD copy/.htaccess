@@ -1,0 +1,21 @@
+#Modificar página inicial
+DirectoryIndex main.php
+#Activar motor de reescritura
+RewriteEngine On  
+#No sobreescribir directorios o ficheros si existen
+RewriteCond %{SCRIPT_FILENAME} !-d 
+RewriteCond %{SCRIPT_FILENAME} !-f 
+#Regla de reescritura de la URL con expresión regular, (1: lo quie queremo poner en lugar de la URL original) - usamos regex
+#RewriteRule main main.php
+RewriteRule ^([^/]+)/?(.*)$ main.php?method=$1&$2 [QSA,L]
+
+
+
+#comentarios
+#DirectoryIndex main.php elseif.pgp else.php = rutas amigabls sin .php, default es index.php
+#RewriteEngine On = enciende el motor renombre
+#L para bucles evitarlo, para terminarlos
+#QSA = 
+
+
+
