@@ -65,7 +65,7 @@ class ListaSteam extends Model
             if ($clave == "") {
                 $statement->bindValue(2, $clave);
             } else {
-                $claveHash = password_hash($clave, PASSWORD_BCRYPT);
+                $claveHash = password_hash($clave, PASSWORD_ARGON2I);
                 $statement->bindValue(2, substr($claveHash, 0, 20));
             }
 

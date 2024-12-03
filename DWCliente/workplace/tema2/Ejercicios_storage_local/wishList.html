@@ -74,86 +74,76 @@
       const form = document.getElementById("form");
       const newTask = document.getElementById("wish");
       const workList = document.getElementById("workList");
-      const eliminar = document.querySelectorAll("eliminar");
 
-      let hoy = new Date();
-      let caducidadMs = hoy.getTime() + 1000 * 60 * 60 * 24 * 7;
-      let caducidad = new Date(caducidadMs);
+      const setCookie = (name, value, days = 7) => {
+        const expires = new Date(
+          Date.now() + days * 24 * 60 * 60 * 1000
+        ).toUTCString();
+        document.cookie = `${name}=${value}; path=/; expires=${expires}`;
+      };
 
-      let allListTask;
-      if (document.cookie == "") {
-        document.cookie = `[]; expires=${caducidad.toUTCString()}`;
-        allListTask = [];
-      } else {
-        allListTask = document.cookie.split("; ");
-      }
+      const getCookie = (name) => {
+        const cookies = document.cookie.split("; ");
+        const cookie = cookies.find((row) => row.startsWith(`${name}=`));
+        return cookie ? JSON.parse(cookie.split("=")[1]) : [];
+      };
 
-      let lastId = allListTask.length;
-
-      const addNewTask = (e) => {
-        e.preventDefault();
-        const task = newTask.value;
-
-        if (task.trim() === "") {
-          alert("No puedes añadir una tarea vacía");
-          return;
+      const getListCookie = () => {
+        let wishList = getCookie("wishList");
+        if (!wishList.length) {
+          setCookie("wishList", JSON.stringify([]));
+          wishList = [];
         }
-        const id = lastId + 1;
-        const taskFormatCookies = `${id}=${task}`;
-
-        // const newListTask = [...allListTask, taskFormatCookies];
-        console.log(document.cookie);
-        document.cookie = `${taskFormatCookies};expires=${caducidad.toUTCString()}`;
-
-        console.log(document.cookie);
-        console.log(taskFormatCookies);
-
-        const li = document.createElement("li");
-        li.textContent = task;
-        li.id = id;
-        const btnDelete = document.createElement("button");
-        btnDelete.id = "delete";
-        btnDelete.textContent = "X";
-        btnDelete.classList.add("btn", "btn__delete");
-
-        li.appendChild(btnDelete);
-        workList.appendChild(li);
-
-        newTask.value = "";
+        return wishList;
       };
 
-      const deleteTask = () => {
-        const id = this.parentElement.id;
-        const newListTask = allListTask.filter((task) => {
-          const [taskId] = task.split("=");
-          return taskId !== id;
-        });
+      const addTask = (task) => {
+        const wishList = getListCookie();
+        const id = wishList.length + 1;
+        const newTask = { id, task };
 
-        document.cookie = `${newListTask}; expires=${caducidad.toUTCString()}`;
+        const newList = [...wishList, newTask];
+        setCookie("wishList", JSON.stringify(newList));
 
-        this.parentElement.remove();
+        renderAllTasks();
       };
 
-      workList.addEventListener("click", deleteTask);
+      const deleteTask = (id) => {
+        const wishList = getListCookie();
+        const newList = wishList.filter((task) => task.id !== id);
+        setCookie("wishList", JSON.stringify(newList));
 
-      form.addEventListener("submit", addNewTask);
+        renderAllTasks();
+      };
 
-      const renderAllTask = () => {
-        allListTask.forEach((task) => {
-          const [id, taskName] = task.split("=");
+      const renderAllTasks = () => {
+        workList.innerHTML = "";
+
+        const wishList = getListCookie();
+        wishList.forEach((task) => {
           const li = document.createElement("li");
-          li.textContent = taskName;
-          li.id = id;
+          li.textContent = task.task;
+          li.id = task.id;
+
           const btnDelete = document.createElement("button");
           btnDelete.textContent = "X";
           btnDelete.classList.add("btn__delete");
-          li.appendChild(btnDelete);
+          btnDelete.addEventListener("click", () => deleteTask(task.id));
 
+          li.appendChild(btnDelete);
           workList.appendChild(li);
         });
       };
 
-      renderAllTask();
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const task = newTask.value.trim();
+        if (!task) return;
+        addTask(task);
+        newTask.value = "";
+      });
+
+      renderAllTasks();
     </script>
   </body>
 </html>
