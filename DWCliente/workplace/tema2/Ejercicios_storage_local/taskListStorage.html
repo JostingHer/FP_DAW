@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de deseos</title>
+
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        justify-content: flex-start;
+        max-width: 900px;
+        margin: auto;
+      }
+      form {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      input[type="text"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+      }
+      button[type="submit"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+      }
+      ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        width: fit-content;
+        padding: 5rem;
+      }
+
+      li {
+        padding: 0.5em 1em;
+      }
+
+      .btn__delete {
+        color: white;
+        background-color: red;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn__delete:hover {
+        opacity: 0.5;
+        cursor: pointer;
+      }
+
+      .newTask{
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+      }
+      .prioridad{
+        background-color:greenyellow;
+        color: black;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lista de deseos</h1>
+      <form id="form">
+        <input type="text" id="task" />
+      
+        <div>
+          <input type="radio" id="hightPriority" name="priority" value="alta" checked />
+          <label for="hightPriority">Alta</label>
+    
+          <input type="radio" id="middlePriority" name="priority" value="media" />
+          <label for="middlePriority">Media</label>
+    
+          <input type="radio" id="lowPriority" name="priority" value="baja"  />
+          <label for="lowPriority">Baja</label>
+        </div>
+
+        <button type="submit">Añadir</button>
+      </form>
+      <ol id="workList">
+      
+      </ol>
+    </main>
+    <script>
+     
+      var document  = 200;
+      console.log(window)
+      console.log(document)
+
+      const form = document.getElementById("form");
+      const optionsPriority= document.querySelectorAll('input[type="radio"]');
+      const workList = document.getElementById("workList");
+      const task = document.getElementById("task");
+
+
+
+      const getLocalStorageList = () => {
+        return JSON.parse(localStorage.getItem("myListTask")) || [];
+      }
+      const setLocalStorageList = () => {
+        localStorage.setItem("myListTask", JSON.stringify(getLocalStorageList()));
+      }
+
+      const addTask = (name, priority) => {
+        const taskList = getLocalStorageList();
+        const id = taskList.length + 1;
+        const newTask = { id, name, priority };
+
+        const newList = [...taskList, newTask];
+        localStorage.setItem("myListTask", JSON.stringify(newList));
+      
+
+        renderAllTasks();
+      };
+
+
+      const deleteTask = (id) => {
+
+        const idTask = Number(id);
+        console.log(idTask, id)
+        const workList = getLocalStorageList();
+        const newList = workList.filter((task) => task.id !== idTask);
+        console.log(newList)
+        localStorage.setItem("myListTask", JSON.stringify(newList));
+
+        renderAllTasks();
+      };
+
+
+      const renderAllTasks = () => {
+        workList.innerHTML = "";
+        const tasks = getLocalStorageList();
+        console.log(tasks)
+      
+        tasks.forEach(({id, name, priority}) => {
+          const li = document.createElement("li");
+          li.textContent = name;
+          li.classList.add("newTask");
+          const span = document.createElement("span");
+          span.textContent = priority;
+          span.classList.add("prioridad");
+          li.appendChild(span);
+          const button = document.createElement("button");
+          button.textContent = "X";
+          button.classList.add("btn__delete");
+          button.addEventListener("click", () => deleteTask(id));
+          li.appendChild(button);
+          workList.appendChild(li);
+          });
+
+      }
+
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nameTask = task.value;
+        const priority = [...optionsPriority].find((option) => option.checked).value;
+        if (!nameTask) return;
+        if (!priority) return;
+
+       // const Itask = {name: nameTask, priority};
+        addTask(nameTask, priority);
+        task.value = "";
+        optionsPriority.forEach((option) => option.checked = false );
+        })
+      
+        renderAllTasks();
+
+
+    
+
+
+
+
+
+ 
+    </script>
+  </body>
+</body>
+</html>
