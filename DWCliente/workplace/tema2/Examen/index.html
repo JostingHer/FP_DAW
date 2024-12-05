@@ -1,0 +1,218 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen</title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+      h2 {
+        text-align: center;
+        margin: 0;
+        margin-top: 5rem;
+      }
+
+      ol {
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <main class="main">
+        <div class="main__login">
+          <div class="login__container-form">
+            <form id="Form" class="form">
+              <legend class="login__title">Producto Fresco</legend>
+
+              <div class="form__field">
+                <label for="nombre">nombre: </label>
+                <input type="text" id="nombre" name="nombre" />
+              </div>
+
+              <div class="form__field">
+                <label for="localizacion">localizacion: </label>
+                <input
+                  type="number"
+                  min="0"
+                  name="localizacion"
+                  id="localizacion"
+                />
+              </div>
+
+              <div class="form__field">
+                <label for="precio">precio: </label>
+                <input type="number" min="0" name="precio" id="precio" />
+              </div>
+
+              <div class="form__field">
+                <label for="fecha">fecha: </label>
+                <input type="date" name="fecha" id="fecha" />
+              </div>
+
+              <div class="form__field">
+                <label for="duracion">duracion en dias: </label>
+                <input type="number" min="0" name="duracion" id="duracion" />
+              </div>
+
+              <input
+                class="form__submit"
+                type="submit"
+                value="Agregar Producto"
+              />
+            </form>
+          </div>
+        </div>
+      </main>
+      <div class="listProducts">
+        <h2>Lista de productos</h2>
+        <ol id="productList">
+          <!-- <li>
+            Producto
+            <button class="btn__info">Ver info</button>
+            <button class="btn__update">Cambiar precio</button>
+            <button class="btn__delete">Eliminar</button>
+          </li> -->
+        </ol>
+      </div>
+    </div>
+
+    <script src="Model.js"></script>
+    <script>
+      const form = document.querySelector("#Form");
+      const productList = document.querySelector("#productList");
+
+      const inputName = document.querySelector("#nombre");
+      const inputPrice = document.querySelector("#precio");
+      const inputLocation = document.querySelector("#localizacion");
+      const inputDate = document.querySelector("#fecha");
+      const inputDuration = document.querySelector("#duracion");
+
+      const getLocalStorageList = () => {
+        return JSON.parse(localStorage.getItem("productList")) || [];
+      };
+
+      const addProduct = (name, location, price, date, duration) => {
+        const productList = getLocalStorageList();
+        const id = productList.length + 1;
+        const newProduct = new ArticuloFresco(
+          id,
+          name,
+          price,
+          location,
+          date,
+          duration
+        );
+
+        const newList = [...productList, newProduct];
+        localStorage.setItem("productList", JSON.stringify(newList));
+
+        renderAll();
+      };
+
+      const deleteProduct = (id) => {
+        const idProduct = Number(id);
+        const productList = getLocalStorageList();
+        const newList = productList.filter(
+          (product) => product.id !== idProduct
+        );
+        localStorage.setItem("productList", JSON.stringify(newList));
+
+        renderAll();
+      };
+
+      const showInfoAlert = (id) => {
+        const productList = getLocalStorageList();
+        const productInfo = productList.find(
+          (product) => Number(product.id) === Number(id)
+        );
+
+        const cadena = `Id: ${productInfo.id}, Nombre: ${productInfo.nombre}, Localización: ${productInfo.localizacion}, Precio: ${productInfo.precio}, Fecha: ${productInfo.fecha}, Duración: ${productInfo.duracion} dias`;
+
+        alert(cadena);
+      };
+
+      const updatePricePromp = (id) => {
+        const newPrice = prompt("Introduce el nuevo precio");
+        if (!newPrice) {
+          alert("Si lo dejas en blanco no cambia");
+          return;
+        }
+        const productList = getLocalStorageList();
+        const updateProduct = productList.find(
+          (product) => Number(product.id) === Number(id)
+        );
+        updateProduct.precio = newPrice;
+
+        localStorage.setItem("productList", JSON.stringify(productList));
+        renderAll();
+      };
+
+      const renderAll = () => {
+        productList.innerHTML = "";
+        const list = getLocalStorageList();
+        console.log(list);
+
+        list.forEach((product) => {
+          const li = document.createElement("li");
+          li.textContent = product.nombre;
+
+          const buttonInfo = document.createElement("button");
+          buttonInfo.textContent = "Ver info";
+          buttonInfo.classList.add("btn__info");
+          buttonInfo.addEventListener("click", () => showInfoAlert(product.id));
+          li.appendChild(buttonInfo);
+
+          const buttonUpdatePrice = document.createElement("button");
+          buttonUpdatePrice.textContent = "Cambiar precio";
+          buttonUpdatePrice.classList.add("btn__update");
+          buttonUpdatePrice.addEventListener("click", () =>
+            updatePricePromp(product.id)
+          );
+          li.appendChild(buttonUpdatePrice);
+
+          const buttonDelete = document.createElement("button");
+          buttonDelete.textContent = "Eliminar";
+          buttonDelete.classList.add("btn__delete");
+          buttonDelete.addEventListener("click", () =>
+            deleteProduct(product.id)
+          );
+          li.appendChild(buttonDelete);
+
+          productList.appendChild(li);
+        });
+      };
+      renderAll();
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nombreNewProduct = inputName.value.trim();
+        const locationewProduct = inputLocation.value.trim();
+        const precioNewProduct = inputPrice.value.trim();
+        const dateNewProduct = inputDate.value.trim();
+        const durationNewProduct = inputDuration.value.trim();
+
+        // add
+        addProduct(
+          nombreNewProduct,
+          precioNewProduct,
+          locationewProduct,
+          dateNewProduct,
+          durationNewProduct
+        );
+
+        inputName.value = "";
+        inputName.focus();
+        inputPrice.value = "";
+        inputLocation.value = "";
+        inputDate.value = "";
+        inputDuration.value = "";
+      });
+    </script>
+  </body>
+</html>
