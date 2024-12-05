@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template cookies</title>
+
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        justify-content: flex-start;
+        max-width: 900px;
+        margin: auto;
+      }
+      form {
+        display: flex;
+        gap: 1rem;
+      }
+      input[type="text"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+      }
+      button[type="submit"] {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+      }
+      ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        width: fit-content;
+        padding: 5rem;
+      }
+
+      li {
+        padding: 0.5em 1em;
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .btn__update {
+        color: white;
+        background-color: green;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .btn__update:hover {
+        cursor: pointer;
+        opacity: .6;
+      }
+
+
+
+      .btn__delete {
+        color: white;
+        background-color: red;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        font-size: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn__delete:hover {
+        cursor: pointer;
+        opacity: .6;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Lista de tareas</h1>
+      <form id="form">
+        <input title="task" type="text" id="task" />
+        <button type="submit">Añadir</button>
+      </form>
+      <ol id="workList"></ol>
+      <button id="btnReiniciar" type="submit">Reiniciar app</button>
+
+
+  
+
+    </main>
+    <script>
+      const form = document.getElementById("form");
+      const newTask = document.getElementById("task");
+      const workList = document.getElementById("workList");
+      const btnReiniciar = document.querySelector("#btnReiniciar");
+
+
+      const initApp = () => {
+          setCookie("taskList", JSON.stringify([]));
+          setCookie("idTaskUpdate", "");
+          renderAll();
+      };
+      btnReiniciar.addEventListener("click", initApp);
+
+
+      const setCookie = (name, value, days = 7) => {
+        const expires = new Date(
+          Date.now() + days * 24 * 60 * 60 * 1000
+        ).toUTCString();
+        document.cookie = `${name}=${value}; path=/; expires=${expires}`;
+      };
+
+      const getCookie = (name) => {
+        const cookies = document.cookie.split("; ");
+        const cookie = cookies.find((row) => row.startsWith(`${name}=`));
+        if (!cookie) {
+          setCookie(name, JSON.stringify([]));  // Initialize as empty list if not exist
+          return "[]";  // Return empty list in string format
+        }
+        return cookie.split("=")[1];
+      };
+
+      const addItem = (item) => {
+        const cookieList = JSON.parse(getCookie("taskList"));
+        const id = cookieList.length + 1;
+        const newItem = { id, item };
+        const newList = [...cookieList, newItem];
+        setCookie("taskList", JSON.stringify(newList));
+        renderAll();
+      };
+
+      const deleteItem = (id) => {
+        const cookieList = JSON.parse(getCookie("taskList"));
+        const newList = cookieList.filter((task) => task.id !== id);
+        setCookie("taskList", JSON.stringify(newList));
+        renderAll();
+      };
+
+      const updateItem = (id, newName) => {
+        const cookieList = JSON.parse(getCookie("taskList"));
+        const task = cookieList.find((task) => Number(task.id) === Number(id));
+          task.item = newName;
+          setCookie("taskList", JSON.stringify(cookieList));
+          renderAll();
+      };
+
+   
+
+      const setFormUpdate = (id) => {
+        const cookieList = JSON.parse(getCookie("taskList"));
+        const task = cookieList.find((task) => task.id === id);
+        setCookie("idTaskUpdate", id);
+        newTask.value = task.item;
+        newTask.focus();
+      };
+
+      const renderAll = () => {
+        workList.innerHTML = "";
+        const taskList = JSON.parse(getCookie("taskList")) || [];
+        setCookie("idTaskUpdate", "");
+        taskList.forEach((task) => {
+          const li = document.createElement("li");
+          li.textContent = task.item;
+          li.id = task.id;
+
+          const btnDelete = document.createElement("button");
+          btnDelete.textContent = "ELIMINAR";
+          btnDelete.classList.add("btn__delete");
+          btnDelete.addEventListener("click", () => deleteItem(task.id));
+
+          const btnUpdate = document.createElement("button");
+          btnUpdate.textContent = "MODIFICAR";
+          btnUpdate.classList.add("btn__update");
+          btnUpdate.addEventListener("click", () => setFormUpdate(task.id));
+
+          li.appendChild(btnDelete);
+          li.appendChild(btnUpdate);
+          workList.appendChild(li);
+        });
+      };
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const task = newTask.value.trim();
+        if (!task) return;
+
+        const idTaskUpdate = getCookie("idTaskUpdate");
+
+        if (idTaskUpdate) {
+          updateItem(idTaskUpdate, task);
+          setCookie("idTaskUpdate", "");  // Clear update task id after updating
+        } else {
+          addItem(task);
+        }
+
+        newTask.value = "";
+        newTask.focus();
+      });
+
+    
+      renderAll();
+    </script>
+  </body>
+</body>
+</html>

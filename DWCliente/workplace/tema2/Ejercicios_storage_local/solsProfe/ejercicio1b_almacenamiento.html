@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Contador de visitas</title>
+</head>
+<body>
+	<p>Esta es tu visita número <strong id="visitas"></strong></p>
+	<script>
+	let numeroVisitas = localStorage.getItem("visitas");
+	let nodoVisitas = document.getElementById("visitas");
+	
+	if(numeroVisitas == null) {
+		//primera visita
+		numeroVisitas = 1;
+	} else {
+		numeroVisitas++;
+		
+	}
+	
+	//actualizamos el contador
+	localStorage.setItem("visitas", numeroVisitas);
+	
+	//mostrar visitas
+	nodoVisitas.textContent = numeroVisitas;
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de tareas</title>
+</head>
+<body>
+	<h1>Lista de tareas</h1>
+	Tarea: 
+	<input type="text" id="tarea">
+	Prioridad: 
+	<input type="radio" value="Alta" name="prioridad" id="prioridad_alta" /> Alta
+	<input type="radio" value="Media" name="prioridad" id="prioridad_media" checked /> Media
+	<input type="radio" value="Baja" name="prioridad" id="prioridad_baja" /> Baja
+	<button id="anadir">Añadir</button>
+	<div>
+		<ul id="lista"></ul>
+	</div>
+	<script>
+	//variables globales
+	var listaTareas = [];
+	var nodoAnadir = document.getElementById("anadir");
+	var nodoTarea = document.getElementById("tarea");
+	var nodoLista = document.getElementById("lista");
+	var nodosPrioridad = document.getElementsByName("prioridad");
+
+	/*** Realiza todas las acciones necesarias para añadir la tarea y que se vea en la lista ***/
+	function anadirTarea(nuevaTarea) {
+		//buscamos si la tarea ya existe y si el campo tarea estaba vacío, si no, la añadimos
+		let insertar = true;
+		if(nuevaTarea.nombre == "") {
+			insertar = false;
+		} else {
+			for(let objeto of listaTareas) {
+				if(objeto.nombre == nuevaTarea.nombre) {
+					insertar = false;
+					break;
+				}
+			}
+		}
+		
+		if(insertar) {
+			//almacenamos la nueva tarea en la lista
+			listaTareas.push(nuevaTarea);
+			actualizarStorage();
+			//creamos el nuevo elemento con la nueva tarea
+			let liNuevo = document.createElement("li");
+			liNuevo.innerHTML = "<span>" + nuevaTarea.nombre + "</span> - Prioridad: " + nuevaTarea.prioridad + " <button>Eliminar</button>";
+			prepararBoton(liNuevo);
+			nodoLista.appendChild(liNuevo);
+		}
+	}
+	
+
+	/*** Añade manejador de evento click al botón "Eliminar" ***/
+	function prepararBoton(liTarea) {
+		let boton = liTarea.children[1];
+
+		boton.addEventListener("click", function() {
+			let textoSpan = this.previousElementSibling.textContent;
+			
+			//borramos el elemento li
+			nodoLista.removeChild(this.parentNode);
+			
+			//borramos el elemento de la lista y la actualizamos
+			let listaTareasActualizada = [];
+			for(let i = 0; i < listaTareas.length; i++) {
+				if(listaTareas[i].nombre != textoSpan) {
+					listaTareasActualizada.push(listaTareas[i]);
+				}
+			}
+			listaTareas = listaTareasActualizada;
+			actualizarStorage();
+		});
+	}
+	
+	
+	/*** Muestra el contenido de la lista de tareas ***/
+	function mostrarLista(arrayTareas) {
+		//recorrer array y mostrar la lista
+		for(let objeto of arrayTareas) {
+			let liNuevo = document.createElement("li");
+			liNuevo.innerHTML = "<span>" + objeto.nombre + "</span> - Prioridad: " + objeto.prioridad + " <button>Eliminar</button>";
+			prepararBoton(liNuevo);
+			nodoLista.appendChild(liNuevo)
+		}
+	}
+	
+	
+	/*** Pone localStorage al día ***/
+	function actualizarStorage() {
+		localStorage.setItem("listaTareas", JSON.stringify(listaTareas));
+	}
+
+
+	/*** Código principal ***/
+	//leer array de tareas en localStorage
+	if(localStorage.getItem("listaTareas")) {
+		listaTareas = JSON.parse(localStorage.getItem("listaTareas"));
+		mostrarLista(listaTareas);
+	}
+
+
+	//evento del botón de añadir tarea
+	nodoAnadir.addEventListener("click", function() {
+		let tarea = new Object;
+		tarea.nombre = nodoTarea.value;
+		
+		for(let i=0; i < nodosPrioridad.length; i++) {
+			if(nodosPrioridad[i].checked) {
+				tarea.prioridad = nodosPrioridad[i].value;
+			}
+		}
+			
+		anadirTarea(tarea);
+		nodoTarea.value = "";
+		nodosPrioridad[1].checked = true;
+		nodoTarea.focus();
+	});
+	</script>
+</body>
+</html>

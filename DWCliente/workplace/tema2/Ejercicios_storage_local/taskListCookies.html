@@ -63,16 +63,16 @@
   </head>
   <body>
     <main class="container">
-      <h1>Lista de deseos</h1>
+      <h1>Lista de tareas</h1>
       <form id="form">
-        <input type="text" id="wish" />
+        <input title="task" type="text" id="task" />
         <button type="submit">Añadir</button>
       </form>
       <ol id="workList"></ol>
     </main>
     <script>
       const form = document.getElementById("form");
-      const newTask = document.getElementById("wish");
+      const newTask = document.getElementById("task");
       const workList = document.getElementById("workList");
 
       const setCookie = (name, value, days = 7) => {
@@ -89,29 +89,29 @@
       };
 
       const getListCookie = () => {
-        let wishList = getCookie("wishList");
-        if (!wishList.length) {
-          setCookie("wishList", JSON.stringify([]));
-          wishList = [];
+        let taskList = getCookie("taskList");
+        if (!taskList.length) {
+          setCookie("taskList", JSON.stringify([]));
+          taskList = [];
         }
-        return wishList;
+        return taskList;
       };
 
       const addTask = (task) => {
-        const wishList = getListCookie();
-        const id = wishList.length + 1;
+        const taskList = getListCookie();
+        const id = taskList.length + 1;
         const newTask = { id, task };
 
-        const newList = [...wishList, newTask];
-        setCookie("wishList", JSON.stringify(newList));
+        const newList = [...taskList, newTask];
+        setCookie("taskList", JSON.stringify(newList));
 
         renderAllTasks();
       };
 
       const deleteTask = (id) => {
-        const wishList = getListCookie();
-        const newList = wishList.filter((task) => task.id !== id);
-        setCookie("wishList", JSON.stringify(newList));
+        const taskList = getListCookie();
+        const newList = taskList.filter((task) => task.id !== id);
+        setCookie("taskList", JSON.stringify(newList));
 
         renderAllTasks();
       };
@@ -119,8 +119,8 @@
       const renderAllTasks = () => {
         workList.innerHTML = "";
 
-        const wishList = getListCookie();
-        wishList.forEach((task) => {
+        const taskList = getListCookie();
+        taskList.forEach((task) => {
           const li = document.createElement("li");
           li.textContent = task.task;
           li.id = task.id;

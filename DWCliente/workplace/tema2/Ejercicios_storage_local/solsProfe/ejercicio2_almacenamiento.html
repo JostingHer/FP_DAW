@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Lista de tareas</title>
+</head>
+<body>
+	<h1>Lista de tareas</h1>
+	<input type="text" id="tarea">
+	<button id="anadir">Añadir</button>
+	<div>
+		<ul id="lista"></ul>
+	</div>
+	<script>
+	//variables globales
+	var listaTareas = [];
+	var nodoAnadir = document.getElementById("anadir");
+	var nodoTarea = document.getElementById("tarea");
+	var nodoLista = document.getElementById("lista");
+	var hoyMs = (new Date()).getTime();
+	var caducidad = new Date(hoyMs + 1000*60*60*24*365);
+	
+	
+	/*** Realiza todas las acciones necesarias para añadir la tarea y que se vea en la lista ***/
+	function anadirTarea(nuevaTarea) {
+		//buscamos si la tarea ya existe y si el campo tarea estaba vacío, si no, la añadimos
+		if(listaTareas.includes(nuevaTarea) == false && nuevaTarea != "") {
+			//almacenamos la nueva tarea en la lista
+			listaTareas.push(nuevaTarea);
+			actualizarCookie();
+			//creamos el nuevo elemento con la nueva tarea
+			let liNuevo = document.createElement("li");
+			liNuevo.innerHTML = "<span>" + nuevaTarea + "</span> <button>Eliminar</button>";
+			prepararBoton(liNuevo);
+			nodoLista.appendChild(liNuevo);
+		}
+	}
+	
+
+	/*** Añade manejador de evento click al botón "Eliminar" ***/
+	function prepararBoton(liTarea) {
+		let boton = liTarea.children[1];
+
+		boton.addEventListener("click", function() {
+			let textoSpan = this.previousElementSibling.textContent;
+			
+			//borramos el elemento li
+			nodoLista.removeChild(this.parentNode);
+			
+			//borramos el elemento de la lista y la actualizamos
+			let listaTareasActualizada = [];
+			for(let i = 0; i < listaTareas.length; i++) {
+				if(listaTareas[i] != textoSpan) {
+					listaTareasActualizada.push(listaTareas[i]);
+				}
+			}
+			listaTareas = listaTareasActualizada;
+			actualizarCookie();
+		});
+	}
+	
+	
+	/*** Muestra el contenido de la lista de tareas ***/
+	function mostrarLista(arrayTareas) {
+		//recorrer array y mostrar la lista
+		for(let textoLi of arrayTareas) {
+			let liNuevo = document.createElement("li");
+			liNuevo.innerHTML = "<span>" + textoLi + "</span> <button>Eliminar</button>";
+			prepararBoton(liNuevo);
+			nodoLista.appendChild(liNuevo)
+		}
+	}
+	
+	
+	/*** Pone cookie al día ***/
+	function actualizarCookie() {
+		document.cookie= "listaTareas=" + JSON.stringify(listaTareas) + ";expires=" + caducidad.toUTCString();
+	}
+
+
+	/*** Código principal ***/
+	expresion = /listaTareas=[^;]+]/;
+	resultadoExec = expresion.exec(document.cookie);
+
+	//leer array de tareas en cookie
+	if(resultadoExec) {
+		valor = resultadoExec[0].split("=")[1];
+		listaTareas = JSON.parse(valor);
+
+		mostrarLista(listaTareas);
+	}
+
+
+	//evento del botón de añadir tarea
+	nodoAnadir.addEventListener("click", function() {
+		anadirTarea(nodoTarea.value);
+		nodoTarea.value = "";
+		nodoTarea.focus();
+	});
+	</script>
+</body>
+</html>
