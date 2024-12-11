@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alarm</title>
+    <style>
+      @font-face {
+        font-family: myFirst;
+        src: url(alarm.ttf);
+      }
+      * {
+        font-family: myFirst;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h3>Alarma</h3>
+        <h1 id="Alarm">00:00:00</h1>
+        <button id="start"><img src="start.png" alt="start" /></button>
+        <button id="pause"><img src="pause.png" alt="pause" /></button>
+        <button id="delete"><img src="delete.png" alt="delete" /></button>
+      </div>
+    </div>
+  </body>
+  <script>
+    // otra forma de hacerlo seria con tres if segundo < 59 aumentamos minutos
+    // si minutos < 59 aumentamos horas y minutos = 0, ir aumentando los segundos siempre
+
+    const alarm = document.getElementById("Alarm");
+
+    const btnStart = document.getElementById("start");
+    const btnPause = document.getElementById("pause");
+    const btnDelete = document.getElementById("delete");
+
+    let dateInit;
+    let identificador;
+    let isRunning = false;
+    let timeElapsed = 0; // Guarda el tiempo transcurrido
+
+    const render = (hours, minutes, seconds) => {
+      alarm.innerHTML = `${hours}:${minutes}:${seconds}`;
+    };
+
+    const playAction = () => {
+      if (!isRunning) {
+        isRunning = true;
+        dateInit = new Date() - timeElapsed; // Inicia desde donde se pausó
+        console.log(timeElapsed);
+        identificador = window.setInterval(() => {
+          let dateInMiliseg = new Date() - dateInit;
+
+          const hours = Math.floor(dateInMiliseg / (1000 * 60 * 60));
+          const minutes = Math.floor(
+            (dateInMiliseg % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((dateInMiliseg % (1000 * 60)) / 1000);
+
+          render(hours, minutes, seconds);
+        }, 1000);
+      }
+    };
+
+    const pauseAction = () => {
+      if (isRunning) {
+        clearInterval(identificador);
+        isRunning = false;
+        timeElapsed = new Date() - dateInit;
+      }
+    };
+
+    const deleteApp = () => {
+      clearInterval(identificador);
+      isRunning = false;
+      timeElapsed = 0;
+      render(0, 0, 0);
+    };
+
+    btnStart.addEventListener("click", playAction);
+    btnPause.addEventListener("click", pauseAction);
+    btnDelete.addEventListener("click", deleteApp);
+  </script>
+</html>
