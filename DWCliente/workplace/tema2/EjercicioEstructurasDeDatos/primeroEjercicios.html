@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script>
+    // Ejercicio 1 - Crear un array con los números del 1 al 10 y duplicalos
+    let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let numerosDuplicados = numeros.map((numero) => numero * 2);
+    console.log(numerosDuplicados);
+
+    //Ejercicio 2 Crea un script que muestre el resultado de multiplicar todos los elementos de un array de números
+
+    let numeros2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let resultado = numeros2.reduce(
+      (acumulador, numero) => acumulador * numero
+    );
+    console.log(resultado);
+
+    let numeros3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let resultado3 = numeros3.filter((el) => el > 5);
+    console.log(resultado3);
+
+    // Crear una función personal para ordenar un array de modo que aparezcan primero los textos más largos
+    let textos = ["hola", "adios", "buenos dias", "buenas noches"];
+    let textosOrdenados = textos.sort((a, b) => b.length - a.length);
+    console.log(textosOrdenados);
+
+    let numeros5 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let resultadoOrdenMayorAMenor = numeros5.sort((a, b) => b - a);
+    let resultadoPares = resultadoOrdenMayorAMenor.filter((el) => el % 2 === 0);
+    let resultadoImpares = resultadoOrdenMayorAMenor.filter(
+      (el) => el % 2 !== 0
+    );
+    let resultadoFinal = [...resultadoPares, ...resultadoImpares];
+  </script>
+</html>
