@@ -1,0 +1,47 @@
+*{
+    scroll-behavior: smooth;
+   
+
+}
+*::selection{
+    background-color: red;
+    color: white;
+}
+body{
+    cursor: url(https://ani.cursors-4u.net/others/oth-9/oth929.cur), auto;
+}
+
+
+header{
+    background-color:lightblue;
+    height: 30px;
+    }
+
+nav{
+    background-color: lightgray;
+    height: 25px;    
+}
+
+.codigo{
+    font-size: smaller;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+}
+
+.principal{
+    display: flex;
+    align-items: stretch;
+    }
+
+article{
+    background-color: lightgoldenrodyellow;
+    width: 100%;
+    min-height: 80%;
+    }
+
+aside{
+    min-height: 80%;
+}
+
+footer{
+    background-color: rgb(144, 245, 140);
+}
