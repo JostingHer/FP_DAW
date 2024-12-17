@@ -12,10 +12,36 @@
     <script>
       const idList = document.getElementById("list");
 
-      const renderAll = () => {
-        productList.innerHTML = "";
+      // un mapa de numeros del 1 al 10 con un ocntador
+
+      const random = (cantidad = 10000) => {
+        const mapNumbers = new Map();
+
+        mapNumbers.set(1, 0);
+        mapNumbers.set(2, 0);
+        mapNumbers.set(3, 0);
+        mapNumbers.set(4, 0);
+        mapNumbers.set(5, 0);
+        mapNumbers.set(6, 0);
+        mapNumbers.set(7, 0);
+        mapNumbers.set(8, 0);
+        mapNumbers.set(9, 0);
+        mapNumbers.set(10, 0);
+        console.log(mapNumbers);
+
+        for (let i = 0; i < cantidad; i++) {
+          const random = Math.floor(Math.random() * 10) + 1;
+
+          mapNumbers.set(random, mapNumbers.get(random) + 1);
+        }
+
+        for (let num of mapNumbers) {
+          console.log(num);
+
+          idList.innerHTML += `<li>numero ${num[0]} = ${num[1]}</li>`;
+        }
       };
-      renderAll();
+      random(10000);
     </script>
   </body>
 </html>
