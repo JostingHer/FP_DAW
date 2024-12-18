@@ -6,42 +6,54 @@
     <title>EJERCICIO RANDOM</title>
   </head>
   <body>
-    <ul id="list">
-      <li>numero 1 = 20000</li>
-    </ul>
+    <ul id="list"></ul>
+
     <script>
-      const idList = document.getElementById("list");
+      // const idList = document.getElementById("list");
 
-      // un mapa de numeros del 1 al 10 con un ocntador
+      // // un mapa de numeros del 1 al 10 con un ocntador
 
-      const random = (cantidad = 10000) => {
-        const mapNumbers = new Map();
+      // const random = (cantidad = 10000) => {
+      //   const mapNumbers = new Map();
 
-        mapNumbers.set(1, 0);
-        mapNumbers.set(2, 0);
-        mapNumbers.set(3, 0);
-        mapNumbers.set(4, 0);
-        mapNumbers.set(5, 0);
-        mapNumbers.set(6, 0);
-        mapNumbers.set(7, 0);
-        mapNumbers.set(8, 0);
-        mapNumbers.set(9, 0);
-        mapNumbers.set(10, 0);
-        console.log(mapNumbers);
+      //   for (let i = 1; i <= 10; i++) {
+      //     mapNumbers.set(i, 0);
+      //   }
+      //   //mapNumbers.set(11, { contador: 0 });
+      //   console.log(mapNumbers);
 
-        for (let i = 0; i < cantidad; i++) {
-          const random = Math.floor(Math.random() * 10) + 1;
+      //   for (let i = 0; i < cantidad; i++) {
+      //     const random = Math.floor(Math.random() * 10) + 1;
+      //     mapNumbers.set(random, mapNumbers.get(random) + 1);
+      //   }
 
-          mapNumbers.set(random, mapNumbers.get(random) + 1);
-        }
+      //   // renderHTML
+      //   for (let num of mapNumbers) {
+      //     //console.log(num);
+      //     idList.innerHTML += `<li>numero ${num[0]} = ${num[1]}</li>`;
+      //   }
+      // };
+      // random(10000);
 
-        for (let num of mapNumbers) {
-          console.log(num);
+      /**
+       * @param {{ type: 'I' | 'R', size: number }[]} shoes
+       * @returns {number[]} Available shoes
+       */
+      function organizeShoes(shoes) {
+        const repesShoes = new Set(shoes);
 
-          idList.innerHTML += `<li>numero ${num[0]} = ${num[1]}</li>`;
-        }
-      };
-      random(10000);
+        return [];
+      }
+
+      const shoes = [
+        { type: "I", size: 38 },
+        { type: "R", size: 36 },
+        { type: "R", size: 42 },
+        { type: "I", size: 41 },
+        { type: "I", size: 43 },
+      ];
+      const repesShoes = new Set(shoes);
+      console.log(repesShoes === shoes);
     </script>
   </body>
 </html>
