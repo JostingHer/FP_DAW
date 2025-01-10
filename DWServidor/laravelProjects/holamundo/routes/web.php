@@ -22,17 +22,18 @@ Route::get('/', function () {
 Route::get('/holamundo', function () {
     return "hola mundo page";
 });
- 
-Route::get('/holamundo/{persona}/{tipo}', function ($persona, $tipo) {
-    return "hola " . $persona . $tipo;
-});
+
+
+// Route::get('/holamundo/{persona}/{tipo}', function ($persona, $tipo) {
+//     return "hola " . $persona . $tipo;
+// });
  
 
 // esta mal revisar
-Route::get('/holamundo/{persona}/{rol?}', function ($persona, $rol) {
+Route::get('/holamundo/{persona}/{rol?}', function ($persona, $rol = null) {
 
-    if($rol != null){
-            return "no tiene rol";
+    if($rol == null){
+            return "hola persona sin rol";
     }else{
         return "hola " . $persona . "de rol" .$rol;
     }
@@ -40,9 +41,13 @@ Route::get('/holamundo/{persona}/{rol?}', function ($persona, $rol) {
 }) -> where('persona', '[a-z]+');
 
 
+Route::get('/users/{name}/{rol?}', [UserController::class, 'saludoPersona']);
 
-Route::get('/', [UserController::class, 'indice']);
 
+Route::get('/usersBlade/{name}/{rol?}', [UserController::class, 'saludoPersonaBlade'])-> where('name
+', '[a-z]+');
+
+Route::get('/usersBlade', [UserController::class, 'saludandoPersonas']);
 
 
 

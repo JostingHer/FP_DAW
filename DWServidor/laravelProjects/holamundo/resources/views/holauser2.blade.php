@@ -16,6 +16,10 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>hola user page</h1>
+    @if($rol == null) <p>"hola" . {{$name}}</p>
+    @else  "hola" . {{$name}} . "de rol" . {{$rol}}; 
+    @endif
+
     </body>
 </html>
+
