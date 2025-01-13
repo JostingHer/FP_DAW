@@ -16,9 +16,10 @@
         </style>
     </head>
     <body class="antialiased">
-    @if($rol == null) <p>"hola" . {{$name}}</p>
+    @if($rol == null) <p>"hola" . {{ $name }}</p>
     @else  "hola" . {{$name}} . "de rol" . {{$rol}}; 
     @endif
+
 
     </body>
 </html>
