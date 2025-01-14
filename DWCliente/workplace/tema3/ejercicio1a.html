@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 1 a</title>
+  </head>
+  <body>
+    <p id="cont1"></p>
+    <p id="cont2"></p>
+    <script>
+      function temporizador(tiempo, texto) {
+        const promesa = new Promise((resolver, rechazar) => {
+          const temp = setTimeout(() => {
+            resolver(texto);
+          }, tiempo);
+        });
+
+        return promesa;
+      }
+
+      //   temporizador(5000).then((texto) => {
+      //     document.body.innerHTML = "<p>" + texto + "</p>";
+      //   });
+    </script>
+
+    <script>
+      // apartado a
+
+      function cuenta(
+        valueInit,
+        elHtml = document.body,
+        spaceTime = 1000,
+        textEnd = "tiempo concluido",
+        callback = temporizador
+      ) {
+        elHtml.innerHTML = "<p>" + valueInit + "</p>";
+
+        const intervalo = setInterval(() => {
+          valueInit--;
+          elHtml.innerHTML = valueInit;
+          if (valueInit === 1) {
+            clearInterval(intervalo);
+            callback(spaceTime, textEnd).then((texto) => {
+              elHtml.innerHTML = "<p>" + texto + "</p>";
+            });
+          }
+        }, spaceTime);
+      }
+
+      //cuenta(5);
+    </script>
+    <script>
+      // apartado c
+      const parrafo1 = document.querySelector("#cont1");
+      const parrafo2 = document.querySelector("#cont2");
+
+      cuenta(6, parrafo1, 1000, "fin", temporizador);
+      cuenta(60, parrafo2, 100, "fin", temporizador);
+    </script>
+  </body>
+</html>

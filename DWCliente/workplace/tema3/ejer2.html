@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script>
+    var a = 0;
+    var b = 0;
+
+    var promesa1 = new Promise(function (resolver, rechazar) {
+      setTimeout(() => {
+        for (let i = 0; i < 1000000000; i++) {
+          a++;
+        }
+
+        resolver(a);
+        rechazar("Algo falló");
+      }, 0);
+    });
+
+    var promesa2 = new Promise(function (resolver, rechazar) {
+      setTimeout(() => {
+        for (let i = 0; i < 1000000000; i++) {
+          b++;
+        }
+
+        resolver(b);
+        rechazar("Algo falló");
+      }, 0);
+    });
+
+    var suma = new Promise(function (resolver, rechazar) {
+      setTimeout(() => {
+        console.log("my sols  suma: ", a + b);
+      }, 0);
+    });
+
+    // mi solucion
+    promesa1.then((resultado) => console.log("a: " + resultado));
+    promesa2.then((resultado) => console.log("b: " + resultado));
+    suma.then((resultado) => console.log("a+b: " + resultado));
+    console.log("a+b: " + (a + b)); // se ejecuta primero
+
+    async function sincronizar() {
+      await promesa1;
+      await promesa2;
+      console.log("async await a+b: " + (a + b)); // se ejecuta primero
+    }
+
+    sincronizar();
+
+    let promesaAll = Promise.all([promesa1, promesa2]);
+    promesaAll.then((resultado) => {
+      console.log("promise all: a+b: " + (resultado[0] + resultado[1]));
+    });
+  </script>
+</html>
