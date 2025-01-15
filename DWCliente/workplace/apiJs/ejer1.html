@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+
+  const headingHtml = document.querySelector("#Title");
+  const imgHtml = document.querySelector("#Img");
+  const urlHtml = document.querySelector("#Url");
+
+async function getData() {
+    const url = "https://api.spaceflightnewsapi.net/v4/articles?limit=7";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+
+        const json = await response.json();
+       // console.log(json.results);
+        return json.results;
+      } catch (error) {
+        console.error(error.message);
+        return [];
+      }
+    }
+
+   
+    const renderApp = (data, pos) => {
+
+
+      headingHtml.textContent = "hola";
+      imgHtml.src = data[pos].img;
+      urlHtml.textContent = "hola";
+
+
+
+    }
+  
+    const initApp =  async (pos) => {
+      const data  = await getData();
+      console.log(data)
+
+      const dataSerialized = data.map((item) => ({
+        title: item.title,
+        img: item.image_url,
+        url: item.url
+      }));
+
+      renderApp(dataSerialized, 1);
+
+      
+
+    }
+    initApp(1);
+
+    </script>
+</head>
+<body>
+
+
+  <h1 id="Title"></h1>
+  <img id="Img" src="" alt="imagen">
+  <p id="url"></p>
+
+
+    
+</body>
+</html>
