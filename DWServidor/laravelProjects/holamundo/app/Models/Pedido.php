@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class Pedido extends Model
 {
     // use HasFactory;
-    private $nombre;
-    private $email;
-    private $edad;
-    
+    private $usuario_id;
+    private $fecha_pedido;
+    private $estado;
+    private $stock;
 
 }

@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('usuario_id');
+            $table->timestamp('fecha_pedido')->useCurrent();
+
+            $table->enum('estado', ['pendiente', 'completado', 'cancelado']);
+
             $table->timestamps();
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
+
         });
     }
 
