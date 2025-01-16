@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>ejercicio ajaz  <button id="btnChange">renderApp</button> </h1>
+    
+
+    <script>
+
+        const btnChange = document.querySelector('#btnChange')
+
+ 
+
+
+
+      btnChange.addEventListener('click', async () => {
+        const url = "hola.txt";
+        try {
+          const response = await fetch(url);
+          btnChange.innerHTML = await response.text();
+          
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
+  
+         
+
+        } catch (error) {
+          console.error(error.message);
+          return [];
+        }
+      })
+    </script>
+</body>
+</html>

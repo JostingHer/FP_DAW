@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Actividades</title>
+</head>
+<body>
+
+    <h1>Actividades de Ejercicio</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Duración</th>
+                <th>Calorías</th>
+                <th>Beneficios</th>
+                <th>Tipo de Ejercicio</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Las filas se llenarán dinámicamente con JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+
+
+
+        function renderApp(data) {
+
+            data.forEach(actividad => {
+                const tableBody = document.getElementById('tableBody');
+
+                const row = document.createElement('tr'); 
+
+                row.innerHTML = `
+                    <td>${actividad.nombre}</td>
+                    <td>${actividad.descripcion}</td>
+                    <td>${actividad.tipo}</td>
+                    <td>${actividad.duracion}</td>
+                    <td>${actividad.calorias}</td>
+                    <td>${actividad.beneficios}</td>
+                    <td>${actividad.tipo_ejercicio}</td>
+                `;
+
+                tableBody.appendChild(row);
+             });
+        }
+        async function loadActivities() {
+            const url = 'data.json'; 
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Error en la respuesta: ${response.status}`);
+                }
+                const actividades = await response.json(); 
+
+                renderApp(actividades);
+            } catch (error) {
+                console.error('Error al cargar los datos:', error);
+            }
+        }
+
+        loadActivities();
+
+    </script>
+
+</body>
+</html>

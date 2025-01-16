@@ -1,0 +1,39 @@
+[
+    {
+      "nombre": "Step",
+      "descripcion": "Ejercicio aeróbico que consiste en subir y bajar de una plataforma.",
+      "tipo": "Cuerpo-mente",
+      "duracion": "30 minutos",
+      "calorias": "250",
+      "beneficios": "Resistencia general, coordinación",
+      "tipo_ejercicio": "Cardiovascular"
+    },
+    {
+      "nombre": "Gbody",
+      "descripcion": "Ejercicio físico basado en el uso de peso corporal.",
+      "tipo": "Tono-fuerza",
+      "duracion": "45 minutos",
+      "calorias": "300",
+      "beneficios": "Fuerza, tonificación",
+      "tipo_ejercicio": "Tonificación"
+    },
+    {
+      "nombre": "Gap",
+      "descripcion": "Ejercicio que se centra en glúteos, abdomen y piernas.",
+      "tipo": "Tono-fuerza",
+      "duracion": "40 minutos",
+      "calorias": "350",
+      "beneficios": "Tonificación, fuerza",
+      "tipo_ejercicio": "Tonificación"
+    },
+    {
+      "nombre": "Boxeo",
+      "descripcion": "Deporte de combate que implica golpes y defensa.",
+      "tipo": "Box",
+      "duracion": "50 minutos",
+      "calorias": "400",
+      "beneficios": "Fuerza, resistencia general",
+      "tipo_ejercicio": "Cardiovascular"
+    }
+  ]
+  
