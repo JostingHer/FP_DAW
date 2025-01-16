@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     private $usuario_id;
     private $fecha_pedido;
     private $estado;

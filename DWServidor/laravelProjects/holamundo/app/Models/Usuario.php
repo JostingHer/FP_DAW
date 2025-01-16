@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     private $nombre;
     private $email;
     private $edad;

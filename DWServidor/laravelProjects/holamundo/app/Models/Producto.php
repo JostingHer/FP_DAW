@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
 
-      // use HasFactory;
+       use HasFactory;
       private $nombre;
       private $descripcion;
       private $precio;
