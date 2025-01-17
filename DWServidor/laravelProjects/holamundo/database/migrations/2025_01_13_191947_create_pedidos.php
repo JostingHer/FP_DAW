@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->timestamp('fecha_pedido')->useCurrent();
 
+            $table->unsignedInteger('stock');
             $table->enum('estado', ['pendiente', 'completado', 'cancelado']);
 
             $table->timestamps();

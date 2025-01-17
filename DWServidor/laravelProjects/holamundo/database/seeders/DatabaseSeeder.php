@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
     $this->call([CategoriaSeeder::class]);
     Producto::factory(100)->create();
     Usuario::factory(100)->create();
-    Comentario::factory(100)->create();
     Pedido::factory(100)->create();
+    Comentario::factory(100)->create();
+
 
         // \App\Models\User::factory(10)->create();
 

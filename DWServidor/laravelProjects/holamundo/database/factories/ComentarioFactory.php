@@ -22,7 +22,7 @@ class ComentarioFactory extends Factory
             return $pedido->id;
         });
         return [ 
-            "pedidos_id" => $this->faker->randomElement([1, 2, 3]),
+            "pedidos_id" => $this->faker->randomElement($ids),
             "autor" => $this->faker->name(),
             "contenido" => $this->faker->text(),
             "fecha" => $this->faker->date(),
