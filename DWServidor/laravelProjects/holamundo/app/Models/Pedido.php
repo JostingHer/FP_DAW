@@ -14,3 +14,4 @@ class Pedido extends Model
     private $stock;
 
 }
+ 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/allUsers', [UsuarioController::class, 'allData']);
 
 
 Route::get('/holamundo', function () {

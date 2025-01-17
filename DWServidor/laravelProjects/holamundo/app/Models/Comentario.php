@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comentario extends Model
 {
+    use HasFactory;
+
     private $pedidos_id;
     private $autor;
     private $contenido;
