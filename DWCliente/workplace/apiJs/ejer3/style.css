@@ -1,0 +1,21 @@
+
+
+
+.contenedor{
+    max-width: 500px;
+    margin: auto;
+}
+
+img{
+    max-width: 500px;
+    aspect-ratio: 16 / 9;
+}
+
+.controls{
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+    margin: auto;
+
+}
+
