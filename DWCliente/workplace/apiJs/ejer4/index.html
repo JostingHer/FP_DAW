@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="container" class="grid">
+      <h1>esperando los datos...</h1>
+    </main>
+
+    <script>
+      const container = document.querySelector("#container");
+
+      let data = [];
+      let pos = 0;
+
+      const changeData = async (id) => {
+        console.log(id);
+        const cardChange = document.getElementById(id);
+        cardChange.innerHTML = "Esperado usuario nuevo...";
+
+        const url = "https://randomuser.me/api/?results=1";
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
+
+          const json = await response.json();
+          console.log(json.results);
+          const item = json.results[0];
+          console.log(item);
+
+          cardChange.innerHTML = "";
+
+          const img = document.createElement("img");
+          img.src = item.picture.large;
+          cardChange.appendChild(img);
+
+          const card_content = document.createElement("div");
+          card_content.classList.add("card__content");
+
+          let info = `${item.gender}, ${item.name.title} ${item.name.first} ${item.name.last}, ${item.email}, ${item.location.street.name}, ${item.location.city}, ${item.location.state}, ${item.location.country}, `;
+          card_content.innerText = info;
+
+          cardChange.appendChild(card_content);
+
+          const buttonChange = document.createElement("button");
+          buttonChange.textContent = "change";
+          buttonChange.classList.add("btn__change");
+          buttonChange.addEventListener("click", () => changeData(id));
+          cardChange.appendChild(buttonChange);
+        } catch (error) {
+          console.error(error.message);
+          return [];
+        }
+      };
+
+      const renderAll = (list) => {
+        container.innerHTML = "";
+
+        list.forEach((item, index) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+          card.id = index;
+
+          const img = document.createElement("img");
+          img.src = item.picture.large;
+          card.appendChild(img);
+
+          const card_content = document.createElement("div");
+          card_content.classList.add("card__content");
+
+          let info = `${item.gender}, ${item.name.title} ${item.name.first} ${item.name.last}, ${item.email}, ${item.location.street.name}, ${item.location.city}, ${item.location.state}, ${item.location.country}, `;
+          card_content.innerText = info;
+
+          card.appendChild(card_content);
+
+          const buttonChange = document.createElement("button");
+          buttonChange.textContent = "change";
+          buttonChange.classList.add("btn__change");
+          buttonChange.addEventListener("click", () => changeData(index));
+          card.appendChild(buttonChange);
+
+          container.appendChild(card);
+        });
+      };
+
+      async function getAllData() {
+        const url = "https://randomuser.me/api/?results=10";
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
+
+          const json = await response.json();
+          console.log(json.results);
+
+          renderAll(json.results);
+        } catch (error) {
+          console.error(error.message);
+          return [];
+        }
+      }
+
+      getAllData();
+    </script>
+  </body>
+</html>

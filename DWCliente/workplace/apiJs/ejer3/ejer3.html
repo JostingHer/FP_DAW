@@ -11,6 +11,7 @@
       <form action="#">
         <label for="name">NOmbre de la noticia</label>
         <input type="text" name="name" id="name" />
+        <button type="submit">Buscar</button>
       </form>
       <div>
         <h1 id="title"></h1>
@@ -35,12 +36,14 @@
       const currentValue = document.querySelector("#currentValue");
 
       const inputSearch = document.querySelector("#name");
+      const form = document.querySelector("form");
 
       let data = [];
       let pos = 0;
 
-      async function getData() {
-        const url = "https://api.spaceflightnewsapi.net/v4/articles?limit=70";
+      async function getData(label) {
+        const url = `https://api.spaceflightnewsapi.net/v4/reports/?limit=100&title_contains=${label}`;
+
         try {
           const response = await fetch(url);
           if (!response.ok) {
@@ -57,8 +60,6 @@
           }));
 
           renderApp();
-
-          return data;
         } catch (error) {
           console.error(error.message);
           return [];
@@ -90,26 +91,13 @@
         }
       };
 
-      const search = async (labelSearch) => {
-        if (labelSearch == "") {
-          getData();
-          return;
-        }
-
-        const originalData = await getData();
-
-        const regex = new RegExp(`\\b${labelSearch}\\b`, "i");
-        data = originalData.filter((item) => regex.test(item.title));
-        console.log(data);
-        renderApp();
-      };
-
-      getData();
+      getData("");
       btnNext.addEventListener("click", increasePos);
       btnBack.addEventListener("click", decreasePos);
 
-      inputSearch.addEventListener("input", (e) => {
-        search(e.target.value);
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        getData(inputSearch.value);
       });
     </script>
   </body>
