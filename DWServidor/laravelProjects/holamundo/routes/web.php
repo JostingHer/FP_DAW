@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',  [UsuarioController::class, 'allData']);
+
+
+Route::get('/usuarios',  [UsuarioController::class, 'allData'])->name('AS_usuarios');
+
+Route::get('/agregar',  [UsuarioController::class, 'addUserView'])->name('rutaNuevoUsuario');
+Route::post('/nuevo',  [UsuarioController::class, 'store'])->name('rutaAddUsuario');
+
+
+
+
 Route::get('/allUsers', [UsuarioController::class, 'allData']);
 
 
@@ -28,25 +39,25 @@ Route::get('/holamundo', function () {
 // });
  
 
-// esta mal revisar
-Route::get('/holamundo/{persona}/{rol?}', function ($persona, $rol = null) {
+// // esta mal revisar
+// Route::get('/holamundo/{persona}/{rol?}', function ($persona, $rol = null) {
 
-    if($rol == null){
-            return "hola persona sin rol";
-    }else{
-        return "hola " . $persona . "de rol" .$rol;
-    }
+//     if($rol == null){
+//             return "hola persona sin rol";
+//     }else{
+//         return "hola " . $persona . "de rol" .$rol;
+//     }
 
-}) -> where('persona', '[a-z]+');
-
-
-Route::get('/users/{name}/{rol?}', [UserController::class, 'saludoPersona']);
+// }) -> where('persona', '[a-z]+');
 
 
-Route::get('/usersBlade/{name}/{rol?}', [UserController::class, 'saludoPersonaBlade'])-> where('name
-', '[a-z]+');
+// Route::get('/users/{name}/{rol?}', [UserController::class, 'saludoPersona']);
 
-Route::get('/usersBlade', [UserController::class, 'saludandoPersonas']);
+
+// Route::get('/usersBlade/{name}/{rol?}', [UserController::class, 'saludoPersonaBlade'])-> where('name
+// ', '[a-z]+');
+
+// Route::get('/usersBlade', [UserController::class, 'saludandoPersonas']);
 
 
 
