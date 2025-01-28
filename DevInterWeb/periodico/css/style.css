@@ -27,12 +27,19 @@ body{
 /*Globales*/
 
 
-.contenedor{
+.container{
     max-width: 100rem;
     width: 90%;
     margin: var(--gap) auto;
 
 }
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--gap);
+}
+
 h1,h2,h3{
     font-weight: 900;
     font-family: var(--primaryFont);
@@ -44,7 +51,9 @@ h1{
     margin: 0;
 }
 h2{
-    font-size: 3.6rem ;
+    font-size: 3.2rem ;
+    margin: 2rem auto;
+    text-wrap: balance;
 }
 h3{
     font-size: 2.8rem;
@@ -55,12 +64,23 @@ img{
     display: block;
 }
 
+
+article{
+    text-align: left;
+    text-wrap: balance;
+
+    span{
+        font-weight: 700;
+    }
+}
+
 /*utilidades*/
 .text-center{
     text-align: center;
 }
 a{
     text-decoration: none;
+    color: var(--black);
 }
 
 
@@ -92,11 +112,7 @@ a{
 
 }
 
-@media (max-width: 769px) {
-    .hero {
-    
-    }
-}
+
 .hero__img{
     position: absolute;
     top: 0;
@@ -114,9 +130,45 @@ a{
     text-align: center;
     text-wrap: balance;
     max-width: 700px;
+    padding-bottom: var(--gap);
 
     h1:hover{
         text-decoration: underline;
+    }
+    
+}
+
+
+
+.main{
+    text-align: center;
+}
+
+
+.news-list{
+    margin: var(--gap) 0 ;
+
+}
+.news-list2{
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+
+@media (min-width: 769px) {
+    .news-list__item-flex{
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+        place-items: center;
+        justify-content: center;
+        
+    
+        gap: var(--gap);
+        
+        
     }
     
 }
