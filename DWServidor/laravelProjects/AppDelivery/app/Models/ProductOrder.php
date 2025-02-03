@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class ProductOrder extends Model
 {
     use HasFactory;
-    private $id;
-    private $name;
+    private $product_id;
+    private $order_id;
 
+    
 }

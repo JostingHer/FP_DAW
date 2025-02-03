@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Local extends Model
 {
     use HasFactory;
+
     private $id;
-    private $name;
+    private $company_id;
+    private $city;
 
 }
