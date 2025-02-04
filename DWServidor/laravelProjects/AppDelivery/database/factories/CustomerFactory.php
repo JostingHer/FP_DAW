@@ -17,7 +17,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'phone' => $this->faker->regexify('([6789]{1}[0-9]{8})'),
+            'creditCard' => $this->faker->regexify('[0-9]{13,19}'),
+
         ];
     }
 }

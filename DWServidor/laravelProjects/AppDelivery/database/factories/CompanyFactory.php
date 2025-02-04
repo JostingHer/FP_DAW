@@ -17,7 +17,9 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->company(),
+            'email' => $this->faker->unique()->companyEmail(),
+            'address' => $this->faker->address(),
         ];
     }
 }

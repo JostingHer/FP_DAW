@@ -10,5 +10,7 @@ class Company extends Model
     use HasFactory;
     private $id;
     private $name;
+    private $email;
+    private $address;
 
 }

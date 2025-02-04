@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->double('price', 5, 2);
-            $table->string('descripcion')->nullable(true);
+            $table->string('description')->nullable(true);
+            $table->string('image');
+
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
+
+
 
             $table->timestamps();
         });
