@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Company;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +33,45 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Mostrar lista
+// Route::get('/products/create', [ProductController::class, 'create'])->name('products.create'); // Formulario de creación
+// Route::post('/products', [ProductController::class, 'store'])->name('products.store'); // Guardar nuevo producto
+// Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show'); // Mostrar un producto
+// Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit'); // Formulario de edición
+// Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update'); // Guardar edición
+// Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Eliminar producto
+
+
+
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index'); // Mostrar lista
+// Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
+// Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
+// Route::get('/companies/{id}', [CompanyController::class, 'show'])->name('companies.show'); // Mostrar uno
+// Route::get('/companies/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit'); // Formulario de edición
+// Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update'); // Guardar edición
+// Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
+
+
+
+Route::get('/{company}/products',  [ProductController::class, 'productsFilterByCompany'])
+    ->name('products.productsFilterByCompany');
+
+
+
+// ojo: aqui se modifican dos tablas order y product_order
+
+Route::get('/{companies}/orders', [OrderController::class, 'index'])->name('orders.index'); // Mostrar lista
+Route::get('/{companies}/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
+// Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
+// Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
+
+
+Route::post('/cart/add/{product}', function () {
+    return view('welcome');
+})->name('cart.add');
