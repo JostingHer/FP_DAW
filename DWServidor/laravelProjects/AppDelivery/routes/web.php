@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartShopController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -33,6 +34,20 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+Route::get('/cart', [CartShopController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartShopController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove/{id}', [CartShopController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/clear', [CartShopController::class, 'clear'])->name('cart.clear');
+Route::get('/cart/increase/{productId}', [CartShopController::class, 'increase'])->name('cart.increase');
+Route::get('/cart/decrease/{productId}', [CartShopController::class, 'decrease'])->name('cart.decrease');
+
+Route::get('/formCustomer', function () {
+    return view('formCustomer');
+});
 
 
 
@@ -72,6 +87,6 @@ Route::get('/{companies}/create', [CompanyController::class, 'create'])->name('c
 // Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
 
 
-Route::post('/cart/add/{product}', function () {
-    return view('welcome');
-})->name('cart.add');
+// Route::post('/cart/add/{product}', function () {
+//     return view('welcome');
+// })->name('cart.add');

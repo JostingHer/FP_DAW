@@ -21,10 +21,14 @@
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
                             <p class="fw-bold">Precio: €{{ number_format($product->price, 2) }}</p>
-                            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                            <form action="{{ route('cart.add') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-primary w-100">Agregar al Pedido</button>
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="name" value="{{ $product->name }}">
+                                <input type="hidden" name="price" value="{{$product->price}}">
+                                <button type="submit" class="btn btn-success">Añadir al Carrito</button>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
