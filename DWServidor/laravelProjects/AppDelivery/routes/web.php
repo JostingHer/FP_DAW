@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartShopController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyDeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
 
 require __DIR__.'/auth.php';
@@ -38,17 +40,43 @@ require __DIR__.'/auth.php';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/cart', [CartShopController::class, 'index'])->name('cart.index');
+// Route::get('/formCustomer', function () {
+//     return view('formCustomer');
+// });
+
+Route::get('/formCustomer', [OrderController::class, 'create'])->name('order.create');
+Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
+Route::get('/order/success', [OrderController::class, 'success'])->name('order.success');
+
+
+
+
+
 Route::post('/cart/add', [CartShopController::class, 'add'])->name('cart.add');
-Route::post('/cart/remove/{id}', [CartShopController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/clear', [CartShopController::class, 'clear'])->name('cart.clear');
+Route::get('/cart/clear', [CartShopController::class, 'clear'])->name('cart.clear');
 Route::get('/cart/increase/{productId}', [CartShopController::class, 'increase'])->name('cart.increase');
 Route::get('/cart/decrease/{productId}', [CartShopController::class, 'decrease'])->name('cart.decrease');
-
-Route::get('/formCustomer', function () {
-    return view('formCustomer');
-});
-
+Route::get('/cart/remove/{id}', [CartShopController::class, 'remove'])->name('cart.remove');
 
 
 
@@ -61,7 +89,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 // Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit'); // Formulario de edición
 // Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update'); // Guardar edición
 // Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Eliminar producto
-
+ 
 
 
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index'); // Mostrar lista
@@ -81,12 +109,14 @@ Route::get('/{company}/products',  [ProductController::class, 'productsFilterByC
 
 // ojo: aqui se modifican dos tablas order y product_order
 
-Route::get('/{companies}/orders', [OrderController::class, 'index'])->name('orders.index'); // Mostrar lista
-Route::get('/{companies}/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
-// Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
-// Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
+// Route::get('/{companies}/orders', [OrderController::class, 'index'])->name('orders.index'); // Mostrar lista
+// Route::get('/{companies}/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
+// // Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
+// // Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
 
 
-// Route::post('/cart/add/{product}', function () {
-//     return view('welcome');
-// })->name('cart.add');
+
+
+
+Route::get('/companyDeliveries', [CompanyDeliveryController::class, 'index'])->name('companyDeliveries.index'); 
+

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    private $id;
-    private $name;
-    private $number;
-    private $credir_card;
 
+    protected $fillable = ['name', 'phone', 'creditCard']; // Permitir asignación masiva
 
+    protected $hidden = ['creditCard']; // Ocultar en respuestas JSON
+
+    protected $casts = [
+        'creditCard' => 'encrypted', // Cifrar la tarjeta automáticamente
+    ];
 }

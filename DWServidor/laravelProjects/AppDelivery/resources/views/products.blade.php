@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        *{
+            /* --bs-pagination-active-bg: red; */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
@@ -26,6 +32,8 @@
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="name" value="{{ $product->name }}">
                                 <input type="hidden" name="price" value="{{$product->price}}">
+                                <input type="hidden" name="image" value="{{$product->image}}">
+                                <input type="hidden" name="company" value="{{$product->company_id}}">
                                 <button type="submit" class="btn btn-success">Añadir al Carrito</button>
                             </form>
                             

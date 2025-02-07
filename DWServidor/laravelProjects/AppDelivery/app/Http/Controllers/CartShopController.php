@@ -19,18 +19,15 @@ class CartShopController extends Controller
         $cart = json_decode(Cookie::get('cart', '[]'), true);
         
         $productId = $request->input('product_id');
-        $quantity = $request->input('quantity', 1);
         
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $quantity;
-        } else {
-            $cart[$productId] = [
-                'id' => $productId,
-                'name' => $request->input('name'),
-                'price' => $request->input('price'),
-                'quantity' => $quantity,
-            ];
-        }
+        $cart[$productId] = [
+            'id' => $productId,
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'image' => $request->input('image'),
+            'company' => $request->input('company'),
+            'quantity' => 1,
+        ];
 
         Cookie::queue('cart', json_encode($cart), 60 * 24 * 7); // 7 días de duración
 
@@ -43,14 +40,18 @@ class CartShopController extends Controller
     public function remove($productId)
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);
-
+    
+        // Check if the product exists in the cart BEFORE trying to access it.
         if (isset($cart[$productId])) {
-            unset($cart[$productId]);
+            unset($cart[$productId]); // Directly unset by key
+    
             Cookie::queue('cart', json_encode($cart), 60 * 24 * 7);
-        }
-
-        session()->flash('success', 'Producto eliminado del carrito.');
-
+    
+            session()->flash('success', 'Producto eliminado del carrito.');
+    
+        } 
+    
+    
         return back();
     }
 
@@ -85,6 +86,9 @@ class CartShopController extends Controller
 
         if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
             $cart[$productId]['quantity']--;
+        }else{
+            CartShopController::remove($productId);
+               return back();
         }
 
         Cookie::queue('cart', json_encode($cart), 60 * 24 * 7);

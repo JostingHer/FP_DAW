@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     private $id;
+    private $company_id;
     private $name;
     private $price;
     private $description;

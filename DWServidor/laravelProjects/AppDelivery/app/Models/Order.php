@@ -9,5 +9,6 @@ class Order extends Model
 {
     use HasFactory;
     private $customer_id;
+    private $company_id;
 
 }
