@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    private $company_delivery_id;
     private $customer_id;
-    private $company_id;
+    private $total;
 
 }

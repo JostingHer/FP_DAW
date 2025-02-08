@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyDelivery extends Model
 {
     use HasFactory;
+    private $id;
+    private $name;
+    private $email;
 }
+ 

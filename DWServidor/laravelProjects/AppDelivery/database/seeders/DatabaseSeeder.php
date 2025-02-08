@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
 
         CompanyDelivery::factory(10)->create();
-        Company::factory(5)->create();
+        Company::factory(1)->create();
         Product::factory(50)->create();
         Customer::factory(10)->create();
 

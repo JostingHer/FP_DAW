@@ -9,11 +9,10 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone', 'creditCard']; // Permitir asignación masiva
+    private $name;
+    private $phone;
+    private $creditCard;
 
-    protected $hidden = ['creditCard']; // Ocultar en respuestas JSON
 
-    protected $casts = [
-        'creditCard' => 'encrypted', // Cifrar la tarjeta automáticamente
-    ];
+  
 }

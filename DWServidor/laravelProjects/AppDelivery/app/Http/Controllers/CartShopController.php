@@ -18,17 +18,24 @@ class CartShopController extends Controller
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);
         
+        // Obtener el ID del producto y otros datos de la solicitud
         $productId = $request->input('product_id');
-        
-        $cart[$productId] = [
-            'id' => $productId,
-            'name' => $request->input('name'),
-            'price' => $request->input('price'),
-            'image' => $request->input('image'),
-            'company' => $request->input('company'),
-            'quantity' => 1,
-        ];
+        $productName = $request->input('name');
+        $productPrice = $request->input('price');
 
+        // Verificar si el producto ya existe en el carrito
+        if (isset($cart[$productId])) {
+            // Si el producto existe, incrementar la cantidad
+            $cart[$productId]['quantity']++;
+        } else {
+            // Si el producto no existe, agregarlo al carrito
+            $cart[$productId] = [
+                'id' => $productId,
+                'name' => $productName,
+                'price' => $productPrice,
+                'quantity' => 1,
+            ];
+        }
         Cookie::queue('cart', json_encode($cart), 60 * 24 * 7); // 7 días de duración
 
         session()->flash('success', 'Producto añadido correctamente.');
@@ -51,7 +58,6 @@ class CartShopController extends Controller
     
         } 
     
-    
         return back();
     }
 
@@ -60,6 +66,7 @@ class CartShopController extends Controller
     {
         Cookie::queue(Cookie::forget('cart'));
         session()->flash('success', 'Carrito vaciado.');
+
 
         return back();
     }
@@ -73,6 +80,8 @@ class CartShopController extends Controller
         }
 
         Cookie::queue('cart', json_encode($cart), 60 * 24 * 7);
+
+
 
         session()->flash('success', 'Cantidad aumentada.');
 
@@ -92,6 +101,7 @@ class CartShopController extends Controller
         }
 
         Cookie::queue('cart', json_encode($cart), 60 * 24 * 7);
+
 
         session()->flash('success', 'Cantidad reducida.');
 

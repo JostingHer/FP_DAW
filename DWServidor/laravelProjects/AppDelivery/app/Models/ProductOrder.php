@@ -10,6 +10,8 @@ class ProductOrder extends Model
     use HasFactory;
     private $product_id;
     private $order_id;
+    private $quantity;
+    private $price;
 
     
 }

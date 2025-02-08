@@ -26,7 +26,7 @@
                             @if (!empty($cart))
                                 @foreach ($cart as $productId =>$item)
                                     <div>
-                                        <img src="{{ $item['image'] }}" alt="image">
+                                        {{-- <img src="{{ $item['image'] }}" alt="image"> --}}
                                         <div>
                                             <p>Producto: <strong>{{ $item['name'] }}</strong></p>
                                             <p>Precio: <strong>€{{ number_format($item['price'], 2) }}</strong></p>
