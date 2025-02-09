@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\CompanyDelivery;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         $companyDeliveries = CompanyDelivery::all();
-        $customers = Customer::all();
+        $customers = User::all();
 
         return [
             'customer_id' => $customers->random()->id,

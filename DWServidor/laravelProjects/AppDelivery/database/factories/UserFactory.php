@@ -28,6 +28,9 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'phone' => $this->faker->regexify('([6789]{1}[0-9]{8})'),
+            'creditCard' => $this->faker->regexify('[0-9]{13,19}'),
+
             'remember_token' => Str::random(10),
         ];
     }

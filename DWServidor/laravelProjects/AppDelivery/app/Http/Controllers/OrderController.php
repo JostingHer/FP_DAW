@@ -25,12 +25,21 @@ class OrderController extends Controller
             return $carry + ($item['price'] * $item['quantity']);
         }, 0);
 
-        // Crear instancia de Customer y asignar valores
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->phone = $request->phone;
-        $customer->creditCard = $request->credit_card;
-        $customer->save();
+
+        $customer = null;
+        if (auth()->check()){
+            // cliente habitual
+            $customer = auth()->user();
+        }else{
+           // Cliente ocasional -> Creamos un usuario anónimo
+            $customer = new User();
+            $customer->name = $request->name;
+            $customer->email = 'anonimo+' . time() . '@tuweb.com'; 
+            $customer->password = '1234'; 
+            $customer->phone = $request->phone;
+            $customer->creditCard = $request->credit_card;
+            $customer->save();
+        }
 
         $order = new Order();
         $order->customer_id = $customer->id;

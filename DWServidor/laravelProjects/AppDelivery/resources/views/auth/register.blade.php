@@ -16,6 +16,18 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <div>
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('name')" required autofocus autocomplete="phone" />
+        </div>
+
+        <div>
+            <x-input-label for="creditCard" :value="__('CreditCard')" />
+            <x-text-input id="creditCard" class="block mt-1 w-full" type="text" name="creditCard" :value="old('creditCard')" required autofocus autocomplete="creditCard" />
+        </div>
+
+       
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

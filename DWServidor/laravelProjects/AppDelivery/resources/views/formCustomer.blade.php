@@ -61,8 +61,32 @@
                                 <div class="alert alert-success">{{ session('success') }}</div>
                             @endif
 
+                            @if (Route::has('login'))
+                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                                @auth
+                                    <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                               
                             {{-- Formulario --}}
                             <form action="{{ route('order.store') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="delivery_company" class="form-label">Empresa de Delivery:</label>
+                                    <select id="delivery_company" name="delivery_company" class="form-control" required>
+                                        <option value="">Seleccione una empresa</option>
+                                        @foreach($deliveryCompanies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
+                            </form>
+                               
+                                    @else
+
+
+                            {{-- Formulario --}}
+                                 <form action="{{ route('order.store') }}" method="POST">
                                 @csrf
                         
                                 <div class="mb-3">
@@ -93,7 +117,17 @@
                                 </div>
                         
                                 <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
-                            </form>
+                                 </form>
+                                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
+
+
                         </div>
                     </div>
                 </div>
