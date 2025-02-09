@@ -20,6 +20,7 @@ return new class extends Migration
 
 
             $table->timestamps();
+            // Customers are users
             $table->foreign('customer_id')->references('id')->on('users');
             $table->foreign('company_delivery_id')->references('id')->on('company_deliveries');
 

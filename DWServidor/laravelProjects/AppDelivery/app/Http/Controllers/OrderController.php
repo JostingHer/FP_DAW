@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyDelivery;
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\ProductOrder;
 use App\Models\User;
@@ -58,8 +57,9 @@ class OrderController extends Controller
         }
         Cookie::queue(Cookie::forget('cart'));
 
+        return view('endOrder');
         //return back();
-        return redirect()->route('order.success')->with('success', 'Pedido realizado correctamente.');
+       // return redirect()->route('order.success')->with('success', 'Pedido realizado correctamente.');
     }
 
     public function success()

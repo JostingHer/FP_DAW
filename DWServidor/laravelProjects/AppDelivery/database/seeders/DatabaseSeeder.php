@@ -6,8 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\CompanyDelivery;
-use App\Models\Customer;
-use App\Models\Local;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
@@ -32,7 +30,6 @@ class DatabaseSeeder extends Seeder
         CompanyDelivery::factory(10)->create();
         Company::factory(1)->create();
         Product::factory(50)->create();
-        //Customer::factory(10)->create();
         User::factory(10)->create();
 
         Order::factory(100)->create();

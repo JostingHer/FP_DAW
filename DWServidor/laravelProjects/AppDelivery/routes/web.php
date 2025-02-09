@@ -6,7 +6,6 @@ use App\Http\Controllers\CompanyDeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Company;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Breeze Routes
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,38 +38,17 @@ require __DIR__.'/auth.php';
 
 
 
+// Routes 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
+Route::get('/companyDeliveries', [CompanyDeliveryController::class, 'index'])->name('companyDeliveries.index'); 
+Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Mostrar lista
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/cart', [CartShopController::class, 'index'])->name('cart.index');
-// Route::get('/formCustomer', function () {
-//     return view('formCustomer');
-// });
-
-Route::get('/formCustomer', [OrderController::class, 'create'])->name('order.create');
-Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
-Route::get('/order/success', [OrderController::class, 'success'])->name('order.success');
-
-
-
-
+// shopping cart logic with cookies
 
 Route::post('/cart/add', [CartShopController::class, 'add'])->name('cart.add');
 Route::get('/cart/clear', [CartShopController::class, 'clear'])->name('cart.clear');
@@ -79,10 +57,53 @@ Route::get('/cart/decrease/{productId}', [CartShopController::class, 'decrease']
 Route::get('/cart/remove/{id}', [CartShopController::class, 'remove'])->name('cart.remove');
 
 
+Route::get('/cart', [CartShopController::class, 'index'])->name('cart.index'); 
+Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
+// Route::get('/order/success', [OrderController::class, 'success'])->name('order.success');
 
 
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Mostrar lista
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOTAS IMPORTANTES:
+
+// Esta es la estructura estandar en caso de hacer un CRUD de cualquier Modelo
+
+// Pasos:
+// 1. Crea Modelos, Migraciones, factories-seeders y controllers
+
+// 2. Crea las rutas 
+//    luego crea los metodos que gestionana la logica en el controller, vinculara  vista
+
+
+// Route::resource('companies', CompanyController::class);
+
+// Mas especificamente estas:
+
+// Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index'); // Mostrar lista
+// Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
+// Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
+// Route::get('/companies/{id}', [CompanyController::class, 'show'])->name('companies.show'); // Mostrar uno
+// Route::get('/companies/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit'); // Formulario de edición
+// Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update'); // Guardar edición
+// Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
+
+// Nota la misama estructura
+
 // Route::get('/products/create', [ProductController::class, 'create'])->name('products.create'); // Formulario de creación
 // Route::post('/products', [ProductController::class, 'store'])->name('products.store'); // Guardar nuevo producto
 // Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show'); // Mostrar un producto
@@ -92,31 +113,24 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
  
 
 
-Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index'); // Mostrar lista
-// Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
-// Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
-// Route::get('/companies/{id}', [CompanyController::class, 'show'])->name('companies.show'); // Mostrar uno
-// Route::get('/companies/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit'); // Formulario de edición
-// Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update'); // Guardar edición
-// Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
 
 
 
-Route::get('/{company}/products',  [ProductController::class, 'productsFilterByCompany'])
-    ->name('products.productsFilterByCompany');
+
+// TESTING APP, no funciona = hazlo luego o dejalo si no te da tiempo
+
+// Si hubieran muchos restauarantes o locales del mismo (tipo Franquicia: McDonals), 
+// que se pueda filtrar por restaurante
+
+// Route::get('/{company}/products',  [ProductController::class, 'productsFilterByCompany'])
+//     ->name('products.productsFilterByCompany');
 
 
-
-// ojo: aqui se modifican dos tablas order y product_order
+// La misma idea que antes solo que filtrando por pedidos
 
 // Route::get('/{companies}/orders', [OrderController::class, 'index'])->name('orders.index'); // Mostrar lista
 // Route::get('/{companies}/create', [CompanyController::class, 'create'])->name('companies.create'); // Formulario de creación
 // // Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store'); // agregar nuevo
 // // Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy'); // Eliminar 
 
-
-
-
-
-Route::get('/companyDeliveries', [CompanyDeliveryController::class, 'index'])->name('companyDeliveries.index'); 
 

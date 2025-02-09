@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\CompanyDelivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -9,11 +10,11 @@ class CartShopController extends Controller
     // Mostrar la vista del carrito con los productos almacenados en cookies
     public function index()
     {
-        $cart = json_decode(Cookie::get('cart', '[]'), true);
-        return view('cart.index', compact('cart'));
+        $deliveryCompanies = CompanyDelivery::all();
+        return view('formCustomer', compact('deliveryCompanies'));
     }
 
-    // Agregar producto al carrito sin redirección
+    // Agregar producto al carrito 
     public function add(Request $request)
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);
