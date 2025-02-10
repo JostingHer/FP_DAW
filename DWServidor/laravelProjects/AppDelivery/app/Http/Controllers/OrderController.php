@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
-    public function create()
+    public function index()
     {
-        $deliveryCompanies = CompanyDelivery::all();
-        return view('formCustomer', compact('deliveryCompanies'));
+        // OJO: SI HUBIERA MAS DE UNA EMPRESA HABIRA QUE FILTRAR FIND()
+        $orders = Order::all();
+        return view('companiesOrders', compact('orders'));
     }
     public function store(Request $request)
     {

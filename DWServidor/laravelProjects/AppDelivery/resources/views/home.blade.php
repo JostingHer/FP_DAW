@@ -8,19 +8,49 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet"> 
+   
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <style>
+
+  a:hover{
+   color: white;
+  }
+    </style>
 </head>
 <body>
     <header class="header contenedor">
         <div class="header__logo">
             <img src="{{ asset('img/logo.svg') }}" alt="logo">
         </div>
+        <div>
+            <nav class="navegacion">
+           
+                <a href="{{ url('/') }}" class="navegacion__link">Inicio</a>
+                <a href="{{ url('/products') }}" class="navegacion__link">Platos</a>
+                <a href="{{ url('/companyDeliveries') }}" class="navegacion__link">Empresas</a>
+                <a href="{{ url('/orders') }}" class="navegacion__link">Pedidos</a>
+                <a class="nav-link" href="{{ url('/cart') }}">
+                    <span class="badge badge-pill bg-danger">1</span>
+                    <span><i class="bi bi-cart-plus-fill"></i></span>
+                  </a>
+            </nav>
+        </div>
         <nav class="navegacion">
-            <a href="#" class="navegacion__link">Iniciar sesion</a>
-            <a href="#" class="navegacion__link">Crear cuenta</a>
-            <a href="#" class="navegacion__link--registrar">Registrar Restaurant</a>
+           
+            <a href="#" class="navegacion__link--registrar">Iniciar sesion</a>
+            <a href="#" class="navegacion__link--registrar">Crear cuenta</a>
         </nav>
     </header>
+
+
+
 
     <section class="contenedor formulario">
         <div class="formulario__grid">
@@ -43,6 +73,45 @@
             </div>
         </div>
     </section>
+    <section>
+        <img class="pasos__wave" src="{{ asset('img/wave.svg') }}" alt="imagene wave">
+
+       </section>
+
+
+    <div class="contenedor">
+        <h2 class="testimoniales__heading">Nuestras instalaciones</h2>
+    <section class="hero vh-100 d-flex align-items-center">
+
+     
+        <div id="carouselExampleIndicators" class="carousel slide w-100 h-100" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner h-100">
+                <div class="carousel-item active h-100">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/66/da/10/inside-amor-a-lo-mexicano.jpg?w=900&h=500&s=1" class="d-block w-100 h-100 object-fit-cover" alt="...">
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="https://blog.monouso.es/wp-content/uploads/Claves-para-decoracio%CC%81n-terraza-bar-y-destacar-entre-la-competencia-1024x536.webp" class="d-block w-100 h-100 object-fit-cover" alt="...">
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="https://static.vecteezy.com/system/resources/previews/007/550/650/large_2x/delivery-man-riding-a-red-scooter-illustration-delivery-service-app-on-mobile-phone-delivery-motorbike-and-mobile-phone-with-map-on-city-background-flat-style-illustration-vector.jpg" class="d-block w-100 h-100 object-fit-cover" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+    </div>
 
     <section class="pasos">
         <img class="pasos__wave" src="{{ asset('img/wave.svg') }}" alt="imagene wave">
@@ -214,5 +283,18 @@
             </div>
         </div>
     </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+    <script>
+        var myCarousel = new bootstrap.Carousel(document.querySelector('#carouselExampleIndicators'), {
+            interval: 2000, // Cambia cada 2 segundos
+            wrap: true // Permite repetir el ciclo
+        });
+    </script>
+    
 </body>
 </html>
