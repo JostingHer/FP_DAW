@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function index()
     {
         // OJO: SI HUBIERA MAS DE UNA EMPRESA HABIRA QUE FILTRAR FIND()
-        $orders = Order::all();
+        $orders = Order::paginate(12);
         return view('companiesOrders', compact('orders'));
     }
     public function store(Request $request)

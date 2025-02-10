@@ -12,6 +12,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,6 +21,39 @@
 
     </head>
     <body>
+        <header class="header ">
+            <div class="header__logo">
+                <img src="{{ asset('img/logo.svg') }}" alt="logo">
+            </div>
+            <div>
+                <nav class="navegacion">
+               
+                    <a href="{{ url('/') }}" class="navegacion__link">Inicio</a>
+                    <a href="{{ url('/products') }}" class="navegacion__link">Platos</a>
+                    <a href="{{ url('/companyDeliveries') }}" class="navegacion__link">Empresas</a>
+                    <a href="{{ url('/orders') }}" class="navegacion__link">Pedidos</a>
+            
+                    <a class="navegacion__link" href="{{ url('/cart') }}">
+                        
+                        <span><i class="bi bi-cart-plus-fill"> Carrito</i></span>
+                      </a>
+                </nav>
+            </div>
+            <nav class="navegacion">
+               
+                @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        @else
+                                <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="navegacion__link--registrar">Crear cuenta</a>
+                                @endif
+                        @endauth
+                @endif
+            </nav>
+        </header>
+    
 
         <section class="contenedor formulario">
          
