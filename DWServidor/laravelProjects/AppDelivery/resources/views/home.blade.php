@@ -35,6 +35,11 @@
 
 
   }
+
+  .grid-images{
+    display: grid;
+    grid-template-columns: 1fr 1fr
+  }
     </style>
 </head>
 <body>
@@ -72,7 +77,7 @@
 
                    
                            @else
-                            <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
+                            <a href="{{ route('login') }}" class="navegacion__link--registrar">Iniciar sesion</a>
                             @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="navegacion__link--registrar">Crear cuenta</a>
                             @endif
@@ -86,34 +91,47 @@
 
     <section class="contenedor formulario">
         <div class="formulario__grid">
-            <div class="formulario__contenido">
-                <h2 class="formulario__heading">Encuentra y pide comidad en tu restaurante favo</h2>
-                <form class="formulario__buscar">
-                    <div class="formulario__campo">
-                        <label for="restaurant" class="formulario__label">Restaurant</label>
-                        <input id="restaurant" class="formulario__input" type="text" placeholder="tacos Mex">
-                    </div>
-                    <div class="formulario__campo">
-                        <label for="platillo" class="formulario__label">Platillo</label>
-                        <input id="platillo" class="formulario__input" type="text" placeholder="pizza, ensalada, hamburguesa">
-                    </div>
-                    <input type="submit" class="formulario__submit" value="Buscar">
-                </form>
+        <div>
+            <div class="grid-images">
+                <img src="https://mcdonalds.es/api/cms/images/mcdonalds-es/ZqEV7B5LeNNTxdoq_4_1080x943_Ensaladas_C%C3%A9sar.png?auto=format,compress" alt="">
+                <img src="https://www.dominospizza.es/images/GlutenFreeDelivery_DM210915_0_ES.png" alt="">
+                <img src="https://www.dominospizza.es/images/PecadoCarnalDeliver_C2200113_0_ES.png" alt="">
+                <img src="https://www.dominospizza.es/images/MargaritaDelivery_M2200214_0_ES.png" alt="">
+          
             </div>
+            <a href="{{ url('/products') }}" class="navegacion__link--registrar">Todos los productos</a>
+
+
+        </div>
             <div class="formulario__imagen-contenedor">
                 <img class="formulario__imagen" src="{{ asset('img/dibujo_repartidor.svg') }}" alt="Repartidor img">
             </div>
         </div>
     </section>
-    <section>
+    
+
+
+    <section class="pasos">
         <img class="pasos__wave" src="{{ asset('img/wave.svg') }}" alt="imagene wave">
-
-       </section>
-
+        <div class="pasos__contenido">
+            <h2 style="margin-bottom: 2rem;" class="pasos__heading">¿Como funciona? <span class="pasos__heading--descripcion">tan facil como 1, 2 y 3</span></h2>
+            <div class="pasos__grid contenedor">
+                <div class="pasos__imagen">
+                    <img loading="lazy" src="{{ asset('img/paso_1.png') }}" alt="image">
+                </div>
+                <div class="pasos__imagen">
+                    <img loading="lazy" src="{{ asset('img/paso_2.png') }}" alt="image">
+                </div>
+                <div class="pasos__imagen">
+                    <img loading="lazy" src="{{ asset('img/paso_3.png') }}" alt="image">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="contenedor">
-        <h2 class="testimoniales__heading">Nuestras instalaciones</h2>
-    <section class="hero vh-100 d-flex align-items-center">
+        <h2 style="margin-bottom: 2rem;" class="testimoniales__heading">Nuestras instalaciones</h2>
+        <section class="hero vh-100 d-flex align-items-center">
 
      
         <div id="carouselExampleIndicators" class="carousel slide w-100 h-100" data-bs-ride="carousel">
@@ -145,26 +163,9 @@
     </section>
     </div>
 
-    <section class="pasos">
-        <img class="pasos__wave" src="{{ asset('img/wave.svg') }}" alt="imagene wave">
-        <div class="pasos__contenido">
-            <h2 class="pasos__heading">¿Como funciona? <span class="pasos__heading--descripcion">tan facil como 1, 2 y 3</span></h2>
-            <div class="pasos__grid contenedor">
-                <div class="pasos__imagen">
-                    <img loading="lazy" src="{{ asset('img/paso_1.png') }}" alt="image">
-                </div>
-                <div class="pasos__imagen">
-                    <img loading="lazy" src="{{ asset('img/paso_2.png') }}" alt="image">
-                </div>
-                <div class="pasos__imagen">
-                    <img loading="lazy" src="{{ asset('img/paso_3.png') }}" alt="image">
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="contenedor testimoniales">
-        <h2 class="testimoniales__heading">Testimoniales</h2>
+        <h2 style="margin-bottom: 2rem;" class="testimoniales__heading">Testimoniales</h2>
         <div class="testimoniales__grid">
             <div class="testimonial">
                 <header class="testimonial__header">
@@ -230,7 +231,7 @@
     </section>
 
     <main class="favoritos">
-        <h2 class="favoritos__heading">Restaurantes Favoritos</h2>
+        <h2 style="margin-bottom: 2rem;" class="favoritos__heading">Restaurantes Favoritos</h2>
 
         <div class="favoritos__grid contenedor">
             <div class="favorito">
@@ -247,13 +248,83 @@
                     </div>
                 </div>
             </div> <!--.favorito-->
+            <div class="favorito">
+                <div class="favorito__grid">
+                    <div class="favorito__imagen">
+                        <img src="{{ asset('img/logo_ensaladas.png') }}" alt="logo restaurant">
+                    </div>
 
-            <!-- Repite el bloque .favorito para cada restaurante -->
+                    <div class="favorito__contenido">
+                        <img src="{{ asset('img/estrellas.png') }}" alt="calificacion restaurant">
+
+                        <h3 class="favorito__nombre">Green Ensaladas</h3>
+                        <p class="favorito__descripcion">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eos ullam mollitia et sit sequi est perspiciatis qui, ex, iure sed! Ducimus magnam eveniet fugit atque maxime architecto necessitatibus esse.</p>
+                    </div>
+                </div>
+            </div> <!--.favorito-->
+            <div class="favorito">
+                <div class="favorito__grid">
+                    <div class="favorito__imagen">
+                        <img src="{{ asset('img/logo_ensaladas.png') }}" alt="logo restaurant">
+                    </div>
+
+                    <div class="favorito__contenido">
+                        <img src="{{ asset('img/estrellas.png') }}" alt="calificacion restaurant">
+
+                        <h3 class="favorito__nombre">Green Ensaladas</h3>
+                        <p class="favorito__descripcion">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eos ullam mollitia et sit sequi est perspiciatis qui, ex, iure sed! Ducimus magnam eveniet fugit atque maxime architecto necessitatibus esse.</p>
+                    </div>
+                </div>
+            </div> <!--.favorito-->
+            <div class="favorito">
+                <div class="favorito__grid">
+                    <div class="favorito__imagen">
+                        <img src="{{ asset('img/logo_ensaladas.png') }}" alt="logo restaurant">
+                    </div>
+
+                    <div class="favorito__contenido">
+                        <img src="{{ asset('img/estrellas.png') }}" alt="calificacion restaurant">
+
+                        <h3 class="favorito__nombre">Green Ensaladas</h3>
+                        <p class="favorito__descripcion">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eos ullam mollitia et sit sequi est perspiciatis qui, ex, iure sed! Ducimus magnam eveniet fugit atque maxime architecto necessitatibus esse.</p>
+                    </div>
+                </div>
+            </div> <!--.favorito-->
+            <div class="favorito">
+                <div class="favorito__grid">
+                    <div class="favorito__imagen">
+                        <img src="{{ asset('img/logo_ensaladas.png') }}" alt="logo restaurant">
+                    </div>
+
+                    <div class="favorito__contenido">
+                        <img src="{{ asset('img/estrellas.png') }}" alt="calificacion restaurant">
+
+                        <h3 class="favorito__nombre">Green Ensaladas</h3>
+                        <p class="favorito__descripcion">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eos ullam mollitia et sit sequi est perspiciatis qui, ex, iure sed! Ducimus magnam eveniet fugit atque maxime architecto necessitatibus esse.</p>
+                    </div>
+                </div>
+            </div> <!--.favorito-->
+            <div class="favorito">
+                <div class="favorito__grid">
+                    <div class="favorito__imagen">
+                        <img src="{{ asset('img/logo_ensaladas.png') }}" alt="logo restaurant">
+                    </div>
+
+                    <div class="favorito__contenido">
+                        <img src="{{ asset('img/estrellas.png') }}" alt="calificacion restaurant">
+
+                        <h3 class="favorito__nombre">Green Ensaladas</h3>
+                        <p class="favorito__descripcion">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo eos ullam mollitia et sit sequi est perspiciatis qui, ex, iure sed! Ducimus magnam eveniet fugit atque maxime architecto necessitatibus esse.</p>
+                    </div>
+                </div>
+            </div> <!--.favorito-->
+            
+
         </div>
     </main>
 
     <section class="repartidores">
-        <h2 class="repartidores__heading">
+        <h2 style="margin-bottom: 2rem;" class="repartidores__heading">
             Gana dinero con AppComida
         </h2>
         <div class="repartidores__grid contenedor">

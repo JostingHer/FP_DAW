@@ -7,24 +7,21 @@ use Illuminate\Support\Facades\Cookie;
 
 class CartShopController extends Controller
 {
-    // Mostrar la vista del carrito con los productos almacenados en cookies
     public function index()
     {
         $deliveryCompanies = CompanyDelivery::all();
         return view('formCustomer', compact('deliveryCompanies'));
     }
 
-    // Agregar producto al carrito 
     public function add(Request $request)
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);
         
-        // Obtener el ID del producto y otros datos de la solicitud
         $productId = $request->input('product_id');
         $productName = $request->input('name');
         $productPrice = $request->input('price');
+        $image = $request->input('image');
 
-        // Verificar si el producto ya existe en el carrito
         if (isset($cart[$productId])) {
             // Si el producto existe, incrementar la cantidad
             $cart[$productId]['quantity']++;
@@ -34,6 +31,7 @@ class CartShopController extends Controller
                 'id' => $productId,
                 'name' => $productName,
                 'price' => $productPrice,
+                'image' => $image,
                 'quantity' => 1,
             ];
         }
@@ -44,7 +42,6 @@ class CartShopController extends Controller
         return back();
     }
 
-    // Eliminar un producto del carrito sin redirección
     public function remove($productId)
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);
@@ -62,7 +59,6 @@ class CartShopController extends Controller
         return back();
     }
 
-    // Vaciar el carrito completamente sin redirección
     public function clear()
     {
         Cookie::queue(Cookie::forget('cart'));
@@ -89,7 +85,6 @@ class CartShopController extends Controller
         return back();
     }
 
-    // Decrementar la cantidad del producto en el carrito
     public function decrease($productId)
     {
         $cart = json_decode(Cookie::get('cart', '[]'), true);

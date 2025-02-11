@@ -68,8 +68,14 @@
                           </svg>
                           {{ Auth::user()->name }}
                     </div>
-                      <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a>
+                    <form  method="POST" action="{{ route('logout') }}">
+                        @csrf
 
+                       {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
+
+                    <button class="navegacion__link" type="submit">Cerrar sesion</button>
+                    </form>
+               
                    
                            @else
                             <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>

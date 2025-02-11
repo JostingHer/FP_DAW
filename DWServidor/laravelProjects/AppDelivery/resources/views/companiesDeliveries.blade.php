@@ -68,8 +68,14 @@
                           </svg>
                           {{ Auth::user()->name }}
                     </div>
-                      <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a>
+                    <form  method="POST" action="{{ route('logout') }}">
+                        @csrf
 
+                       {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
+
+                    <button class="navegacion__link" type="submit">Cerrar sesion</button>
+                    </form>
+               
                    
                            @else
                             <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
@@ -83,22 +89,28 @@
     
     <div class="container mt-4">
         <h1 class="text-center mb-4">Lista de Empresas de delivery</h1>
-    
-        <div class="row">
-            @foreach ($companies as $company)
-                <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b9/48/72/b94872ae-3aee-b52b-aa04-56b813074853/AppIcon-0-0-1x_U007emarketing-0-8-0-0-sRGB-85-220.png/230x0w.webp" alt="image">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $company->name }}</h5>
-                                <p class="card-text">{{ $company->email }}</p>
-                                <p class="card-text">{{ $company->address }}</p>
-                            </div>
-                        </div>
-                </div>
-            @endforeach
+
+        <table class="table table-bordered">
+            <thead >
+                <tr>
+                    <th>ID Empresa</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($companies as $company)
+                    <tr>
+                        <td>{{ $company->id }}</td>
+                        <td>{{ $company->name }}</td>
+                        <td>{{ $company->email }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{ $companies->links() }}
         </div>
-    
     </div>
 </body>
 </html>

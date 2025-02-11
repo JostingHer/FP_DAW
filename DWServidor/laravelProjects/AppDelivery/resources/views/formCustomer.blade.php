@@ -35,6 +35,15 @@
 
 
   }
+
+  .product__cart{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
+    align-items: center;
+    font-size: 0.8em;
+
+  }
     </style>
 </head>
 <body>
@@ -68,11 +77,16 @@
                           </svg>
                           {{ Auth::user()->name }}
                     </div>
-                      <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a>
+                        <form  method="POST" action="{{ route('logout') }}">
+                            @csrf
 
+                           {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
+
+                        <button class="navegacion__link" type="submit">Cerrar sesion</button>
+                        </form>
                    
                            @else
-                            <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
+                            <a href="{{ route('login') }}" class="navegacion__link--registrar">Iniciar sesion</a>
                             @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="navegacion__link--registrar">Crear cuenta</a>
                             @endif
@@ -80,46 +94,43 @@
             @endif
         </nav>
     </header>
-
+ 
 
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card shadow-lg p-4">
+                <div class=" p-4 bg-white p-8">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Resumen del Pedido</h4>
-                                <a href="{{ route('cart.clear') }}" class="btn btn-danger">
+                            <div class="flex items-center justify-between">
+                                <h1 class="text-2xl text-black">Resumen del Pedido</h1>
+                                <a href="{{ route('cart.clear') }}" class="btn btn-danger text-white navegacion__link">
                                     <i class="fas fa-trash">Borrar todo</i>
                                 </a>
-                            
-                        
+                            </div>
                             @php
                                 $cart = json_decode(Cookie::get('cart', '[]'), true);
                             @endphp 
                         
                             @if (!empty($cart))
                                 @foreach ($cart as $productId =>$item)
-                                    <div>
-                                        {{-- <img src="{{ $item['image'] }}" alt="image"> --}}
+                                    <div class="product__cart">
+                                        <img style="max-width:10rem; aspect-ratio:1/1;" src="{{ $item['image'] }}" alt="image">
                                         <div>
                                             <p>Producto: <strong>{{ $item['name'] }}</strong></p>
                                             <p>Precio: <strong>€{{ number_format($item['price'], 2) }}</strong></p>
-                                            <p>Cantidad: <strong>{{ $item['quantity'] }}</strong></p>
 
-                                            <div class="col-2">
                                                 <a href="{{ route('cart.increase', $productId) }}" class="btn btn-outline-secondary">+</a>
+                                                  <strong>{{ $item['quantity'] }} uds</strong>
                                                 <a href="{{ route('cart.decrease', $productId) }}" class="btn btn-outline-secondary">-</a>
-                                            </div>
                                             
-                                            <div class="col-1">
                                                 <a href="{{ route('cart.remove', $productId) }}" class="btn btn-danger">
                                                     <i class="fas fa-trash">Borrar</i>
                                                 </a>
-                                            </div>
                                             
                                         </div>
                                     </div>
+                                  
                                     <hr>
                                 @endforeach
                             @else
@@ -127,8 +138,8 @@
                             @endif
                         </div>
                         
-                        <div class="col-md-6">
-                            <h2 class="mb-3">Formulario Cliente</h2>
+                        <div class="col-md-6 bg-primario py-12">
+                            <h2 class="mb-3 formulario__heading">Formulario Cliente</h2>
 
                             
                             {{-- Mensaje de éxito --}}
@@ -137,51 +148,49 @@
                             @endif
 
                             @if (Route::has('login'))
-                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                            <div class="p-6">
                                 @auth
-                               
-                            {{-- Formulario --}}
-                            <form action="{{ route('order.store') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="delivery_company" class="form-label">Empresa de Delivery:</label>
-                                    <select id="delivery_company" name="delivery_company" class="form-control" required>
-                                        <option value="">Seleccione una empresa</option>
-                                        @foreach($deliveryCompanies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                        
-                                <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
-                            </form>
-                               
+                                    {{-- Formulario --}}
+                                    <form class="formulario__buscar" action="{{ route('order.store') }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="delivery_company" class="form-label text-white">Empresa de Delivery:</label>
+                                            <select id="delivery_company" name="delivery_company" class="form-control" required>
+                                                <option value="">Seleccione una empresa</option>
+                                                @foreach($deliveryCompanies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                
+                                        <button type="submit" class="formulario__submit">Finalizar Pedido</button>
+                                    </form>
+                                    
                                     @else
 
-
                             {{-- Formulario --}}
-                                 <form action="{{ route('order.store') }}" method="POST">
+                                 <form class="formulario__buscar" action="{{ route('order.store') }}" method="POST">
                                 @csrf
                         
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Nombre:</label>
-                                    <input type="text" id="name" name="name" class="form-control" required>
+                                <div class="formulario__campo">
+                                    <label for="name" class="formulario__label">Nombre:</label>
+                                    <input type="text" id="name" name="name" class="formulario__input" required>
+                                </div>
+                        
+                                <div class="formulario__campo">
+                                    <label for="phone" class="formulario__label">Teléfono:</label>
+                                    <input type="text" id="phone" name="phone" class="formulario__input" pattern="^[6789]\d{8}$" required>
+                                    <small class=" text-white">Debe tener 9 dígitos y empezar con 6, 7, 8 o 9.</small>
+                                </div>
+                        
+                                <div class="formulario__campo">
+                                    <label for="credit_card" class="formulario__label">Tarjeta de Crédito:</label>
+                                    <input type="text" id="credit_card" name="credit_card" class="formulario__input" pattern="^\d{13,19}$" required>
+                                    <small class="text-white">Debe tener entre 13 y 19 dígitos.</small>
                                 </div>
                         
                                 <div class="mb-3">
-                                    <label for="phone" class="form-label">Teléfono:</label>
-                                    <input type="text" id="phone" name="phone" class="form-control" pattern="^[6789]\d{8}$" required>
-                                    <small class="text-muted">Debe tener 9 dígitos y empezar con 6, 7, 8 o 9.</small>
-                                </div>
-                        
-                                <div class="mb-3">
-                                    <label for="credit_card" class="form-label">Tarjeta de Crédito:</label>
-                                    <input type="text" id="credit_card" name="credit_card" class="form-control" pattern="^\d{13,19}$" required>
-                                    <small class="text-muted">Debe tener entre 13 y 19 dígitos.</small>
-                                </div>
-                        
-                                <div class="mb-3">
-                                    <label for="delivery_company" class="form-label">Empresa de Delivery:</label>
+                                    <label for="delivery_company" class="form-label text-white">Empresa de Delivery:</label>
                                     <select id="delivery_company" name="delivery_company" class="form-control" required>
                                         <option value="">Seleccione una empresa</option>
                                         @foreach($deliveryCompanies as $company)
@@ -190,13 +199,8 @@
                                     </select>
                                 </div>
                         
-                                <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
+                                <button type="submit" class="formulario__submit">Finalizar Pedido</button>
                                  </form>
-                                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                                    @endif
                                 @endauth
                             </div>
                         @endif

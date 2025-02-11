@@ -40,12 +40,12 @@ require __DIR__.'/auth.php';
 
 // Routes 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('home', function () {
     return view('home');
 });
+
+// Route::get('home', function () {
+//     return view('home');
+// });
 
 Route::get('/companyDeliveries', [CompanyDeliveryController::class, 'index'])->name('companyDeliveries.index'); 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Mostrar lista

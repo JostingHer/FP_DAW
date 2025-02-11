@@ -68,8 +68,14 @@
                           </svg>
                           {{ Auth::user()->name }}
                     </div>
-                      <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a>
+                    <form  method="POST" action="{{ route('logout') }}">
+                        @csrf
 
+                       {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
+
+                    <button class="navegacion__link" type="submit">Cerrar sesion</button>
+                    </form>
+               
                    
                            @else
                             <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
@@ -100,7 +106,7 @@
                                 <input type="hidden" name="price" value="{{$product->price}}">
                                 <input type="hidden" name="image" value="{{$product->image}}">
                                 <input type="hidden" name="company" value="{{$product->company_id}}">
-                                <button type="submit" class="btn btn-success">Añadir al Carrito</button>
+                                <button type="submit" class="btn bg-red-600 text-white font-bold">Añadir al Carrito</button>
                             </form>
                             
                         </div>

@@ -342,6 +342,10 @@
     margin: 0 auto;
     margin-top: 5rem;
   }
+
+  .text-white{
+    color: white;
+  }
   
   a {
     text-decoration: none;
@@ -456,7 +460,7 @@
     text-align: center;
     font-weight: bold;
     margin: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem !important;
   }
   .formulario__campo {
     margin-bottom: 1rem;
