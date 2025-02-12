@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DatosClienteRequest;
 use App\Models\CompanyDelivery;
 use App\Models\Order;
 use App\Models\ProductOrder;
@@ -16,8 +17,10 @@ class OrderController extends Controller
         $orders = Order::paginate(12);
         return view('companiesOrders', compact('orders'));
     }
-    public function store(Request $request)
+    public function store(DatosClienteRequest $request)
     {
+
+
 
         $cart = json_decode(Cookie::get('cart', '[]'), true);
 

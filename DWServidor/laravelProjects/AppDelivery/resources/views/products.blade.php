@@ -25,16 +25,33 @@
 
     <style>
 
-        a:hover{
-                text-decoration: underline;
-                color: black;
-        }
-        .navegacion__link--registrar:hover{
-            text-decoration: underline;
-            color: white;
+  a:hover{
+        text-decoration: underline;
+        color: black;
+  }
+  .navegacion__link--registrar:hover{
+    text-decoration: underline;
+    color: white;
 
 
-        }
+  }
+
+  .product__cart{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
+    align-items: center;
+    font-size: 0.8em;
+
+  }
+
+  .error{
+    background-color: #303f46;;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+
+}
     </style>
 </head>
 <body>
@@ -68,17 +85,16 @@
                           </svg>
                           {{ Auth::user()->name }}
                     </div>
-                    <form  method="POST" action="{{ route('logout') }}">
-                        @csrf
+                        <form  method="POST" action="{{ route('logout') }}">
+                            @csrf
 
-                       {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
+                           {{-- / <a href="{{ route('logout') }}" class="navegacion__link">Cerrar sesion</a> --}}
 
-                    <button class="navegacion__link" type="submit">Cerrar sesion</button>
-                    </form>
-               
+                        <button class="navegacion__link" type="submit">Cerrar sesion</button>
+                        </form>
                    
                            @else
-                            <a href="{{ route('login') }}"          class="navegacion__link--registrar">Iniciar sesion</a>
+                            <a href="{{ route('login') }}" class="navegacion__link--registrar">Iniciar sesion</a>
                             @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="navegacion__link--registrar">Crear cuenta</a>
                             @endif
@@ -86,7 +102,7 @@
             @endif
         </nav>
     </header>
-    
+
     <div class="container mt-4">
         <h1 class="text-center mb-4">Lista de Productos</h1>
     

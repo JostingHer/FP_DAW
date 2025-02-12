@@ -44,6 +44,14 @@
     font-size: 0.8em;
 
   }
+
+  .error{
+    background-color: #303f46;;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+
+}
     </style>
 </head>
 <body>
@@ -94,6 +102,7 @@
             @endif
         </nav>
     </header>
+
  
 
     <div class="container my-5">
@@ -103,13 +112,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="flex items-center justify-between">
-                                <h1 class="text-2xl text-black">Resumen del Pedido</h1>
+                                <h1 class="text-2xl text-black">Resumen del Pedido 
+                                    <br>
+                                    <span>total:  
+                                    @php
+                                        $cart = json_decode(Cookie::get('cart', '[]'), true);
+                                        $total = array_reduce($cart, function ($carry, $item) {
+                                                    return $carry + ($item['price'] * $item['quantity']);
+                                                }, 0);     
+                                    @endphp 
+                                    {{$total}}
+                                        
+                                    </span>
+                                </h1>
                                 <a href="{{ route('cart.clear') }}" class="btn btn-danger text-white navegacion__link">
                                     <i class="fas fa-trash">Borrar todo</i>
                                 </a>
                             </div>
                             @php
                                 $cart = json_decode(Cookie::get('cart', '[]'), true);
+                                  
                             @endphp 
                         
                             @if (!empty($cart))
@@ -153,20 +175,46 @@
                                     {{-- Formulario --}}
                                     <form class="formulario__buscar" action="{{ route('order.store') }}" method="POST">
                                         @csrf
+                                        <div class="formulario__campo d-none">
+                                            <label for="name" class="formulario__label">Nombre:</label>
+                                            <input value=" {{ Auth::user()->name }}" type="text" id="name" name="name" class="formulario__input" >
+                                            @error('name')
+                                                <p class="error"> {{$message}}</p>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="formulario__campo d-none">
+                                            <label for="phone" class="formulario__label">Teléfono:</label>
+                                            <input value=" {{ Auth::user()->phone }}" type="text" id="phone" name="phone" class="formulario__input" >
+                                            @error('phone')
+                                                <p class="error"> {{$message}}</p>
+                                            @enderror
+                                        </div>
+                                
+                                        <div class="formulario__campo d-none">
+                                            <label for="credit_card" class="formulario__label">Tarjeta de Crédito:</label>
+                                            <input value=" {{ Auth::user()->creditCard }}"  type="text" id="credit_card" name="credit_card" class="formulario__input" >
+                                            @error('credit_card')
+                                                <p class="error"> {{$message}}</p>
+                                            @enderror
+                                        </div>
                                         <div class="mb-3">
                                             <label for="delivery_company" class="form-label text-white">Empresa de Delivery:</label>
-                                            <select id="delivery_company" name="delivery_company" class="form-control" required>
+                                            <select id="delivery_company" name="delivery_company" class="form-control" >
                                                 <option value="">Seleccione una empresa</option>
                                                 @foreach($deliveryCompanies as $company)
                                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('delivery_company')
+                                              <p class="error"> {{$message}}</p>
+                                              @enderror
                                         </div>
                                 
                                         <button type="submit" class="formulario__submit">Finalizar Pedido</button>
                                     </form>
                                     
-                                    @else
+                        @else
 
                             {{-- Formulario --}}
                                  <form class="formulario__buscar" action="{{ route('order.store') }}" method="POST">
@@ -174,38 +222,46 @@
                         
                                 <div class="formulario__campo">
                                     <label for="name" class="formulario__label">Nombre:</label>
-                                    <input type="text" id="name" name="name" class="formulario__input" required>
+                                    <input type="text" id="name" name="name" class="formulario__input" >
+                                    @error('name')
+                                        <p class="error"> {{$message}}</p>
+                                    @enderror
                                 </div>
                         
                                 <div class="formulario__campo">
                                     <label for="phone" class="formulario__label">Teléfono:</label>
-                                    <input type="text" id="phone" name="phone" class="formulario__input" pattern="^[6789]\d{8}$" required>
-                                    <small class=" text-white">Debe tener 9 dígitos y empezar con 6, 7, 8 o 9.</small>
+                                    <input type="text" id="phone" name="phone" class="formulario__input" >
+                                    @error('phone')
+                                        <p class="error"> {{$message}}</p>
+                                    @enderror
                                 </div>
                         
                                 <div class="formulario__campo">
                                     <label for="credit_card" class="formulario__label">Tarjeta de Crédito:</label>
-                                    <input type="text" id="credit_card" name="credit_card" class="formulario__input" pattern="^\d{13,19}$" required>
-                                    <small class="text-white">Debe tener entre 13 y 19 dígitos.</small>
+                                    <input type="text" id="credit_card" name="credit_card" class="formulario__input" >
+                                    @error('credit_card')
+                                        <p class="error"> {{$message}}</p>
+                                    @enderror
                                 </div>
                         
                                 <div class="mb-3">
                                     <label for="delivery_company" class="form-label text-white">Empresa de Delivery:</label>
-                                    <select id="delivery_company" name="delivery_company" class="form-control" required>
+                                    <select id="delivery_company" name="delivery_company" class="form-control" >
                                         <option value="">Seleccione una empresa</option>
                                         @foreach($deliveryCompanies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('delivery_company')
+                                        <p class="error"> {{$message}}</p>
+                                    @enderror
                                 </div>
                         
-                                <button type="submit" class="formulario__submit">Finalizar Pedido</button>
+                                <button  type="submit" class="formulario__submit">Finalizar Pedido</button>
                                  </form>
                                 @endauth
                             </div>
                         @endif
-
-
                         </div>
                     </div>
                 </div>

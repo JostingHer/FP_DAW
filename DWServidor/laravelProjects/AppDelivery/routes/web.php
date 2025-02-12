@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -42,10 +42,6 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('home');
 });
-
-// Route::get('home', function () {
-//     return view('home');
-// });
 
 Route::get('/companyDeliveries', [CompanyDeliveryController::class, 'index'])->name('companyDeliveries.index'); 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index'); // Mostrar lista

@@ -10,6 +10,7 @@
 <body>
     <div class="container mt-4">
         <h1 class="text-center mb-4">Lista de Empresas</h1>
+        <h1>NO IMPLEMENTADO - CASO SI HUBIERAN MUCHAS</h1>
     
         <div class="row">
             @foreach ($companies as $company)
