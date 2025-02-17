@@ -22,6 +22,7 @@
 
      <!-- Scripts -->
      @vite(['resources/css/app.css', 'resources/js/app.js'])
+     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
 
     <style>
 
@@ -108,7 +109,7 @@
     
         <div class="row">
             @foreach ($products as $product)
-                <div class="col-md-4 mb-4">
+                <div id="product" class="col-md-4 mb-4">
                     <div class="card">
                         <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}">
                         <div class="card-body">
@@ -135,6 +136,21 @@
             {{ $products->links('pagination::bootstrap-5') }}
         </div>
     </div>
+
+    <script>
+
+        anime({
+        targets: '#product',
+        translateY: [200, 0],
+        opacity: [0, 1],
+        duration: 500,
+        easing: 'easeInOutSine',
+        delay: (el, i) => {
+            return 400 + 50 * i;
+        },
+        })
+
+    </script>
     
 </body>
 </html>

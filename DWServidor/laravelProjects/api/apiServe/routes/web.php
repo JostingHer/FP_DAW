@@ -28,6 +28,8 @@ Route::get('/empresa/{id}', [CompanyDeliveryController::class, 'show']);
 
 Route::put('/empresa/{id}', [CompanyDeliveryController::class, 'update']);
 
+Route::patch('/empresa/{id}', [CompanyDeliveryController::class, 'updatePATCH']);
+
 Route::delete('/empresa/{id}', [CompanyDeliveryController::class, 'destroy']);
 
 Route::fallback ( function () {

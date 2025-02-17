@@ -21,7 +21,8 @@
      <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
      <!-- Scripts -->
-     @vite(['resources/css/app.css', 'resources/js/app.js'])
+     @vite(['resources/css/app.css', 'resources/js/app.js']);
+     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
 
     <style>
 
@@ -84,7 +85,7 @@
                    
                            @else
                             <a href="{{ route('login') }}" class="navegacion__link--registrar">Iniciar sesion</a>
-                            @if (Route::has('register'))
+                              @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="navegacion__link--registrar">Crear cuenta</a>
                             @endif
                     @endauth
@@ -111,7 +112,7 @@
 
         </div>
             <div class="formulario__imagen-contenedor">
-                <img class="formulario__imagen" src="{{ asset('img/dibujo_repartidor.svg') }}" alt="Repartidor img">
+                <img id="Img-repartidor" class="formulario__imagen" src="{{ asset('img/dibujo_repartidor.svg') }}" alt="Repartidor img">
             </div>
         </div>
     </section>
@@ -143,7 +144,7 @@
      
         <div id="carouselExampleIndicators" class="carousel slide w-100 h-100" data-bs-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#caroRegisteredUserControlleruselExampleIndicators" data-bs-slide-to="0" class="active"></li>
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
             </ol>
@@ -235,7 +236,7 @@
                 <blockquote class="testimonial__texto">Una excelente app, puedo seleccionar de una gran cantidad de opciones y pagar en tarjeta o efectivo según me convenga</blockquote>
             </div>
         </div>
-    </section>
+    </section>RegisteredUserController
 
     <main class="favoritos">
         <h2 style="margin-bottom: 2rem;" class="favoritos__heading">Restaurantes Favoritos</h2>
@@ -405,6 +406,18 @@
             wrap: true // Permite repetir el ciclo
         });
     </script>
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            anime({
+                targets: '#Img-repartidor',
+                translateX: [-500, 0],
+                duration: 2000,
+                easing: 'easeInOutSine'
+            });
+        });
+    </script>
+    
     
 </body>
 </html>
