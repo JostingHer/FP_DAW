@@ -22,6 +22,8 @@
 
      <!-- Scripts -->
      @vite(['resources/css/app.css', 'resources/js/app.js'])
+     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
+
 
     <style>
 
@@ -131,5 +133,17 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+        
+        anime({
+            targets: 'body',
+            opacity: [0, 1],
+            translateY: [100, 0],
+            duration: 1000,
+            easing: 'easeInOutSine'
+        });
+    });
+  </script>
 </body>
 </html>

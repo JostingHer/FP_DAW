@@ -415,6 +415,14 @@
                 duration: 2000,
                 easing: 'easeInOutSine'
             });
+
+            anime({
+                targets: 'body',
+                opacity: [0, 1],
+                translateY: [100, 0],
+                duration: 1000,
+                easing: 'easeInOutSine'
+            });
         });
     </script>
     

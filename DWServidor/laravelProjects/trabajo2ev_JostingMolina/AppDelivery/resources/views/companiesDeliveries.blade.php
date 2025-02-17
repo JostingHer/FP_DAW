@@ -22,6 +22,8 @@
 
      <!-- Scripts -->
      @vite(['resources/css/app.css', 'resources/js/app.js'])
+     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
+
 
     <style>
 
@@ -129,5 +131,17 @@
             {{ $companies->links() }}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+        
+        anime({
+            targets: 'body',
+            opacity: [0, 1],
+            translateY: [100, 0],
+            duration: 1000,
+            easing: 'easeInOutSine'
+        });
+    });
+  </script>
 </body>
 </html>
