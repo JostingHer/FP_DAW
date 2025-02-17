@@ -136,21 +136,5 @@
             {{ $products->links('pagination::bootstrap-5') }}
         </div>
     </div>
-
-    <script>
-
-        anime({
-        targets: '#product',
-        translateY: [200, 0],
-        opacity: [0, 1],
-        duration: 500,
-        easing: 'easeInOutSine',
-        delay: (el, i) => {
-            return 400 + 50 * i;
-        },
-        })
-
-    </script>
-    
 </body>
 </html>
