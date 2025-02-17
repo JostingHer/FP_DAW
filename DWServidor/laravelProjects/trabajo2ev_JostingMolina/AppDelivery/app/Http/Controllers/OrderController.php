@@ -20,8 +20,6 @@ class OrderController extends Controller
     public function store(DatosClienteRequest $request)
     {
 
-
-
         $cart = json_decode(Cookie::get('cart', '[]'), true);
 
         $total = array_reduce($cart, function ($carry, $item) {
@@ -34,7 +32,7 @@ class OrderController extends Controller
             // cliente habitual
             $customer = auth()->user();
         }else{
-           // Cliente ocasional -> Creamos un usuario anónimo
+           // cliente ocaisional
             $customer = new User();
             $customer->name = $request->name;
             $customer->email = 'anonimo+' . time() . '@tuweb.com'; 
@@ -63,7 +61,7 @@ class OrderController extends Controller
 
         return view('endOrder');
         //return back();
-       // return redirect()->route('order.success')->with('success', 'Pedido realizado correctamente.');
+       // return redirect()->route('order.success')->with('success', 'Pedido realizado bien');
     }
 
     public function success()

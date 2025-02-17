@@ -15,7 +15,7 @@ class DatosClienteRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone' => 'required|regex:/^[6789]\d{8}$/',
+            'phone' => 'required|regex:/^[678]\d{8}$/',
             'credit_card' => 'required|digits_between:13,19',
             'delivery_company' => 'required',
         ];

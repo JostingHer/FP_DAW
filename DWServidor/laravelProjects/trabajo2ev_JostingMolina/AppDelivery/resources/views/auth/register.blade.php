@@ -80,14 +80,15 @@
         
                         <!-- Phone -->
                         <div class="formulario__campo">
-                            <x-input-label class="formulario__label" for="phone" :value="__('Phone')" />
-                            <x-text-input class="formulario__input" id="phone" type="tel" name="phone" :value="old('phone')" required autocomplete="phone" />
+                            <x-input-label class="formulario__label" for="phone" :value="__('Phone')"  />
+                            
+                            <x-text-input class="formulario__input" id="phone" type="tel" name="phone" :value="old('phone')" autocomplete="phone" pattern="[6789][0-9]{8}" title="Debe ser un número de 9 dígitos que comience con 6, 7, 8 o 9" required/>
                         </div>
         
                         <!-- Credit Card -->
                         <div class="formulario__campo">
                             <x-input-label class="formulario__label" for="creditCard" :value="__('Credit Card')" />
-                            <x-text-input class="formulario__input" id="creditCard" type="text" name="creditCard" :value="old('creditCard')" required autocomplete="creditCard" />
+                            <x-text-input class="formulario__input" id="creditCard" type="text" name="creditCard" :value="old('creditCard')" autocomplete="creditCard" pattern="\d{13,19}" title="Debe ser un número de tarjeta de 13 a 19 dígitos" required/>
                         </div>
         
                         <!-- Password -->
