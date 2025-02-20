@@ -22,7 +22,6 @@
 
      <!-- Scripts -->
      @vite(['resources/css/app.css', 'resources/js/app.js']);
-     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
 
     <style>
 
@@ -44,6 +43,8 @@
     </style>
 </head>
 <body>
+    <div class="box" style="width: 100px; height: 100px; background: red;"></div>
+
     
     <header class="header ">
         <div class="header__logo">

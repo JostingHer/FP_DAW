@@ -5,12 +5,14 @@ Desarrollar un sistema básico para un restaurante en Laravel que permita gestio
 
 
 Consideraciones, este trabajo me gustaria retomarlo en un futuro, y poder reciclar el backend
-es un projecto mas que puedo poner en mi portafolio, el frontend si que se ve bien y seguramente lo cambie (cambien la organizacion de los archivos, visualmente si que se ve como quiero), porque hay mucha mezcla en el proyectro actualmente esta boostrap, tailwind.css, css nativo que he reciclado el codigo visualmente.
+es un projecto mas que puedo poner en mi portafolio, el frontend si que se ve bien y seguramente lo cambie (cambien la organizacion de los archivos, visualmente si que se ve como quiero), porque hay mucha mezcla en el proyectro actualmente esta boostrap, tailwind.css, css nativo que he reciclado el codigo visualmente de otro proyecto, he visto que la parte del frontend se puede integrar con react,
+en un futuro podria hacerlo con ellos.
 
 
-- me gustaria que creciera y se pareciera mas a una app glovo, y que las empresas se puedan registrar,y crear sus productos, esta aunmuy lejos de eso peor es una primera version
+- me gustaria que creciera y se pareciera mas a una app glovo, y que las empresas se puedan registrar,y crear sus productos, esta aunbmuy lejos de eso pero es una primera version
 - en la fp laravel es lo que mas he visto y dedicado tiempo, que mas que tener un solo proyecto
 - como lo normal es que se trabaje el codigo en ingles la mayoria lo es, aunque hay muchos spanglish
+- 
 
 
 
