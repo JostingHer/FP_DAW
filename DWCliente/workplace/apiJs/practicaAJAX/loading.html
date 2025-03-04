@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading con setTimeout</title>
+    <style>
+        .loading {
+            display: none;
+            font-size: 20px;
+            color: blue;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ejemplo de Loading con setTimeout</h1>
+    <button id="loadDataBtn">Cargar Datos</button>
+    <p class="loading" id="loadingMessage">Cargando... por favor, espera 5 segundos</p>
+    <div id="result"></div>
+
+    <script>
+        const loadDataBtn = document.getElementById('loadDataBtn');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const resultDiv = document.getElementById('result');
+
+        loadDataBtn.addEventListener('click', () => {
+            // Mostrar el mensaje de cargando
+            loadingMessage.style.display = 'block';
+            resultDiv.innerHTML = '';
+
+            // Simular una petición con un retraso de 5 segundos
+            setTimeout(() => {
+                // Ocultar el mensaje de cargando
+                loadingMessage.style.display = 'none';
+                
+                // Simulación de una petición (puedes reemplazar con fetch)
+                fetch('https://jsonplaceholder.typicode.com/posts/1')
+                    .then(response => response.json())
+                    .then(data => {
+                        resultDiv.innerHTML = `
+                            <h3>${data.title}</h3>
+                            <p>${data.body}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        resultDiv.innerHTML = `<p>Error al cargar los datos</p>`;
+                        console.error('Error en la solicitud:', error);
+                    });
+            }, 5000); // 5 segundos
+        });
+    </script>
+
+</body>
+</html>

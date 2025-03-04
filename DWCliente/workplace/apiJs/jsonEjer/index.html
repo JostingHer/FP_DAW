@@ -27,10 +27,7 @@
 
     <script>
 
-
-
         function renderApp(data) {
-
             data.forEach(actividad => {
                 const tableBody = document.getElementById('tableBody');
 
@@ -47,8 +44,9 @@
                 `;
 
                 tableBody.appendChild(row);
-             });
+                });
         }
+
         async function loadActivities() {
             const url = 'data.json'; 
             try {
