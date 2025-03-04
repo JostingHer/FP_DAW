@@ -1,0 +1,7 @@
+﻿{
+	"actividades":[
+		{ "nombre":"step", "descripcion":"Descripción step", "tipoActividad":"box", "duracion":"1 hora", "calorias":24, "beneficios":"tonificación", "tipoEjercicio":"tonificación" },
+		{ "nombre":"gap", "descripcion":"Descripción gap", "tipoActividad":"cuerpo-mente", "duracion":"2 horas", "calorias":53, "beneficios":"movilidad articular", "tipoEjercicio":"movilidad articular" },
+		{ "nombre":"boxeo", "descripcion":"Descripción boxeo", "tipoActividad":"tono-fuerza", "duracion":"30 minutos", "calorias":71, "beneficios":"fuerza", "tipoEjercicio":"cardiovascular" }
+	]
+}

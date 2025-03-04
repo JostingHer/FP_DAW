@@ -1,0 +1,46 @@
+<html>
+<body>
+<script>
+
+var a = 0;
+var b = 0;
+
+var promesa1 = new Promise(function(resolver, rechazar){
+	setTimeout(() => {
+		for(let i=0; i < 1000000000; i++) {
+			a++;
+		}
+		resolver(a);
+		rechazar("Algo falló");
+	}, 0);
+});
+
+var promesa2 = new Promise(function(resolver, rechazar){
+	setTimeout(() => {
+		for(let i=0; i < 1000000000; i++) {
+			b++;
+		}
+		resolver(b);
+		rechazar("Algo falló");
+	}, 0);
+
+
+});
+
+/*
+promesa1.then((resultado) => console.log("a: " + resultado));
+promesa2.then((resultado) => console.log("b: " + resultado));
+console.log("a+b: " + (a+b));
+*/
+
+promesaConjunta = Promise.all([promesa1, promesa2]);
+promesaConjunta.then((resultados) => {
+	console.log("a: " + resultados[0])
+	console.log("b: " + resultados[1])
+	console.log("a+b: " + (resultados[0] + resultados[1]))
+});
+
+</script>
+</body>
+</html>
+

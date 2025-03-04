@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 1 b)</title>
+</head>
+<body>
+	<p></p>
+	<div id="fin"></div>
+<script>
+	var nodoP = document.querySelector("p:first-of-type");
+	var	nodoFin = document.getElementById("fin");
+	
+	function temporizador(tiempo){
+		var promesa = new Promise((resolver, rechazar) => {
+			var temp = setTimeout(() => {
+				resolver("Tiempo concluido");
+			}, tiempo);
+		});
+		
+		return promesa;
+	}
+	
+	async function cuenta(numero, elemento=document.body, tiempo=1000, funcionCallback) {
+		for(let i = numero; i >= 0; i--){
+			await temporizador(tiempo);
+			elemento.textContent = i;
+		}
+		
+		funcionCallback();
+	}
+
+
+	cuenta(10, nodoP, 1000, () => {
+		nodoFin.textContent = "Fin";
+	});
+
+</script>
+</body>
+</html>

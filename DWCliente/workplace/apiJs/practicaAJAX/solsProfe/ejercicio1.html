@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 1</title>
+</head>
+<body>
+	<main>
+		<button type="button">Cambia el contenido</button>
+	</main>
+<script>
+	var contenido = document.getElementsByTagName("main")[0];
+	var boton = document.getElementsByTagName("button")[0];
+	
+	function cambiarContenido() {
+		fetch("./holaMundo.txt")
+			.then((response) => response.text())
+			.then((texto) => {
+				contenido.innerHTML = texto;
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+	
+	boton.addEventListener("click", cambiarContenido);
+</script>
+</body>
+</html>

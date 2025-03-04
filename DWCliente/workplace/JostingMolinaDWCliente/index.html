@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Conversion moneda</title>
+    <style>
+        main{
+            max-width: fit-content;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Conversion de monedas</h1>
+        <form>
+            <div>
+                <label for="value">Quantity: </label>
+                <input type="number" min="0" name="value" id="value">
+                <select name="currentType" id="currentType">
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="CAD">CAD</option>
+                    <option value="USD">EUR</option>
+                </select>
+            </div>
+            <div>
+                <label for="typeCurrent">Convertir a: </label>
+                <select name="typeCurrent" id="typeCurrent">
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="CAD">CAD</option>
+                    <option value="USD">EUR</option>
+                </select>
+            </div>
+            <input type="submit" value="Convertir">
+        </form>
+        <div id="result">
+            <!-- <h3>Resultado: <span>4 EUR</span> son <span>4.16 USD</span></h3> -->
+        </div>
+    </main>
+
+
+
+    <script>
+        const datosForm = document.querySelector("form");
+        const value = document.querySelector("#value");
+        const currentType = document.querySelector("#currentType");
+        const newType = document.querySelector("#typeCurrent");
+        const resultHTML = document.querySelector("#result")
+
+
+        
+        function renderApp(value, currentType, newValue, newType) {
+
+                msjResult = ` <h3>Resultado: <span>${value} ${currentType}</span> son <span>${newValue} ${newType}</span></h3>`
+
+                resultHTML.innerHTML = msjResult;
+            }
+
+        async function getDataUSD(value = 1, base, newBase ) {
+            const url = './api/' + base + ".json" ;
+            try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+            const json = await response.json();
+            console.log(json);
+            // console.log(json.rates);
+
+            if(base == newBase){
+                return value * 1;
+            }
+
+
+            let result;
+
+            const multiplicador = json.rates[newBase];
+            console.log(multiplicador)
+
+
+            switch (newBase) {
+                case "USD":
+                    console.log(value * json.rates.USD)
+                        result = value * json.rates.USD;
+                    break;
+                case "GBP":
+                    console.log(value * json.rates.GBP)
+                    result = value * json.rates.GBP;
+                    break;
+                case "CAD":
+                    console.log(value * json.rates.CAD)
+                    result = value * json.rates.CAD;
+                    break;
+                case "EUR":
+                    console.log(value * json.rates.EUR)
+                    result = value * json.rates.EUR;
+                    break;
+                default:
+                    break;
+            }
+            
+                return Number(result).toFixed();
+            
+            } catch (error) {
+                console.error(error.message);
+                return [];
+            }
+      }
+
+
+
+        datosForm.addEventListener("submit", async (e) =>{
+            e.preventDefault();
+        
+            const serializedNumber = Number(value.value)
+
+           const result = await getDataUSD(serializedNumber, currentType.value, newType.value );
+           
+           renderApp(serializedNumber, currentType.value, result, newType.value)
+        
+        })
+
+
+
+
+    </script>
+</body>
+</html>

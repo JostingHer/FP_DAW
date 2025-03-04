@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 1 a)</title>
+</head>
+<body>
+<script>
+	function temporizador(tiempo){
+		var promesa = new Promise((resolver, rechazar) => {
+			var temp = setTimeout(() => {
+				resolver("Tiempo concluido");
+			}, tiempo);
+		});
+		
+		return promesa;
+	}
+	
+	temporizador(5000).then((texto) => {
+		document.body.innerHTML = "<p>" + texto + "</p>";
+	});
+</script>
+</body>
+</html>

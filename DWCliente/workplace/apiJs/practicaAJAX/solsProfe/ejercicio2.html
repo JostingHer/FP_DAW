@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<style>
+	table, th, td {
+	  border: 1px solid black;
+	}
+	</style>
+	<meta charset="UTF-8">
+	<title>Ejercicio 2</title>
+</head>
+<body>
+	<h1>Actividades</h1>
+	<table>
+		
+	</table>
+<script>
+	var tabla = document.getElementsByTagName("table")[0];
+	tabla.innerHTML = "<tr><th>Nombre</th><th>Descripción</th><th>Tipo de actividad</th><th>Duración</th><th>Calorías</th><th>Beneficios</th><th>Tipo de ejercicio</th></tr>";
+	var url = "./actividades.json";
+
+	fetch(url)
+		.then((respuesta) => {
+			return respuesta.json();
+		})
+		.then((datos) => {
+			datos.actividades.map(function (actividad) {
+				let fila = document.createElement('tr');
+
+				let celdaNombre = document.createElement('td');
+				celdaNombre.innerHTML = actividad.nombre;
+
+				let celdaDescripcion = document.createElement('td');
+				celdaDescripcion.innerHTML = actividad.descripcion;
+
+				let celdaTipoActividad = document.createElement('td');
+				celdaTipoActividad.innerHTML = actividad.tipoActividad;
+
+				let celdaDuracion = document.createElement('td');
+				celdaDuracion.innerHTML = actividad.duracion;
+
+				let celdaCalorias = document.createElement('td');
+				celdaCalorias.innerHTML = actividad.calorias;
+
+				let celdaBeneficios = document.createElement('td');
+				celdaBeneficios.innerHTML = actividad.beneficios;
+
+				let celdaTipoEjercicio = document.createElement('td');
+				celdaTipoEjercicio.innerHTML = actividad.tipoEjercicio;
+
+				fila.appendChild(celdaNombre);
+				fila.appendChild(celdaDescripcion);
+				fila.appendChild(celdaTipoActividad);
+				fila.appendChild(celdaDuracion);
+				fila.appendChild(celdaCalorias);
+				fila.appendChild(celdaBeneficios);
+				fila.appendChild(celdaTipoEjercicio);
+				tabla.appendChild(fila);
+			});			
+		})
+		.catch(error => {
+			let fila = document.createElement('tr');
+			let celdaError = document.createElement('td');
+			celdaError.setAttribute("colspan", "7");
+			celdaError.innerHTML = "No se ha podido acceder a los datos";
+			fila.appendChild(celdaError);
+			tabla.appendChild(fila);
+		});
+</script>
+</body>
+</html>

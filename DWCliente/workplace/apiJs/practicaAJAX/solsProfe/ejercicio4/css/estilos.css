@@ -1,0 +1,28 @@
+* {
+	font-family: sans-serif;
+}
+
+main {
+	text-align: center;
+	width: 100%;
+}
+
+main div {
+	display: inline-block;
+	padding: 1%;
+	width: 18%;
+}
+
+main div:nth-of-type(odd) {
+	background-color: lightgray;
+}
+
+p {
+	margin: 0;
+}
+
+.error {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+}
